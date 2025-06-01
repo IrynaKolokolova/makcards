@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
   <title>Дзеркало душі — Односторінковий додаток</title>
   
-  <!-- Подключение шрифта Great Vibes (только для заголовка и кнопок) -->
+  <!-- Подключение шрифта Great Vibes (для заголовка и кнопок) -->
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
   
@@ -107,8 +107,7 @@
       display: flex;
       flex-direction: column;
       gap: 20px;
-      justify-content: center;
-      justify-content: flex-start;   /* прижмёт всё вверх */
+      justify-content: flex-start;
       align-items: center;
       height: 100vh;
       text-align: center;
@@ -116,7 +115,6 @@
       z-index: 2;
       max-width: 90%;
       margin: 0 auto;
-      padding: 10px;
       padding: 60px 10px 10px;
     }
     
@@ -133,7 +131,6 @@
     
     .btn {
       font-family: 'Great Vibes', cursive;
-      font-style: normal;
       min-width: 250px;
       padding: 15px 30px;
       font-size: 1.8rem;
@@ -176,7 +173,6 @@
     .btn.back-btn, .btn.continue-btn, .btn.sound-btn {
       padding: 4px 10px;
       min-width: auto;
-      min-height: auto;
       width: auto;
       height: auto;
       display: inline-flex;
@@ -188,13 +184,10 @@
       height: 16px;
       filter: brightness(0) invert(1);
     }
-    .btn.back-btn img {
-      transform: rotate(180deg);
-    }
-    .btn.continue-btn img {
-      transform: scaleY(-1);
-    }
-    /* 1) Делаем shuffle-кнопку таким же размером, как back-btn */
+    .btn.back-btn img { transform: rotate(180deg); }
+    .btn.continue-btn img { transform: scaleY(-1); }
+    
+    /* shuffle-кнопка */
     .btn.shuffle-btn {
       padding: 4px 10px;
       min-width: auto;
@@ -203,12 +196,12 @@
       justify-content: center;
     }
     .btn.shuffle-btn img {
-      filter: brightness(0) invert(1); /* белые */
-      width: 17px;    /* чуть больше */
+      filter: brightness(0) invert(1);
+      width: 17px;
       height: 17px;
     }
 
-    /* 2) Оформляем контейнер для двух кнопок */
+    /* nav-buttons */
     .nav-buttons {
       display: flex;
       justify-content: space-between;
@@ -217,7 +210,7 @@
       padding: 10px;
     }
     
-    /* Изменённый стиль для центрального текста между кнопками */
+    /* center-text */
     .center-text {
       font-family: Georgia, serif;
       font-size: 1rem;
@@ -228,7 +221,6 @@
       align-items: center;
       white-space: nowrap;
     }
-    /* для Мак-карт */
     #sectionMakKarti .center-text {
       display: block !important;
       width: 100%;
@@ -269,30 +261,9 @@
       filter: brightness(0) invert(1);
     }
     
-    /* Социальные иконки */
-    .social-left {
-      position: fixed;
-      top: 10px;
-      left: 10px;
-      display: flex;
-      gap: 15px;
-      z-index: 11000;
-    }
-    .social-right {
-      position: fixed;
-      top: 10px;
-      right: 10px;
-      z-index: 11000;
-    }
-    .social-left a, .social-right a {
-      outline: none;
-      border: none;
-      background: none;
-    }
-    .social-left img, .social-right img {
-      width: 20px;
-      height: 20px; 
-      filter: brightness(0) invert(1);
+    /* Социальные иконки (скрыты) */
+    .social-left, .social-right {
+      display: none !important;
     }
     
     /* Секции */
@@ -308,13 +279,8 @@
       opacity: 0;
       transform: translateY(20px);
       transition: opacity 0.7s ease, transform 0.7s ease;
-      overflow-y: auto !important;  /* разрешаем вертикальный скролл */
-      -webkit-overflow-scrolling: touch; /* плавный скролл на iOS */
-    }
-    
-    /* Для секции "Як це працює?" возвращаем скроллинг */
-    #sectionDiary {
       overflow-y: auto !important;
+      -webkit-overflow-scrolling: touch;
     }
     .section.active {
       display: block;
@@ -322,29 +288,19 @@
       transform: translateY(0);
     }
     
-    .content {
-      max-width: 90%;
-      margin: 30px auto 0 auto;
-      font-size: 1.6rem;
-      line-height: 1.5;
-      text-align: justify;
-      color: #fff;
-      padding: 0 20px;
-      transition: opacity 0.7s ease, transform 0.7s ease;
+    /* Секция "Як це працює?" */
+    #sectionDiary {
+      overflow-y: auto !important;
     }
-    /* Расширение описания в секции "Як це працює?" */
     #sectionDiary .content {
       max-width: 100%;
       padding: 20px;
     }
-    
     .how-it-works-text p,
     .how-it-works-text ul,
     .how-it-works-text ol {
       margin-bottom: 15px;
     }
-    
-    /* Секция "Як це працює?" с расширенным описанием */
     .how-it-works-text {
       padding: 15px;
       text-align: justify;
@@ -353,7 +309,7 @@
       font-style: italic;
       text-shadow: none;
     }
-    
+
     /* Секция "Розгорнути колоду" */
     #sectionDeckInfo {
       overflow: hidden;
@@ -424,9 +380,9 @@
       border: 1px solid rgba(64,224,208,0.6);
       box-shadow: 0 0 10px rgba(64,224,208,0.3);
       transition: transform 0.2s;
-      background-size: cover;       /* фон покроет весь контейнер */
-      background-position: center;  /* будет по центру */
-      background-repeat: no-repeat; /* без повторения */
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
     }
     .small-card:hover {
       transform: scale(1.05);
@@ -442,19 +398,6 @@
       width: 100%;
       height: 100%;
     }
-    .small-card {
-      width: 80px;
-      height: 112px;
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      transition: transform 0.2s ease;
-      cursor: pointer;
-      border-radius: 8px;
-      overflow: hidden;
-      position: relative;
-    }
-    /* Перевернутая карта */
     .small-card.flipped {
       background-size: cover;
       background-position: center;
@@ -613,7 +556,6 @@
     }
     .consult-button {
       font-family: 'Great Vibes', cursive;
-      font-style: normal;
       min-width: 180px;
       padding: 10px 20px;
       font-size: 1.4rem;
@@ -695,7 +637,6 @@
       padding: 20px;
       box-shadow: 0 0 10px rgba(64,224,208,0.6), 0 0 20px rgba(64,224,208,0.4);
     }
-    /* Кнопка закрытия (крестик) как стиль back-btn */
     .notes-close-btn {
       position: absolute;
       top: 10px;
@@ -723,7 +664,6 @@
       );
       box-sizing: border-box;
     }
-    /* Стили для date-picker */
     .date-picker {
       font-family: Georgia, serif;
       font-size: 1.2rem;
@@ -742,13 +682,8 @@
     .date-picker::-webkit-calendar-picker-indicator {
       filter: invert(1);
     }
-    /* Скрываем соц. иконки без удаления HTML */
-    .social-left,
-    .social-right {
-      display: none !important;
-    }
-
-    /* Модальное окно платежа */
+    
+    /* Модальное окно оплаты */
     #paymentOverlay {
       position: fixed;
       top: 0;
@@ -802,7 +737,7 @@
   <div class="social-left">
     <a href="#" target="_blank"><img src="https://i.ibb.co/3mvz2MS8/5-1.png" alt="Tiktok"></a>
     <a href="#" target="_blank"><img src="https://i.ibb.co/67Mpr94h/4-1.png" alt="Telegram"></a>
-    <a href="#" target="_blank"><img src="https://i.ibb-co/ZR1fnmF8/3-1.png" alt="Instagram"></a>
+    <a href="#" target="_blank"><img src="https://i.ibb.co/ZR1fnmF8/3-1.png" alt="Instagram"></a>
   </div>
   <div class="social-right">
     <a href="#" target="_blank"><img src="https://i.ibb.co/GfqnLvSv/6-1.png" alt="Site Icon"></a>
@@ -882,10 +817,10 @@
   <div id="sectionDeckInfo" class="section">
     <div class="nav-buttons">
       <button class="btn back-btn" onclick="backToMenu()">
-        <img src="https://i.ibb-co/s9NyJrT7/56-1.png" alt="Back">
+        <img src="https://i.ibb.co/s9NyJrT7/56-1.png" alt="Back">
       </button>
       <button class="btn continue-btn" onclick="continueToDeck()">
-        <img src="https://i.ibb-co/s9NyJrT7/56-1.png" alt="Continue">
+        <img src="https://i.ibb.co/s9NyJrT7/56-1.png" alt="Continue">
       </button>
     </div>
     <div class="content">
@@ -904,11 +839,11 @@
     <div class="nav-buttons">
       <!-- Кнопка "Назад" -->
       <button class="btn back-btn" onclick="backToDeckInfo()">
-        <img src="https://i.ibb-co/s9NyJrT7/56-1.png" alt="Back">
+        <img src="https://i.ibb.co/s9NyJrT7/56-1.png" alt="Back">
       </button>
       <!-- Кнопка "Перетасувати" -->
       <button id="shuffleIconBtn" class="btn shuffle-btn" onclick="shuffleCards()">
-        <img src="https://i.ibb-co/jP8HZYJr/7-1.png" alt="Shuffle">
+        <img src="https://i.ibb.co/jP8HZYJr/7-1.png" alt="Shuffle">
       </button>
     </div>
 
@@ -927,7 +862,7 @@
   <div id="section72Cards" class="section">
     <div class="nav-buttons">
       <button class="btn back-btn" onclick="backToMakKartiFrom72()">
-        <img src="https://i.ibb-co/s9NyJrT7/56-1.png" alt="Back">
+        <img src="https://i.ibb.co/s9NyJrT7/56-1.png" alt="Back">
       </button>
     </div>
     <div class="content" style="margin-top: 10px;">
@@ -941,21 +876,21 @@
       <div class="big-card" id="bigCard">
         <div class="big-card-face big-card-front" id="bigCardFront">
           <div class="logo">by Iryna Kolokolova</div>
-          <img src="https://i.ibb-co/s9NyJrT7/56-1.png" alt="Flip" class="icon-flip" onclick="flipCard(event)">
+          <img src="https://i.ibb.co/s9NyJrT7/56-1.png" alt="Flip" class="icon-flip" onclick="flipCard(event)">
         </div>
         <div class="big-card-face big-card-back" id="bigCardBack">
           <p class="daily-wish"></p>
-          <a class="consult-button" href="https://t.me/" target="_blank" onclick="event.stopPropagation();">Отримати консультацію</a>
+          <a class="consult-button" href="https://t.me/irynakolokolovamak_bot" target="_blank" onclick="event.stopPropagation();">Отримати консультацію</a>
         </div>
       </div>
     </div>
   </div>
   
-  <!-- Модальное окно платежа -->
+  <!-- Модальное окно оплаты -->
   <div class="overlay" id="paymentOverlay">
     <div class="payment-modal">
       <p>Для доступу до всієї колоди потрібно оплатити повний доступ. Ціна: <strong>1200 грн</strong>.</p>
-      <a href="https://t.me/MakCardsBot" class="btn">Сплатити</a>
+      <a href="https://t.me/irynakolokolovamak_bot" class="btn">Сплатити</a>
     </div>
   </div>
   
@@ -966,12 +901,12 @@
         <button class="btn back-btn notes-close-btn" onclick="closeNotesModal()">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" viewBox="0 0 16 16">
             <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 
-            .708.708L8.707 8l2.647 2.646a.5.0.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 
-            0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+            .708.708L8.707 8l2.647 2.646a.5.5 
+            0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
           </svg>
         </button>
         <h2>Нотатки:</h2>
-        <!-- Поле выбора даты с placeholder и украинским языком -->
+        <!-- Поле выбора даты -->
         <input type="date" class="date-picker" id="notesDate" lang="uk" placeholder="Дата">
         <textarea id="notesTextArea" placeholder="Запишіть тут свої нотатки..."></textarea>
       </div>
@@ -981,26 +916,30 @@
   <!-- Огни (fireflies) -->
   <div class="fireflies"></div>
   
-  <!-- Аудіо для медитативной музики (placeholder) -->
+  <!-- Аудіо для медитативної музики (placeholder) -->
   <audio id="meditativeAudio" loop src="meditative.mp3"></audio>
   
   <script>
     // При загрузке страницы: проверка строки запроса на доступ
     document.addEventListener('DOMContentLoaded', function() {
-      // Если в URL есть параметр access=1, устанавливаем полный доступ в localStorage
       const urlParams = new URLSearchParams(window.location.search);
       if (urlParams.get('access') === '1') {
         localStorage.setItem('hasFullAccess', 'true');
-        // Убираем параметр из URL без перезагрузки
         history.replaceState(null, '', window.location.pathname);
       }
 
       hidePreloader();
-      // Обработчик изменения даты для загрузки заметок по выбранной дате
       document.getElementById('notesDate').addEventListener('change', function() {
         let selectedDate = this.value;
         let savedNotes = localStorage.getItem('userNotes_' + selectedDate);
         document.getElementById('notesTextArea').value = savedNotes || "";
+      });
+
+      // Закрытие окна оплаты при клике вне модального блока
+      document.getElementById('paymentOverlay').addEventListener('click', function(e) {
+        if (e.target.id === 'paymentOverlay') {
+          this.classList.remove('active');
+        }
       });
     });
 
@@ -1069,87 +1008,86 @@
     ];
     
     const bigImages = [
-      "https://i.ibb-co/N6Qz35Sh/photo-2025-05-26-17-55-31-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/0yQHT7jC/photo-2025-05-26-17-55-31-3.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/5XwCHmm9/photo-2025-05-26-17-55-31.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/nqxJW0Jz/photo-2025-05-27-23-54-14-3.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/4ZcMXG42/photo-2025-05-26-17-55-32-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/xSsY24T2/photo-2025-05-26-17-55-33-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/vCfXdgk7/photo-2025-05-27-23-54-14-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/9kWZFRwB/photo-2025-05-26-17-55-34-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/cSqh0Y4b/photo-2025-05-26-17-55-34.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/d4ZCvq9Q/photo-2025-05-26-17-55-35-3.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/ksxT3vR2/photo-2025-05-26-17-55-35-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/6JVD9jgJ/photo-2025-05-26-17-55-35.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/4Rv7DBsR/photo-2025-05-26-17-55-36-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/svP2KcgG/photo-2025-05-28-23-30-39.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/BKt25h6Q/photo-2025-05-26-17-55-36.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/21H3TC2K/photo-2025-05-26-17-55-37-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/Kx4Jq4Pq/photo-2025-05-26-17-55-37.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/4nsRBhPr/photo-2025-05-26-17-55-38-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/zWfj7pS8/photo-2025-05-26-17-55-38.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/whXpDsKv/photo-2025-05-26-17-55-39-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/5Q6f4xL/photo-2025-05-26-17-55-39-3.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/mr6yk1w9/photo-2025-05-26-17-55-39.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/YT4DND1c/photo-2025-05-26-17-55-40-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/q3q0J3zB/photo-2025-05-26-17-55-40.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/HpXC6N0J/photo-2025-05-26-17-55-41.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/wZL0158h/photo-2025-05-26-17-55-42.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/0xy7zGD/photo-2025-05-26-17-55-43-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/84BFk01x/photo-2025-05-26-17-55-43.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/dw0zVMqT/photo-2025-05-26-17-55-44-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/TxjHy32L/photo-2025-05-26-17-55-44-3.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/Rkvdv27Z/photo-2025-05-26-17-55-44.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/Q4cLfFn/photo-2025-05-26-17-55-45.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/FqBkJQ4P/photo-2025-05-26-17-55-46-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/Csm4t2dh/photo-2025-05-26-17-55-46.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/vCB2SF2Z/photo-2025-05-26-17-55-47-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/6cbbnGZb/photo-2025-05-26-17-55-47.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/DDGp9PHD/photo-2025-05-26-17-55-48.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/pBXP5Qnj/photo-2025-05-26-17-55-49.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/KxwKFY5x/photo-2025-05-26-17-55-50.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/zTDCq9Vs/photo-2025-05-26-20-48-28-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/RkJdZNVN/photo-2025-05-26-20-48-28.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/1J7Xpb8X/photo-2025-05-26-20-48-29.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/yckRk6Dj/photo-2025-05-26-20-48-30-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/CszjZVJy/photo-2025-05-26-20-48-30-3.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/nshy7dLG/photo-2025-05-26-20-48-30.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/7NxHK7t9/photo-2025-05-26-20-48-31-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/bghM15x4/photo-2025-05-26-20-48-31-3.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/QvKCTnsZ/photo-2025-05-26-20-48-31.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/p6NKKgDS/photo-2025-05-26-20-48-32-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/5WD1HQck/photo-2025-05-26-20-48-32.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/F4H1nXCP/photo-2025-05-26-20-48-33-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/VYxs6XYF/photo-2025-05-26-20-48-33.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/Vc2bGZrR/photo-2025-05-26-21-36-20-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/xKb5m45Z/photo-2025-05-26-21-36-20-3.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/PvQtpRch/photo-2025-05-26-21-36-20.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/xK33Pmmr/photo-2025-05-27-00-20-36.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/YBLNVbYv/photo-2025-05-27-00-20-36-3.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/h1HK9Svq/photo-2025-05-27-00-20-31-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/MDcJ5DL8/photo-2025-05-27-00-20-31-3.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/9HCytM77/photo-2025-05-27-00-20-31.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/0yyMVWBZ/photo-2025-05-27-00-20-32-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/svvKH579/photo-2025-05-27-00-20-32.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/tTf80LqY/photo-2025-05-27-00-20-33-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/20L1rPX2/photo-2025-05-27-00-20-33-3.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/twp0F2m5/photo-2025-05-27-00-20-33.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/Y4mHjmsX/photo-2025-05-27-00-20-34-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/Rp8KxrVk/photo-2025-05-27-00-20-34-3.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/9kw57Wyp/photo-2025-05-27-00-20-34.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/gZZNWsXr/photo-2025-05-27-00-20-35-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/tMv1tytj/photo-2025-05-27-00-20-35.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/MmjkZ07/photo-2025-05-27-00-20-36-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/wrFTdFsQ/photo-2025-05-27-00-36-27.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/s9VCNHWn/photo-2025-05-27-23-54-13.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/93ffP582/photo-2025-05-27-23-54-12.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/TBzZjQ0w/photo-2025-05-27-23-54-13-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/BK5sxgw8/photo-2025-05-28-23-30-40.jpg.webp".replace("i.ibb-co", "i.ibb.co")
+      "https://i.ibb.co/N6Qz35Sh/photo-2025-05-26-17-55-31-2.jpg.webp",
+      "https://i.ibb.co/0yQHT7jC/photo-2025-05-26-17-55-31-3.jpg.webp",
+      "https://i.ibb.co/5XwCHmm9/photo-2025-05-26-17-55-31.jpg.webp",
+      "https://i.ibb.co/nqxJW0Jz/photo-2025-05-27-23-54-14-3.jpg.webp",
+      "https://i.ibb.co/4ZcMXG42/photo-2025-05-26-17-55-32-2.jpg.webp",
+      "https://i.ibb.co/xSsY24T2/photo-2025-05-26-17-55-33-2.jpg.webp",
+      "https://i.ibb.co/vCfXdgk7/photo-2025-05-27-23-54-14-2.jpg.webp",
+      "https://i.ibb.co/9kWZFRwB/photo-2025-05-26-17-55-34-2.jpg.webp",
+      "https://i.ibb.co/cSqh0Y4b/photo-2025-05-26-17-55-34.jpg.webp",
+      "https://i.ibb.co/d4ZCvq9Q/photo-2025-05-26-17-55-35-3.jpg.webp",
+      "https://i.ibb.co/ksxT3vR2/photo-2025-05-26-17-55-35-2.jpg.webp",
+      "https://i.ibb.co/6JVD9jgJ/photo-2025-05-26-17-55-35.jpg.webp",
+      "https://i.ibb.co/4Rv7DBsR/photo-2025-05-26-17-55-36-2.jpg.webp",
+      "https://i.ibb.co/svP2KcgG/photo-2025-05-28-23-30-39.jpg.webp",
+      "https://i.ibb.co/BKt25h6Q/photo-2025-05-26-17-55-36.jpg.webp",
+      "https://i.ibb.co/21H3TC2K/photo-2025-05-26-17-55-37-2.jpg.webp",
+      "https://i.ibb.co/Kx4Jq4Pq/photo-2025-05-26-17-55-37.jpg.webp",
+      "https://i.ibb.co/4nsRBhPr/photo-2025-05-26-17-55-38-2.jpg.webp",
+      "https://i.ibb.co/zWfj7pS8/photo-2025-05-26-17-55-38.jpg.webp",
+      "https://i.ibb.co/whXpDsKv/photo-2025-05-26-17-55-39-2.jpg.webp",
+      "https://i.ibb.co/5Q6f4xL/photo-2025-05-26-17-55-39-3.jpg.webp",
+      "https://i.ibb-co/mr6yk1w9/photo-2025-05-26-17-55-39.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/YT4DND1c/photo-2025-05-26-17-55-40-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/q3q0J3zB/photo-2025-05-26-17-55-40.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/HpXC6N0J/photo-2025-05-26-17-55-41.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/wZL0158h/photo-2025-05-26-17-55-42.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/0xy7zGD/photo-2025-05-26-17-55-43-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/84BFk01x/photo-2025-05-26-17-55-43.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/dw0zVMqT/photo-2025-05-26-17-55-44-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/TxjHy32L/photo-2025-05-26-17-55-44-3.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/Rkvdv27Z/photo-2025-05-26-17-55-44.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/Q4cLfFn/photo-2025-05-26-17-55-45.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/FqBkJQ4P/photo-2025-05-26-17-55-46-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/Csm4t2dh/photo-2025-05-26-17-55-46.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/vCB2SF2Z/photo-2025-05-26-17-55-47-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/6cbbnGZb/photo-2025-05-26-17-55-47.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/DDGp9PHD/photo-2025-05-26-17-55-48.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/pBXP5Qnj/photo-2025-05-26-17-55-49.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/KxwKFY5x/photo-2025-05-26-17-55-50.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/zTDCq9Vs/photo-2025-05-26-20-48-28-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/RkJdZNVN/photo-2025-05-26-20-48-28.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/1J7Xpb8X/photo-2025-05-26-20-48-29.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/yckRk6Dj/photo-2025-05-26-20-48-30-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/CszjZVJy/photo-2025-05-26-20-48-30-3.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/nshy7dLG/photo-2025-05-26-20-48-30.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/7NxHK7t9/photo-2025-05-26-20-48-31-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/bghM15x4/photo-2025-05-26-20-48-31-3.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/QvKCTnsZ/photo-2025-05-26-20-48-31.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/p6NKKgDS/photo-2025-05-26-20-48-32-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/5WD1HQck/photo-2025-05-26-20-48-32.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/F4H1nXCP/photo-2025-05-26-20-48-33-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/VYxs6XYF/photo-2025-05-26-20-48-33.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/Vc2bGZrR/photo-2025-05-26-21-36-20-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/xKb5m45Z/photo-2025-05-26-21-36-20-3.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/PvQtpRch/photo-2025-05-26-21-36-20.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/xK33Pmmr/photo-2025-05-27-00-20-36.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/YBLNVbYv/photo-2025-05-27-00-20-36-3.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/h1HK9Svq/photo-2025-05-27-00-20-31-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/MDcJ5DL8/photo-2025-05-27-00-20-31-3.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/9HCytM77/photo-2025-05-27-00-20-31.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/0yyMVWBZ/photo-2025-05-27-00-20-32-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/svvKH579/photo-2025-05-27-00-20-32.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/tTf80LqY/photo-2025-05-27-00-20-33-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/20L1rPX2/photo-2025-05-27-00-20-33-3.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/twp0F2m5/photo-2025-05-27-00-20-33.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/Y4mHjmsX/photo-2025-05-27-00-20-34-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/Rp8KxrVk/photo-2025-05-27-00-20-34-3.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/9kw57Wyp/photo-2025-05-27-00-20-34.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/gZZNWsXr/photo-2025-05-27-00-20-35-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/tMv1tytj/photo-2025-05-27-00-20-35.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/MmjkZ07/photo-2025-05-27-00-20-36-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/wrFTdFsQ/photo-2025-05-27-00-36-27.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/s9VCNHWn/photo-2025-05-27-23-54-13.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/93ffP582/photo-2025-05-27-23-54-12.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/TBzZjQ0w/photo-2025-05-27-23-54-13-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/BK5sxgw8/photo-2025-05-28-23-30-40.jpg.webp".replace("i.ibb-co","i.ibb.co")
     ];
 
     function createSmallCards(count) {
       disableInteractions();
-      // Перемешиваем массив карт
       const shuffledImages = bigImages.slice();
       for (let i = shuffledImages.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -1163,78 +1101,59 @@
       for (let i = 0; i < count; i++) {
         const container = document.createElement("div");
         container.classList.add("card-container");
-        // рандомная разброска
         const angle = Math.random() * Math.PI * 2;
         const distance = 50 + Math.random() * 50;
         container.style.transform =
           `scale(0.9) translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px)`;
 
-        // создаём одну small-card
         const smallCard = document.createElement("div");
         smallCard.classList.add("small-card");
-        // запоминаем лицевую сторону из перемешанного массива и ставим рубашку
         smallCard.dataset.front = shuffledImages[i];
         smallCard.style.backgroundImage =
-          'url("https://i.ibb-co/wcWxxGp/IMG-8462.webp")'.replace("i.ibb-co", "i.ibb.co");
+          'url("https://i.ibb.co/wcWxxGp/IMG-8462.webp")';
 
-        // клик: переворот, оверлей и ограничение трёх выборов,
-        // плюс возможность повторного открытия для уже перевёрнутых
         smallCard.addEventListener("click", function() {
           if (animationInProgress) return;
 
-          // Если у пользователя уже есть полный доступ, просто открываем карту
           if (localStorage.getItem('hasFullAccess') === 'true') {
             openOverlay(smallCard.dataset.front);
             return;
           }
-
-          // Иначе проверяем, сколько раз уже открывали
           let openedCount = parseInt(localStorage.getItem('openedCount') || '0');
           if (openedCount >= 3) {
-            // Показываем окно оплаты и не открываем карту
             document.getElementById('paymentOverlay').classList.add('active');
             return;
           }
 
-          // Если ещё не 3 раза, то открываем карту
           if (!smallCard.classList.contains("flipped")) {
             if (selectedCount >= 3) return;
-            // Показываем лицевую сторону карты
             smallCard.style.backgroundImage = `url("${smallCard.dataset.front}")`;
-            smallCard.classList.add("flipped"); // Переворачиваем карту
+            smallCard.classList.add("flipped");
             selectedCount++;
-
-            // Инкрементируем счетчик открытий и сохраняем
             openedCount++;
             localStorage.setItem('openedCount', openedCount);
 
-            // После 3 выборов — блокируем остальные
             if (openedCount >= 3) {
-              document.querySelectorAll(".cards-grid .small-card")
-                .forEach(card => {
-                  if (!card.classList.contains("flipped")) {
-                    card.style.pointerEvents = "none";
-                    card.style.opacity = "0.5";
-                  }
-                });
+              document.querySelectorAll(".cards-grid .small-card").forEach(card => {
+                if (!card.classList.contains("flipped")) {
+                  card.style.pointerEvents = "none";
+                  card.style.opacity = "0.5";
+                }
+              });
             }
           }
-
-          // Открываем оверлей (даже для уже перевёрнутых)
           openOverlay(smallCard.dataset.front);
         });
 
         container.appendChild(smallCard);
         grid.appendChild(container);
 
-        // анимация появления
         setTimeout(() => {
           container.classList.add("fade-in");
           container.style.transform = "";
         }, 50);
       }
 
-      // вернуть кликабельность после анимации (режим ожидания, чтобы карты не глючили)
       setTimeout(enableInteractions, 6000);
     }
     
@@ -1440,7 +1359,7 @@
       });
     }
     
-    /* Функции для модального окна нотаток */
+    /* Модальное окно нотаток */
     function openNotes() {
       const dateInput = document.getElementById('notesDate');
       if (!dateInput.value) {
@@ -1471,7 +1390,7 @@
     }
     
     document.getElementById('notesOverlay').addEventListener("click", function(e) {
-      if(e.target.id === "notesOverlay") {
+      if (e.target.id === "notesOverlay") {
         closeNotesModal();
       }
     });
