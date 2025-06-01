@@ -525,7 +525,7 @@
       position: relative;
     }
     
-    /* Глобальный оверлей для великої карти */
+    /* Глобальный оверлей для большой карты */
     .overlay {
       position: fixed;
       top: 0;
@@ -994,6 +994,7 @@
         </div>
         <div class="big-card-face big-card-back" id="bigCardBack">
           <p class="daily-wish"></p>
+          <!-- Кнопка «Отримати консультацію» при большом каруселе оставили без изменений -->
           <a class="consult-button" href="https://t.me/irynakolokolovamak_bot" target="_blank" onclick="event.stopPropagation();">Отримати консультацію</a>
         </div>
       </div>
@@ -1023,7 +1024,8 @@
   <div id="purchaseModal">
     <div class="purchase-modal-content">
       <p>Безкоштовна версія завершена. Для подальшого використання придбайте повну версію.</p>
-      <a href="https://t.me/irynakolokolovamak_bot" target="_blank" class="purchase-modal-button">Отримати</a>
+      <!-- Ссылка изменилась: теперь открыт бот с параметром ?start=pay -->
+      <a href="https://t.me/irynakolokolovamak_bot?start=pay" target="_blank" class="purchase-modal-button">Отримати</a>
     </div>
   </div>
   
