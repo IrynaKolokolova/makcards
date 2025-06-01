@@ -216,13 +216,6 @@
       width: 100%;
       padding: 10px;
     }
-    .nav-buttons {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width: 100%;
-      padding: 10px;
-    }
     
     /* Изменённый стиль для центрального текста между кнопками */
     .center-text {
@@ -231,13 +224,10 @@
       font-style: italic;
       color: #fff;
       text-shadow: 2px 2px 4px rgba(0,0,0,1);
-      /* уберите здесь margin:0 10px; — он теперь не нужен */
       display: inline-flex;
       align-items: center;
       white-space: nowrap;
     }
-
-    /* вот это вставьте сразу ниже */
     #sectionMakKarti .center-text {
       display: block !important;
       width: 100%;
@@ -451,20 +441,6 @@
       width: 100%;
       height: 100%;
     }
-    .small-card {
-      width: 80px;
-      height: 112px;
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      transition: transform 0.2s ease;
-      cursor: pointer;
-      border-radius: 8px;
-      overflow: hidden;
-      position: relative;
-    }
-
-    /* Перевернутая карта */
     .small-card.flipped {
       background-size: cover;
       background-position: center;
@@ -757,10 +733,69 @@
     .social-right {
       display: none !important;
     }
+
+    /* —— Платёжное окошко —— */
+    #paymentOverlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.85);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 10001;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    #paymentOverlay.active {
+      display: flex;
+      opacity: 1;
+    }
+    .payment-container {
+      background: #1e1e2f;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(64,224,208,0.6), 0 0 20px rgba(64,224,208,0.4);
+      max-width: 320px;
+      text-align: center;
+    }
+    .payment-container p {
+      font-family: Georgia, serif;
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+      line-height: 1.4;
+      text-align: justify;
+    }
+    .payment-container .btn.pay-btn {
+      font-size: 1.6rem;
+      padding: 12px 20px;
+      background: rgba(64,224,208,0.2);
+      border: 1px solid rgba(64,224,208,0.5);
+      border-radius: 6px;
+      color: #fff;
+      cursor: pointer;
+      box-shadow: 0 0 4px rgba(64,224,208,0.5);
+    }
+    .payment-container .btn.pay-btn:hover {
+      background: rgba(64,224,208,0.4);
+      box-shadow: 0 0 6px rgba(64,224,208,0.6);
+    }
+    .payment-container .btn.pay-btn:active {
+      transform: scale(0.95);
+    }
+    /* Закрытие платёжного окошка при клике вне */
+    .payment-container-close-area {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 1;
+    }
   </style>
 </head>
 <body>
-  <!-- Социальные иконки -->
+  <!-- Социальные иконки (будут показываться после загрузки) -->
   <div class="social-left">
     <a href="#" target="_blank"><img src="https://i.ibb.co/3mvz2MS8/5-1.png" alt="Tiktok"></a>
     <a href="#" target="_blank"><img src="https://i.ibb.co/67Mpr94h/4-1.png" alt="Telegram"></a>
@@ -907,9 +942,18 @@
         </div>
         <div class="big-card-face big-card-back" id="bigCardBack">
           <p class="daily-wish"></p>
-          <a class="consult-button" href="https://t.me/" target="_blank" onclick="event.stopPropagation();">Отримати консультацію</a>
+          <a class="consult-button" href="https://t.me/kolokolova_bot" target="_blank" onclick="event.stopPropagation();">Отримати консультацію</a>
         </div>
       </div>
+    </div>
+  </div>
+  
+  <!-- Платёжное окошко -->
+  <div id="paymentOverlay">
+    <div class="payment-container-close-area" onclick="closePaymentOverlay()"></div>
+    <div class="payment-container">
+      <p>У вас закінчився безкоштовний ліміт (5 відкриттів карт). Щоб отримати необмежений доступ до колоди за 1200 грн, натисніть кнопку нижче:</p>
+      <button class="btn pay-btn" onclick="redirectToBot()">Сплатити</button>
     </div>
   </div>
   
@@ -941,6 +985,11 @@
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       hidePreloader();
+      // Если в URL есть параметр paid=1, сохраняем в localStorage
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('paid') === '1') {
+        localStorage.setItem('makcards_paid', 'true');
+      }
       // Обработчик изменения даты для загрузки заметок по выбранной дате
       document.getElementById('notesDate').addEventListener('change', function() {
         let selectedDate = this.value;
@@ -950,6 +999,8 @@
     });
 
     let selectedCount = 0;
+    let animationInProgress = false;
+
     function hidePreloader() {
       const preloader = document.getElementById('preloader');
       preloader.style.opacity = '0';
@@ -976,8 +1027,6 @@
         container.appendChild(firefly);
       }
     }
-    
-    let animationInProgress = false;
     
     const dailyWishes = [
       "Нехай цей день принесе тобі світло, тепло та нові можливості для здійснення мрій.",
@@ -1020,58 +1069,58 @@
       "https://i.ibb.co/nqxJW0Jz/photo-2025-05-27-23-54-14-3.jpg.webp",
       "https://i.ibb.co/4ZcMXG42/photo-2025-05-26-17-55-32-2.jpg.webp",
       "https://i.ibb.co/xSsY24T2/photo-2025-05-26-17-55-33-2.jpg.webp",
-      "https://i.ibb.co/vCfXdgk7/photo-2025-05-27-23-54-14-2.jpg.webp",
-      "https://i.ibb.co/9kWZFRwB/photo-2025-05-26-17-55-34-2.jpg.webp",
-      "https://i.ibb.co/cSqh0Y4b/photo-2025-05-26-17-55-34.jpg.webp",
-      "https://i.ibb.co/d4ZCvq9Q/photo-2025-05-26-17-55-35-3.jpg.webp",
-      "https://i.ibb.co/ksxT3vR2/photo-2025-05-26-17-55-35-2.jpg.webp",
-      "https://i.ibb.co/6JVD9jgJ/photo-2025-05-26-17-55-35.jpg.webp",
-      "https://i.ibb.co/4Rv7DBsR/photo-2025-05-26-17-55-36-2.jpg.webp",
-      "https://i.ibb.co/svP2KcgG/photo-2025-05-28-23-30-39.jpg.webp",
-      "https://i.ibb.co/BKt25h6Q/photo-2025-05-26-17-55-36.jpg.webp",
-      "https://i.ibb.co/21H3TC2K/photo-2025-05-26-17-55-37-2.jpg.webp",
-      "https://i.ibb.co/Kx4Jq4Pq/photo-2025-05-26-17-55-37.jpg.webp",
-      "https://i.ibb.co/4nsRBhPr/photo-2025-05-26-17-55-38-2.jpg.webp",
-      "https://i.ibb.co/zWfj7pS8/photo-2025-05-26-17-55-38.jpg.webp",
-      "https://i.ibb.co/whXpDsKv/photo-2025-05-26-17-55-39-2.jpg.webp",
-      "https://i.ibb.co/5Q6f4xL/photo-2025-05-26-17-55-39-3.jpg.webp",
-      "https://i.ibb.co/mr6yk1w9/photo-2025-05-26-17-55-39.jpg.webp",
-      "https://i.ibb.co/YT4DND1c/photo-2025-05-26-17-55-40-2.jpg.webp",
-      "https://i.ibb.co/q3q0J3zB/photo-2025-05-26-17-55-40.jpg.webp",
-      "https://i.ibb.co/HpXC6N0J/photo-2025-05-26-17-55-41.jpg.webp",
-      "https://i.ibb.co/wZL0158h/photo-2025-05-26-17-55-42.jpg.webp",
-      "https://i.ibb.co/0xy7zGD/photo-2025-05-26-17-55-43-2.jpg.webp",
-      "https://i.ibb.co/84BFk01x/photo-2025-05-26-17-55-43.jpg.webp",
-      "https://i.ibb.co/dw0zVMqT/photo-2025-05-26-17-55-44-2.jpg.webp",
-      "https://i.ibb.co/TxjHy32L/photo-2025-05-26-17-55-44-3.jpg.webp",
-      "https://i.ibb.co/Rkvdv27Z/photo-2025-05-26-17-55-44.jpg.webp",
-      "https://i.ibb.co/Q4cLfFn/photo-2025-05-26-17-55-45.jpg.webp",
-      "https://i.ibb.co/FqBkJQ4P/photo-2025-05-26-17-55-46-2.jpg.webp",
-      "https://i.ibb.co/Csm4t2dh/photo-2025-05-26-17-55-46.jpg.webp",
-      "https://i.ibb.co/vCB2SF2Z/photo-2025-05-26-17-55-47-2.jpg.webp",
-      "https://i.ibb.co/6cbbnGZb/photo-2025-05-26-17-55-47.jpg.webp",
-      "https://i.ibb.co/DDGp9PHD/photo-2025-05-26-17-55-48.jpg.webp",
-      "https://i.ibb.co/pBXP5Qnj/photo-2025-05-26-17-55-49.jpg.webp",
-      "https://i.ibb.co/KxwKFY5x/photo-2025-05-26-17-55-50.jpg.webp",
-      "https://i.ibb.co/zTDCq9Vs/photo-2025-05-26-20-48-28-2.jpg.webp",
-      "https://i.ibb.co/RkJdZNVN/photo-2025-05-26-20-48-28.jpg.webp",
-      "https://i.ibb.co/1J7Xpb8X/photo-2025-05-26-20-48-29.jpg.webp",
-      "https://i.ibb.co/yckRk6Dj/photo-2025-05-26-20-48-30-2.jpg.webp",
-      "https://i.ibb.co/CszjZVJy/photo-2025-05-26-20-48-30-3.jpg.webp",
-      "https://i.ibb.co/nshy7dLG/photo-2025-05-26-20-48-30.jpg.webp",
-      "https://i.ibb.co/7NxHK7t9/photo-2025-05-26-20-48-31-2.jpg.webp",
-      "https://i.ibb.co/bghM15x4/photo-2025-05-26-20-48-31-3.jpg.webp",
-      "https://i.ibb.co/QvKCTnsZ/photo-2025-05-26-20-48-31.jpg.webp",
-      "https://i.ibb.co/p6NKKgDS/photo-2025-05-26-20-48-32-2.jpg.webp",
-      "https://i.ibb.co/5WD1HQck/photo-2025-05-26-20-48-32.jpg.webp",
-      "https://i.ibb.co/F4H1nXCP/photo-2025-05-26-20-48-33-2.jpg.webp",
-      "https://i.ibb.co/VYxs6XYF/photo-2025-05-26-20-48-33.jpg.webp",
-      "https://i.ibb.co/Vc2bGZrR/photo-2025-05-26-21-36-20-2.jpg.webp",
-      "https://i.ibb.co/xKb5m45Z/photo-2025-05-26-21-36-20-3.jpg.webp",
-      "https://i.ibb.co/PvQtpRch/photo-2025-05-26-21-36-20.jpg.webp",
-      "https://i.ibb.co/xK33Pmmr/photo-2025-05-27-00-20-36.jpg.webp",
+      "https://i.ibb-co/vCfXdgk7/photo-2025-05-27-23-54-14-2.jpg.webp",
+      "https://i.ibb-co/9kWZFRwB/photo-2025-05-26-17-55-34-2.jpg.webp",
+      "https://i.ibb-co/cSqh0Y4b/photo-2025-05-26-17-55-34.jpg.webp",
+      "https://i.ibb-co/d4ZCvq9Q/photo-2025-05-26-17-55-35-3.jpg.webp",
+      "https://i.ibb-co/ksxT3vR2/photo-2025-05-26-17-55-35-2.jpg.webp",
+      "https://i.ibb-co/6JVD9jgJ/photo-2025-05-26-17-55-35.jpg.webp",
+      "https://i.ibb-co/4Rv7DBsR/photo-2025-05-26-17-55-36-2.jpg.webp",
+      "https://i.ibb-co/svP2KcgG/photo-2025-05-28-23-30-39.jpg.webp",
+      "https://i.ibb-co/BKt25h6Q/photo-2025-05-26-17-55-36.jpg.webp",
+      "https://i.ibb-co/21H3TC2K/photo-2025-05-26-17-55-37-2.jpg.webp",
+      "https://i.ibb-co/Kx4Jq4Pq/photo-2025-05-26-17-55-37.jpg.webp",
+      "https://i.ibb-co/4nsRBhPr/photo-2025-05-26-17-55-38-2.jpg.webp",
+      "https://i.ibb-co/zWfj7pS8/photo-2025-05-26-17-55-38.jpg.webp",
+      "https://i.ibb-co/whXpDsKv/photo-2025-05-26-17-55-39-2.jpg.webp",
+      "https://i.ibb-co/5Q6f4xL/photo-2025-05-26-17-55-39-3.jpg.webp",
+      "https://i.ibb-co/mr6yk1w9/photo-2025-05-26-17-55-39.jpg.webp",
+      "https://i.ibb-co/YT4DND1c/photo-2025-05-26-17-55-40-2.jpg.webp",
+      "https://i.ibb-co/q3q0J3zB/photo-2025-05-26-17-55-40.jpg.webp",
+      "https://i.ibb-co/HpXC6N0J/photo-2025-05-26-17-55-41.jpg.webp",
+      "https://i.ibb-co/wZL0158h/photo-2025-05-26-17-55-42.jpg.webp",
+      "https://i.ibb-co/0xy7zGD/photo-2025-05-26-17-55-43-2.jpg.webp",
+      "https://i.ibb-co/84BFk01x/photo-2025-05-26-17-55-43.jpg.webp",
+      "https://i.ibb-co/dw0zVMqT/photo-2025-05-26-17-55-44-2.jpg.webp",
+      "https://i.ibb-co/TxjHy32L/photo-2025-05-26-17-55-44-3.jpg.webp",
+      "https://i.ibb-co/Rkvdv27Z/photo-2025-05-26-17-55-44.jpg.webp",
+      "https://i.ibb-co/Q4cLfFn/photo-2025-05-26-17-55-45.jpg.webp",
+      "https://i.ibb-co/FqBkJQ4P/photo-2025-05-26-17-55-46-2.jpg.webp",
+      "https://i.ibb-co/Csm4t2dh/photo-2025-05-26-17-55-46.jpg.webp",
+      "https://i.ibb-co/vCB2SF2Z/photo-2025-05-26-17-55-47-2.jpg.webp",
+      "https://i.ibb-co/6cbbnGZb/photo-2025-05-26-17-55-47.jpg.webp",
+      "https://i.ibb-co/DDGp9PHD/photo-2025-05-26-17-55-48.jpg.webp",
+      "https://i.ibb-co/pBXP5Qnj/photo-2025-05-26-17-55-49.jpg.webp",
+      "https://i.ibb-co/KxwKFY5x/photo-2025-05-26-17-55-50.jpg.webp",
+      "https://i.ibb-co/zTDCq9Vs/photo-2025-05-26-20-48-28-2.jpg.webp",
+      "https://i.ibb-co/RkJdZNVN/photo-2025-05-26-20-48-28.jpg.webp",
+      "https://i.ibb-co/1J7Xpb8X/photo-2025-05-26-20-48-29.jpg.webp",
+      "https://i.ibb-co/yckRk6Dj/photo-2025-05-26-20-48-30-2.jpg.webp",
+      "https://i.ibb-co/CszjZVJy/photo-2025-05-26-20-48-30-3.jpg.webp",
+      "https://i.ibb-co/nshy7dLG/photo-2025-05-26-20-48-30.jpg.webp",
+      "https://i.ibb-co/7NxHK7t9/photo-2025-05-26-20-48-31-2.jpg.webp",
+      "https://i.ibb-co/bghM15x4/photo-2025-05-26-20-48-31-3.jpg.webp",
+      "https://i.ibb-co/QvKCTnsZ/photo-2025-05-26-20-48-31.jpg.webp",
+      "https://i.ibb-co/p6NKKgDS/photo-2025-05-26-20-48-32-2.jpg.webp",
+      "https://i.ibb-co/5WD1HQck/photo-2025-05-26-20-48-32.jpg.webp",
+      "https://i.ibb-co/F4H1nXCP/photo-2025-05-26-20-48-33-2.jpg.webp",
+      "https://i.ibb-co/VYxs6XYF/photo-2025-05-26-20-48-33.jpg.webp",
+      "https://i.ibb-co/Vc2bGZrR/photo-2025-05-26-21-36-20-2.jpg.webp",
+      "https://i.ibb-co/xKb5m45Z/photo-2025-05-26-21-36-20-3.jpg.webp",
+      "https://i.ibb-co/PvQtpRch/photo-2025-05-26-21-36-20.jpg.webp",
+      "https://i.ibb-co/xK33Pmmr/photo-2025-05-27-00-20-36.jpg.webp",
       "https://i.ibb-co/YBLNVbYv/photo-2025-05-27-00-20-36-3.jpg.webp",
-      "https://i.ibb.co/h1HK9Svq/photo-2025-05-27-00-20-31-2.jpg.webp",
+      "https://i.ibb-co/h1HK9Svq/photo-2025-05-27-00-20-31-2.jpg.webp",
       "https://i.ibb-co/MDcJ5DL8/photo-2025-05-27-00-20-31-3.jpg.webp",
       "https://i.ibb-co/9HCytM77/photo-2025-05-27-00-20-31.jpg.webp",
       "https://i.ibb-co/0yyMVWBZ/photo-2025-05-27-00-20-32-2.jpg.webp",
@@ -1092,6 +1141,72 @@
       "https://i.ibb-co/BK5sxgw8/photo-2025-05-28-23-30-40.jpg.webp"
     ];
     
+    /**
+     * Проверяет, есть ли у пользователя статус "оплачен"
+     */
+    function isPaid() {
+      return localStorage.getItem('makcards_paid') === 'true';
+    }
+
+    /**
+     * Открывает платёжное окошко
+     */
+    function showPaymentOverlay() {
+      const overlay = document.getElementById('paymentOverlay');
+      overlay.classList.add('active');
+    }
+    function closePaymentOverlay() {
+      const overlay = document.getElementById('paymentOverlay');
+      overlay.classList.remove('active');
+    }
+
+    /**
+     * Перенаправляет пользователя в диалог с Telegram-ботом
+     */
+    function redirectToBot() {
+      // Здесь указан пример ссылки на бот: замените "makcards_bot" на фактический username вашего бота
+      window.open('https://t.me/makcards_bot', '_blank');
+    }
+
+    /**
+     * Пытается открыть карту: если лимит не превышен – открываем; иначе показываем платёжное окно
+     */
+    function tryOpenCard(smallCard) {
+      if (animationInProgress) return;
+      if (isPaid()) {
+        // Пользователь уже оплатил – разрешаем неограниченно
+        openOverlay(smallCard.dataset.front);
+        return;
+      }
+      // Счётчик попыток в localStorage
+      const stored = parseInt(localStorage.getItem('makcards_attempts') || '0', 10);
+      if (stored < 5) {
+        // Разрешаем открыть карту
+        const newCount = stored + 1;
+        localStorage.setItem('makcards_attempts', String(newCount));
+
+        // Если это 5-е открытие – после него заблокируем дальнейшие
+        openOverlay(smallCard.dataset.front);
+        // Блокируем все остальные, если сверхлимит
+        if (newCount >= 5) {
+          // После того как пользователь увидел 5-ю карту, все неоткрытые делаем полупрозрачными
+          document.querySelectorAll(".cards-grid .small-card")
+            .forEach(card => {
+              if (!card.classList.contains("flipped")) {
+                card.style.pointerEvents = "none";
+                card.style.opacity = "0.5";
+              }
+            });
+        }
+      } else {
+        // Лимит (5) уже исчерпан → показываем платёжное окошко
+        showPaymentOverlay();
+      }
+    }
+
+    /**
+     * Функция создания маленьких карт (76 штук)
+     */
     function createSmallCards(count) {
       disableInteractions();
       const grid = document.querySelector(".cards-grid");
@@ -1115,31 +1230,9 @@
         smallCard.style.backgroundImage =
           'url("https://i.ibb.co/wcWxxGp/IMG-8462.webp")';
 
-        // клик: переворот, оверлей и ограничение трёх выборов,
-        // плюс возможность повторного открытия для уже перевёрнутых
+        // клик: пробуем открыть или показываем платёж
         smallCard.addEventListener("click", function() {
-          if (animationInProgress) return;
-
-          if (!smallCard.classList.contains("flipped")) {
-            if (selectedCount >= 3) return;
-            // Показываем лицевую сторону карты
-            smallCard.style.backgroundImage = `url("${smallCard.dataset.front}")`;
-            smallCard.classList.add("flipped"); // Переворачиваем карту
-            selectedCount++;
-
-            // После 3 выборов — блокируем остальные
-            if (selectedCount === 3) {
-              document.querySelectorAll(".cards-grid .small-card")
-                .forEach(card => {
-                  if (!card.classList.contains("flipped")) {
-                    card.style.pointerEvents = "none";
-                    card.style.opacity = "0.5";
-                  }
-                });
-            }
-          }
-          // Открытие оверлея для нового и уже перевёрнутого
-          openOverlay(smallCard.dataset.front);
+          tryOpenCard(smallCard);
         });
 
         container.appendChild(smallCard);
@@ -1156,6 +1249,9 @@
       setTimeout(enableInteractions, 6000);
     }
     
+    /**
+     * Открывает оверлей (увеличенная карта + пожелание)
+     */
     function openOverlay(imgUrl) {
       if (animationInProgress) return;
       animationInProgress = true;
