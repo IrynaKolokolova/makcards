@@ -19,6 +19,7 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      will-change: transform, opacity;
     }
     html, body {
       overflow-x: hidden;
@@ -406,7 +407,7 @@
       perspective: 1000px;
       position: relative;
       opacity: 0;
-      transition: opacity 6s ease, transform 6s ease;
+      transition: opacity 0.5s ease, transform 0.5s ease;
     }
     .card-container.fade-in {
       opacity: 1;
@@ -965,7 +966,7 @@
         </div>
         <div class="big-card-face big-card-back" id="bigCardBack">
           <p class="daily-wish"></p>
-          <a class="consult-button" href="https://t.me/" target="_blank" onclick="event.stopPropagation();">Отримати консультацію</a>
+          <a class="consult-button" href="https://t.me/irynakolokolovamak_bot" target="_blank" onclick="event.stopPropagation();">Отримати консультацію</a>
         </div>
       </div>
     </div>
@@ -1008,54 +1009,13 @@
   <audio id="meditativeAudio" loop src="meditative.mp3"></audio>
 
   <script>
-    // Парсим URL-параметры: user_id и unlocked
-    const urlParams = new URLSearchParams(window.location.search);
-    const userId = urlParams.get('user_id');           // Telegram user_id, передаётся из бота
-    const unlockedParam = urlParams.get('unlocked');   // "true", если адмін уже розблокував
-
-    if (userId && unlockedParam === 'true') {
-      // Запоминаем в localStorage, что користувач оплатив
-      localStorage.setItem(`paid_${userId}`, 'true');
-    }
-    // Проверим, оплачен ли доступ
-    const isPaid = userId && localStorage.getItem(`paid_${userId}`) === 'true';
-
-    document.addEventListener('DOMContentLoaded', function() {
-      hidePreloader();
-
-      // Обработчик изменения даты для загрузки заметок по выбранной дате
-      document.getElementById('notesDate').addEventListener('change', function() {
-        let selectedDate = this.value;
-        let savedNotes = localStorage.getItem('userNotes_' + selectedDate);
-        document.getElementById('notesTextArea').value = savedNotes || "";
-      });
-
-      // Закрытие модального окна оплаты при клике на крестик
-      document.getElementById('paymentModalClose').addEventListener('click', function() {
-        closePaymentModal();
-      });
-
-      // Закрытие модального окна оплаты при клике на фон
-      document.getElementById('paymentModal').addEventListener('click', function(e) {
-        if (e.target.id === 'paymentModal') {
-          closePaymentModal();
-        }
-      });
-
-      // Назначаем ссылку для кнопки "Сплатити" в модалке
-      const payBtn = document.getElementById('paymentModalBtn');
-      if (userId) {
-        const botUsername = "Kolokolovabot";
-        const payUrl = `https://t.me/${botUsername}?start=pay_${userId}`;
-        payBtn.setAttribute('href', payUrl);
-      } else {
-        // Если userId нет, просто открываем бота без payload
-        const botUsername = "Kolokolovabot";
-        payBtn.setAttribute('href', `https://t.me/${botUsername}`);
-      }
-    });
-
+    // Переменные
+    let userId = null;
+    let isPaid = false;
     let selectedCount = 0;
+    let animationInProgress = false;
+
+    // Список ежедневных пожеланий
     const dailyWishes = [
       "Нехай цей день принесе тобі світло, тепло та нові можливості для здійснення мрій.",
       "Бажаю, щоб кожна мить сьогодні була наповнена радістю, любов’ю та гармонією в душі.",
@@ -1090,6 +1050,7 @@
       "Нехай у твоєму серці панує радість, а в душі — мир і впевненість у завтрашньому дні."
     ];
 
+    // Полный список URL-карт (точно 76 уникальных URL)
     const bigImages = [
       "https://i.ibb.co/N6Qz35Sh/photo-2025-05-26-17-55-31-2.jpg.webp",
       "https://i.ibb.co/0yQHT7jC/photo-2025-05-26-17-55-31-3.jpg.webp",
@@ -1108,25 +1069,25 @@
       "https://i.ibb.co/N6Qz35Sh/photo-2025-05-26-17-55-36.jpg.webp",
       "https://i.ibb.co/0yQHT7jC/photo-2025-05-26-17-55-37-2.jpg.webp",
       "https://i.ibb.co/5XwCHmm9/photo-2025-05-26-17-55-37.jpg.webp",
-      "https://i.ibb.co/nqxJW0Jz/photo-2025-05-26-17-55-38-2.jpg.webp",
-      "https://i.ibb.co/4ZcMXG42/photo-2025-05-26-17-55-38.jpg.webp",
-      "https://i.ibb.co/xSsY24T2/photo-2025-05-26-17-55-39-2.jpg.webp",
-      "https://i.ibb.co/vCfXdgk7/photo-2025-05-26-17-55-39-3.jpg.webp",
-      "https://i.ibb.co/N6Qz35Sh/photo-2025-05-26-17-55-39.jpg.webp",
-      "https://i.ibb.co/0yQHT7jC/photo-2025-05-26-17-55-40-2.jpg.webp",
-      "https://i.ibb.co/5XwCHmm9/photo-2025-05-26-17-55-40.jpg.webp",
-      "https://i.ibb.co/nqxJW0Jz/photo-2025-05-26-17-55-41.jpg.webp",
-      "https://i.ibb.co/4ZcMXG42/photo-2025-05-26-17-55-42.jpg.webp",
-      "https://i.ibb.co/xSsY24T2/photo-2025-05-26-17-55-43-2.jpg.webp",
-      "https://i.ibb.co/vCfXdgk7/photo-2025-05-26-17-55-43.jpg.webp",
-      "https://i.ibb.co/N6Qz35Sh/photo-2025-05-26-17-55-44-2.jpg.webp",
-      "https://i.ibb.co/0yQHT7jC/photo-2025-05-26-17-55-44-3.jpg.webp",
-      "https://i.ibb.co/5XwCHmm9/photo-2025-05-26-17-55-44.jpg.webp",
-      "https://i.ibb.co/nqxJW0Jz/photo-2025-05-26-17-55-45.jpg.webp",
-      "https://i.ibb.co/4ZcMXG42/photo-2025-05-26-17-55-46-2.jpg.webp",
-      "https://i.ibb.co/xSsY24T2/photo-2025-05-26-17-55-46.jpg.webp",
-      "https://i.ibb.co/vCfXdgk7/photo-2025-05-26-17-55-47-2.jpg.webp",
-      "https://i.ibb.co/N6Qz35Sh/photo-2025-05-26-17-55-47.jpg.webp",
+      "https://i.ibb-co-some-fix/photo-2025-05-26-17-55-38-2.jpg.webp".replace("i.ibb-co-some-fix","i.ibb.co"),
+      "https://i.ibb-co-some-fix/photo-2025-05-26-17-55-38.jpg.webp".replace("i.ibb-co-some-fix","i.ibb.co"),
+      "https://i.ibb-co-some-fix/photo-2025-05-26-17-55-39-2.jpg.webp".replace("i.ibb-co-some-fix","i.ibb.co"),
+      "https://i.ibb-co-some-fix/photo-2025-05-26-17-55-39-3.jpg.webp".replace("i.ibb-co-some-fix","i.ibb.co"),
+      "https://i.ibb-co-some-fix/photo-2025-05-26-17-55-39.jpg.webp".replace("i.ibb-co-some-fix","i.ibb.co"),
+      "https://i.ibb-co-some-fix/photo-2025-05-26-17-55-40-2.jpg.webp".replace("i.ibb-co-some-fix","i.ibb.co"),
+      "https://i.ibb-co-some-fix/photo-2025-05-26-17-55-40.jpg.webp".replace("i.ibb-co-some-fix","i.ibb.co"),
+      "https://i.ibb-co-some-fix/photo-2025-05-26-17-55-41.jpg.webp".replace("i.ibb-co-some-fix","i.ibb.co"),
+      "https://i.ibb-co-some-fix/photo-2025-05-26-17-55-42.jpg.webp".replace("i.ibb-co-some-fix","i.ibb.co"),
+      "https://i.ibb-co-some-fix/photo-2025-05-26-17-55-43-2.jpg.webp".replace("i.ibb-co-some-fix","i.ibb.co"),
+      "https://i.ibb-co-some-fix/photo-2025-05-26-17-55-43.jpg.webp".replace("i.ibb-co-some-fix","i.ibb.co"),
+      "https://i.ibb-co-some-fix/photo-2025-05-26-17-55-44-2.jpg.webp".replace("i.ibb-co-some-fix","i.ibb.co"),
+      "https://i.ibb-co-some-fix/photo-2025-05-26-17-55-44-3.jpg.webp".replace("i.ibb-co-some-fix","i.ibb.co"),
+      "https://i.ibb-co-some-fix/photo-2025-05-26-17-55-44.jpg.webp".replace("i.ibb-co-some-fix","i.ibb.co"),
+      "https://i.ibb-co-some-fix/photo-2025-05-26-17-55-45.jpg.webp".replace("i.ibb-co-some-fix","i.ibb.co"),
+      "https://i.ibb-co-some-fix/photo-2025-05-26-17-55-46-2.jpg.webp".replace("i.ibb-co-some-fix","i.ibb.co"),
+      "https://i.ibb-co-some-fix/photo-2025-05-26-17-55-46.jpg.webp".replace("i.ibb-co-some-fix","i.ibb.co"),
+      "https://i.ibb-co-some-fix/photo-2025-05-26-17-55-47-2.jpg.webp".replace("i.ibb-co-some-fix","i.ibb.co"),
+      "https://i.ibb-co-some-fix/photo-2025-05-26-17-55-47.jpg.webp".replace("i.ibb-co-some-fix","i.ibb.co"),
       "https://i.ibb-co-some-fix/photo-2025-05-26-17-55-48.jpg.webp".replace("i.ibb-co-some-fix","i.ibb.co"),
       "https://i.ibb-co-some-fix/photo-2025-05-26-17-55-49.jpg.webp".replace("i.ibb-co-some-fix","i.ibb.co"),
       "https://i.ibb-co-some-fix/photo-2025-05-26-17-55-50.jpg.webp".replace("i.ibb-co-some-fix","i.ibb.co"),
@@ -1167,16 +1128,106 @@
       "https://i.ibb-co-some-fix/photo-2025-05-28-23-30-40.jpg.webp".replace("i.ibb-co-some-fix","i.ibb.co")
     ];
 
+    // Функция, чтобы preload’ить все изображения сразу
+    function preloadImages(array) {
+      array.forEach(src => {
+        const img = new Image();
+        img.src = src;
+      });
+    }
+
+    // Получаем userId из Telegram WebApp. Если Telegram.WebApp не доступен — fallback на localStorage предыдущий запись (если есть).
+    function getCurrentUserId() {
+      if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initDataUnsafe) {
+        return window.Telegram.WebApp.initDataUnsafe.user.id;
+      }
+      // Fallback: если URL-параметр ?uid=<ID> передан извне (устаревший режим)
+      const params = new URLSearchParams(window.location.search);
+      const uid = params.get('uid');
+      if (uid) return uid;
+      return null;
+    }
+
+    // После загрузки DOM
+    document.addEventListener('DOMContentLoaded', function() {
+      hidePreloader();
+      preloadImages(bigImages.slice(0, 76)); // preload ровно 76 карт
+
+      // Определяем userId и isPaid
+      userId = getCurrentUserId();
+      if (userId && localStorage.getItem(`paid_${userId}`) === 'true') {
+        isPaid = true;
+      }
+
+      // Обработчик изменения даты для загрузки заметок по выбранной дате
+      document.getElementById('notesDate').addEventListener('change', function() {
+        let selectedDate = this.value;
+        let savedNotes = localStorage.getItem('userNotes_' + selectedDate);
+        document.getElementById('notesTextArea').value = savedNotes || "";
+      });
+
+      // Закрытие модального окна оплаты при клике на крестик
+      document.getElementById('paymentModalClose').addEventListener('click', function() {
+        closePaymentModal();
+      });
+
+      // Закрытие модального окна оплаты при клике на фон
+      document.getElementById('paymentModal').addEventListener('click', function(e) {
+        if (e.target.id === 'paymentModal') {
+          closePaymentModal();
+        }
+      });
+
+      // Назначаем ссылку для кнопки "Сплатити" в модалке (открываем чат с ботом)
+      const payBtn = document.getElementById('paymentModalBtn');
+      if (userId) {
+        const botUsername = "irynakolokolovamak_bot";
+        const payUrl = `https://t.me/${botUsername}?start=pay_${userId}`;
+        payBtn.setAttribute('href', payUrl);
+      } else {
+        // Если userId не определён (редко), открываем просто бота без параметра
+        const botUsername = "irynakolokolovamak_bot";
+        payBtn.setAttribute('href', `https://t.me/${botUsername}`);
+      }
+    });
+
+    // Скрываем preloader и показываем главное меню
+    function hidePreloader() {
+      const preloader = document.getElementById('preloader');
+      preloader.style.opacity = '0';
+      setTimeout(() => {
+        preloader.style.display = 'none';
+        document.getElementById('mainMenu').classList.add('show');
+        showMainIcons();
+        createFireflies(25);
+      }, 500);
+    }
+
+    function createFireflies(count) {
+      const container = document.querySelector(".fireflies");
+      for (let i = 0; i < count; i++) {
+        const firefly = document.createElement("div");
+        firefly.className = "firefly";
+        const size = 2 + Math.random() * 4;
+        firefly.style.width = size + "px";
+        firefly.style.height = size + "px";
+        firefly.style.top = Math.random() * 100 + "%";
+        firefly.style.left = Math.random() * 100 + "%";
+        firefly.style.animationDelay = Math.random() * 3 + "s";
+        firefly.style.animationDuration = (3 + Math.random() * 5) + "s";
+        container.appendChild(firefly);
+      }
+    }
+
+    // Создаем маленькие карты (76 штук)
     function createSmallCards(count) {
       disableInteractions();
-      // НЕ обнуляем selectedCount здесь! —
-      // позволяем сохранить состояние выбранных карточек после shuffle
 
-      // Перетасовываем массив bigImages (Fisher–Yates shuffle)
-      const shuffledImages = bigImages.slice();
-      for (let i = shuffledImages.length - 1; i > 0; i--) {
+      // Берём ровно 76 URL, делаем копию и перетасовываем (Fisher–Yates)
+      const cards = bigImages.slice(0, 76);
+      for (let i = cards.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
-        [shuffledImages[i], shuffledImages[j]] = [shuffledImages[j], shuffledImages[i]];
+        [cards[i], cards[j]] = [cards[j], cards[i]];
       }
 
       const grid = document.querySelector(".cards-grid");
@@ -1197,7 +1248,7 @@
         smallCard.style.backgroundImage =
           'url("https://i.ibb.co/wcWxxGp/IMG-8462.webp")';
         // Data-атрибут для лицевой стороны
-        smallCard.dataset.front = shuffledImages[i];
+        smallCard.dataset.front = cards[i];
 
         // Добавляем элемент для loader-а
         const loader = document.createElement("div");
@@ -1205,7 +1256,7 @@
         loader.style.display = "none"; // По умолчанию скрыт
         smallCard.appendChild(loader);
 
-        // Если пользователь уже набрал 5 просмотров и не оплатил — делаем всё locked с самого начала
+        // Если пользователь уже набрал 5 просмотров и не оплатил — делаем всё locked сразу
         if (!isPaid && selectedCount >= 5) {
           smallCard.classList.add("locked");
         }
@@ -1265,7 +1316,7 @@
       }
 
       // Возвращаем интерактивность после анимации
-      setTimeout(enableInteractions, 6000);
+      setTimeout(enableInteractions, 500);
     }
 
     function flipPaidCard(card) {
@@ -1299,7 +1350,7 @@
       setTimeout(() => {
         animationInProgress = false;
         if (shuffleIcon) shuffleIcon.style.pointerEvents = "auto";
-      }, 3000);
+      }, 300);
     }
 
     document.getElementById("bigCard").addEventListener("click", function(e) {
@@ -1323,9 +1374,6 @@
 
     function shuffleCards() {
       disableInteractions();
-      // После первой пятой попытки у пользователя selectedCount >= 5,
-      // и так как мы больше НЕ обнуляем selectedCount при shuffle,
-      // при каждом shuffle все карточки будут сразу "locked", пока не оплатит админ.
       createSmallCards(76);
     }
 
@@ -1444,7 +1492,7 @@
           openOverlay(bg);
         });
       }
-      setTimeout(enableInteractions, 2000);
+      setTimeout(enableInteractions, 500);
     }
 
     const soundBtn = document.getElementById('soundBtn');
@@ -1508,33 +1556,6 @@
     function closePaymentModal() {
       const modal = document.getElementById("paymentModal");
       modal.classList.remove("active");
-    }
-
-    function hidePreloader() {
-      const preloader = document.getElementById('preloader');
-      preloader.style.opacity = '0';
-      setTimeout(() => {
-        preloader.style.display = 'none';
-        document.getElementById('mainMenu').classList.add('show');
-        showMainIcons();
-        createFireflies(25);
-      }, 500);
-    }
-
-    function createFireflies(count) {
-      const container = document.querySelector(".fireflies");
-      for (let i = 0; i < count; i++) {
-        const firefly = document.createElement("div");
-        firefly.className = "firefly";
-        const size = 2 + Math.random() * 4;
-        firefly.style.width = size + "px";
-        firefly.style.height = size + "px";
-        firefly.style.top = Math.random() * 100 + "%";
-        firefly.style.left = Math.random() * 100 + "%";
-        firefly.style.animationDelay = Math.random() * 3 + "s";
-        firefly.style.animationDuration = (3 + Math.random() * 5) + "s";
-        container.appendChild(firefly);
-      }
     }
   </script>
 </body>
