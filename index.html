@@ -40,7 +40,7 @@
     .fade-in {
       opacity: 0;
       transform: translateY(20px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
+      transition: opacity 0.5s ease, transform 0.5s ease;
     }
     .fade-in.show, .fade-in.fade-in {
       opacity: 1;
@@ -77,6 +77,35 @@
       to { transform: rotate(360deg); }
     }
     
+    /* Спиннер для маленьких карт */
+    .spinner-small {
+      border: 3px solid rgba(64,224,208,0.2);
+      border-top: 3px solid rgba(64,224,208,0.8);
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      animation: spin 1s linear infinite;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+    }
+    /* Спиннер для большой карты */
+    .spinner-large {
+      border: 4px solid rgba(64,224,208,0.2);
+      border-top: 4px solid rgba(64,224,208,0.8);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 3;
+    }
+    
     /* Анимированное название */
     .glowing-title {
       font-family: 'Great Vibes', cursive;
@@ -107,8 +136,7 @@
       display: flex;
       flex-direction: column;
       gap: 20px;
-      justify-content: center;
-      justify-content: flex-start;   /* прижмёт всё вверх */
+      justify-content: flex-start; /* прижмёт всё вверх */
       align-items: center;
       height: 100vh;
       text-align: center;
@@ -116,7 +144,6 @@
       z-index: 2;
       max-width: 90%;
       margin: 0 auto;
-      padding: 10px;
       padding: 60px 10px 10px;
     }
     
@@ -308,7 +335,7 @@
       height: 100%;
       opacity: 0;
       transform: translateY(20px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
+      transition: opacity 0.5s ease, transform 0.5s ease;
       overflow-y: auto !important;  /* разрешаем вертикальный скролл */
       -webkit-overflow-scrolling: touch; /* плавный скролл на iOS */
     }
@@ -331,7 +358,7 @@
       text-align: justify;
       color: #fff;
       padding: 0 20px;
-      transition: opacity 0.7s ease, transform 0.7s ease;
+      transition: opacity 0.5s ease, transform 0.5s ease;
     }
     /* Расширение описания в секции "Як це працює?" */
     #sectionDiary .content {
@@ -391,7 +418,7 @@
       text-align: center;
       position: relative;
       padding: 10px;
-      transition: opacity 0.7s ease, transform 0.7s ease;
+      transition: opacity 0.5s ease, transform 0.5s ease;
     }
     .cards-grid {
       display: grid;
@@ -409,7 +436,7 @@
       perspective: 1000px;
       position: relative;
       opacity: 0;
-      transition: opacity 6s ease, transform 6s ease;
+      transition: opacity 0.5s ease, transform 0.5s ease;
     }
     .card-container.fade-in {
       opacity: 1;
@@ -424,7 +451,6 @@
       cursor: pointer;
       border: 1px solid rgba(64,224,208,0.6);
       box-shadow: 0 0 10px rgba(64,224,208,0.3);
-      transition: transform 0.2s;
       background-size: cover;       /* фон покроет весь контейнер */
       background-position: center;  /* будет по центру */
       background-repeat: no-repeat; /* без повторения */
@@ -454,6 +480,12 @@
       border-radius: 8px;
       overflow: hidden;
       position: relative;
+    }
+    .small-card.loading {
+      background: transparent;
+    }
+    .small-card.blocked {
+      opacity: 0.5;
     }
 
     /* Перевернутая карта */
@@ -518,7 +550,7 @@
       height: 448px;
       perspective: 2000px;
       transform: translateY(20px) scale(0.8);
-      animation: zoomIn 3s forwards ease;
+      animation: zoomIn 0.5s forwards ease;
     }
     .big-card {
       width: 100%;
@@ -686,7 +718,7 @@
       height: 600px;
       perspective: 2000px;
       transform: translateY(20px) scale(0.8);
-      animation: zoomIn 3s forwards ease;
+      animation: zoomIn 0.5s forwards ease;
     }
     .notes-card {
       width: 100%;
@@ -943,7 +975,7 @@
         </div>
         <div class="big-card-face big-card-back" id="bigCardBack">
           <p class="daily-wish"></p>
-          <a class="consult-button" href="https://t.me/" target="_blank" onclick="event.stopPropagation();">Отримати консультацію</a>
+          <a class="consult-button" href="https://t.me/irynakolokolovamak_bot" target="_blank" onclick="event.stopPropagation();">Отримати консультацію</a>
         </div>
       </div>
     </div>
@@ -1035,8 +1067,7 @@
     function blockRemainingCards() {
       document.querySelectorAll(".cards-grid .small-card").forEach(card => {
         if (!card.classList.contains("flipped")) {
-          card.style.pointerEvents = "none";
-          card.style.opacity = "0.5";
+          card.classList.add("blocked");
         }
       });
     }
@@ -1196,9 +1227,23 @@
               showPurchaseModal();
               return;
             }
-            smallCard.style.backgroundImage = `url("${smallCard.dataset.front}")`;
+            // Показываем спиннер и загружаем изображение
+            smallCard.classList.add("loading");
+            const spinnerElm = document.createElement("div");
+            spinnerElm.classList.add("spinner-small");
+            smallCard.appendChild(spinnerElm);
+
+            const img = new Image();
+            img.src = smallCard.dataset.front;
+            img.onload = () => {
+              smallCard.style.backgroundImage = `url("${smallCard.dataset.front}")`;
+              spinnerElm.remove();
+              smallCard.classList.remove("loading");
+            };
+
             smallCard.classList.add("flipped");
             selectedCount++;
+
             if (selectedCount === 5) {
               setFreeUsed();
               blockRemainingCards();
@@ -1223,7 +1268,7 @@
       }
 
       // вернуть кликабельность после анимации
-      setTimeout(enableInteractions, 6000);
+      setTimeout(enableInteractions, 500);
     }
     
     function openOverlay(imgUrl) {
@@ -1241,9 +1286,21 @@
          const randomIndex = Math.floor(Math.random() * bigImages.length);
          chosenImg = bigImages[randomIndex];
       }
-      
+
+      // Добавляем спиннер для большой карты
       const bigCardFront = document.getElementById("bigCardFront");
-      bigCardFront.style.backgroundImage = 'url("' + chosenImg + '")';
+      // Очистим фон и добавим спиннер
+      bigCardFront.style.backgroundImage = "none";
+      const spinnerLarge = document.createElement("div");
+      spinnerLarge.classList.add("spinner-large");
+      bigCardFront.appendChild(spinnerLarge);
+
+      const img = new Image();
+      img.src = chosenImg;
+      img.onload = () => {
+        bigCardFront.style.backgroundImage = `url("${chosenImg}")`;
+        spinnerLarge.remove();
+      };
       
       const randomWishIndex = Math.floor(Math.random() * dailyWishes.length);
       const wish = dailyWishes[randomWishIndex];
@@ -1257,7 +1314,7 @@
       setTimeout(() => {
          animationInProgress = false;
          if (shuffleIcon) shuffleIcon.style.pointerEvents = "auto";
-      }, 3000);
+      }, 500);
     }
     
     document.getElementById("bigCard").addEventListener("click", function(e) {
@@ -1291,7 +1348,7 @@
       });
       setTimeout(() => {
         createSmallCards(76);
-      }, 6000);
+      }, 500);
     }
     
     function flipCard(event) {
@@ -1408,7 +1465,7 @@
           openOverlay(bg);
         });
       }
-      setTimeout(enableInteractions, 2000);
+      setTimeout(enableInteractions, 500);
     }
     
     /* Функции для модального окна нотаток */
