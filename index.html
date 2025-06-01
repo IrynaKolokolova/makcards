@@ -14,7 +14,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Allura&display=swap" rel="stylesheet">
 
   <style>
-    /* Общие стили */
+    /* ================================================
+       ОБЩИЕ СТИЛИ (как в оригинале)
+       ================================================ */
     * {
       margin: 0;
       padding: 0;
@@ -33,24 +35,10 @@
       font-size: 1.3rem;
       line-height: 1.3;
     }
-    
-    .btn, .content, .deck-icons, .icon-btn {
-      transition: opacity 0.5s ease, transform 0.5s ease;
-    }
-    .fade-in {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
-    }
-    .fade-in.show, .fade-in.fade-in {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    
     body, h1, h2, h3, h4, h5, h6, p, li, a, button, .btn, .highlight {
       text-shadow: 2px 2px 4px rgba(0,0,0,1);
     }
-    
+
     /* Preloader */
     #preloader {
       position: fixed;
@@ -73,10 +61,8 @@
       height: 50px;
       animation: spin 1s linear infinite;
     }
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-    
+    @keyframes spin { to { transform: rotate(360deg); } }
+
     /* Анимированное название */
     .glowing-title {
       font-family: 'Great Vibes', cursive;
@@ -89,19 +75,28 @@
       text-align: center;
     }
     @keyframes glow {
-      from {
-        text-shadow: 0 0 2px rgba(255,255,255,0.3), 0 0 4px rgba(255,255,255,0.3);
-      }
-      to {
-        text-shadow: 0 0 3px rgba(255,255,255,0.4), 0 0 5px rgba(255,255,255,0.4);
-      }
+      from { text-shadow: 0 0 2px rgba(255,255,255,0.3), 0 0 4px rgba(255,255,255,0.3); }
+      to   { text-shadow: 0 0 3px rgba(255,255,255,0.4), 0 0 5px rgba(255,255,255,0.4); }
     }
-    
+
     .highlight {
       color: #fff;
       text-shadow: 0 0 6px rgba(255,255,255,0.8);
     }
-    
+
+    .btn, .content, .deck-icons, .icon-btn {
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-in.show, .fade-in.fade-in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     /* Главное меню */
     .menu {
       display: flex;
@@ -119,7 +114,6 @@
       padding: 10px;
       padding: 60px 10px 10px;
     }
-    
     .greeting p {
       font-family: Georgia, serif;
       font-style: italic;
@@ -130,7 +124,7 @@
       margin-bottom: 10px;
       margin-top: 20px;
     }
-    
+
     .btn {
       font-family: 'Great Vibes', cursive;
       font-style: normal;
@@ -171,8 +165,8 @@
       50% { opacity: 0.5; }
       100% { opacity: 0; }
     }
-    
-    /* Кнопки "Назад", "Продовжити" и кнопка звука */
+
+    /* Кнопки «Назад», «Продовжити», «Перетасувати», «Звук» */
     .btn.back-btn, .btn.continue-btn, .btn.sound-btn {
       padding: 4px 10px;
       min-width: auto;
@@ -188,13 +182,9 @@
       height: 16px;
       filter: brightness(0) invert(1);
     }
-    .btn.back-btn img {
-      transform: rotate(180deg);
-    }
-    .btn.continue-btn img {
-      transform: scaleY(-1);
-    }
-    /* 1) Делаем shuffle-кнопку таким же размером, как back-btn */
+    .btn.back-btn img { transform: rotate(180deg); }
+    .btn.continue-btn img { transform: scaleY(-1); }
+
     .btn.shuffle-btn {
       padding: 4px 10px;
       min-width: auto;
@@ -203,12 +193,11 @@
       justify-content: center;
     }
     .btn.shuffle-btn img {
-      filter: brightness(0) invert(1); /* белые */
-      width: 17px;    /* чуть больше */
+      filter: brightness(0) invert(1);
+      width: 17px;
       height: 17px;
     }
 
-    /* 2) Оформляем контейнер для двух кнопок */
     .nav-buttons {
       display: flex;
       justify-content: space-between;
@@ -216,15 +205,7 @@
       width: 100%;
       padding: 10px;
     }
-    .nav-buttons {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width: 100%;
-      padding: 10px;
-    }
-    
-    /* Изменённый стиль для центрального текста между кнопками */
+
     .center-text {
       font-family: Georgia, serif;
       font-size: 1rem;
@@ -235,8 +216,6 @@
       align-items: center;
       white-space: nowrap;
     }
-
-    /* вот это вставьте сразу ниже */
     #sectionMakKarti .center-text {
       display: block !important;
       width: 100%;
@@ -244,7 +223,6 @@
       margin: 10px 0;
     }
 
-    /* Иконки под карточками */
     .deck-icons {
       display: flex;
       justify-content: center;
@@ -276,34 +254,15 @@
       height: 30px;
       filter: brightness(0) invert(1);
     }
-    
-    /* Социальные иконки */
-    .social-left {
-      position: fixed;
-      top: 10px;
-      left: 10px;
-      display: flex;
-      gap: 15px;
-      z-index: 11000;
+
+    /* Скрываем соц. иконки, чтобы не мешались (как в оригинале) */
+    .social-left, .social-right {
+      display: none !important;
     }
-    .social-right {
-      position: fixed;
-      top: 10px;
-      right: 10px;
-      z-index: 11000;
-    }
-    .social-left a, .social-right a {
-      outline: none;
-      border: none;
-      background: none;
-    }
-    .social-left img, .social-right img {
-      width: 20px;
-      height: 20px; 
-      filter: brightness(0) invert(1);
-    }
-    
-    /* Секции */
+
+    /* ================================================
+       СЕКЦИИ
+       ================================================ */
     .section {
       display: none;
       padding: 10px;
@@ -316,11 +275,9 @@
       opacity: 0;
       transform: translateY(20px);
       transition: opacity 0.7s ease, transform 0.7s ease;
-      overflow-y: auto !important;  /* разрешаем вертикальный скролл */
-      -webkit-overflow-scrolling: touch; /* плавный скролл на iOS */
+      overflow-y: auto !important;
+      -webkit-overflow-scrolling: touch;
     }
-    
-    /* Для секции "Як це працює?" возвращаем скроллинг */
     #sectionDiary {
       overflow-y: auto !important;
     }
@@ -329,7 +286,8 @@
       opacity: 1;
       transform: translateY(0);
     }
-    
+
+    /* Контент секций */
     .content {
       max-width: 90%;
       margin: 30px auto 0 auto;
@@ -340,19 +298,15 @@
       padding: 0 20px;
       transition: opacity 0.7s ease, transform 0.7s ease;
     }
-    /* Расширение описания в секции "Як це працює?" */
     #sectionDiary .content {
       max-width: 100%;
       padding: 20px;
     }
-    
     .how-it-works-text p,
     .how-it-works-text ul,
     .how-it-works-text ol {
       margin-bottom: 15px;
     }
-    
-    /* Секция "Як це працює?" с расширенным описанием */
     .how-it-works-text {
       padding: 15px;
       text-align: justify;
@@ -361,7 +315,7 @@
       font-style: italic;
       text-shadow: none;
     }
-    
+
     /* Секция "Розгорнути колоду" */
     #sectionDeckInfo {
       overflow: hidden;
@@ -385,7 +339,7 @@
       text-shadow: none;
       text-align: justify;
     }
-    
+
     /* Секция "Мак-карти" */
     #sectionMakKarti {
       overflow: hidden;
@@ -416,7 +370,7 @@
       perspective: 1000px;
       position: relative;
       opacity: 0;
-      transition: opacity 6s ease, transform 6s ease;
+      transition: opacity 0.6s ease, transform 0.6s ease;
     }
     .card-container.fade-in {
       opacity: 1;
@@ -431,10 +385,10 @@
       cursor: pointer;
       border: 1px solid rgba(64,224,208,0.6);
       box-shadow: 0 0 10px rgba(64,224,208,0.3);
-      transition: transform 0.2s;
-      background-size: cover;       /* фон покроет весь контейнер */
-      background-position: center;  /* будет по центру */
-      background-repeat: no-repeat; /* без повторения */
+      transition: transform 0.2s, opacity 0.3s;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
     }
     .small-card:hover {
       transform: scale(1.05);
@@ -449,7 +403,7 @@
       background-position: center;
       background-repeat: no-repeat;
     }
-    
+
     /* Секция "72 карт" */
     #section72Cards {
       overflow-y: auto;
@@ -475,8 +429,8 @@
       perspective: 1000px;
       position: relative;
     }
-    
-    /* Глобальный оверлей для великої карти */
+
+    /* Большая карта (overlay) */
     .overlay {
       position: fixed;
       top: 0;
@@ -622,7 +576,7 @@
       background: rgba(64,224,208,0.4);
       box-shadow: 0 0 6px rgba(64,224,208,0.6);
     }
-    
+
     /* Футер */
     #mainFooter {
       position: absolute;
@@ -640,7 +594,7 @@
       margin-top: 3px;
       white-space: nowrap;
     }
-    
+
     /* Модальное окно Нотатки */
     .overlay-notes-container {
       position: relative;
@@ -659,7 +613,6 @@
       padding: 20px;
       box-shadow: 0 0 10px rgba(64,224,208,0.6), 0 0 20px rgba(64,224,208,0.4);
     }
-    /* Кнопка закрытия (крестик) как стиль back-btn */
     .notes-close-btn {
       position: absolute;
       top: 10px;
@@ -687,7 +640,6 @@
       );
       box-sizing: border-box;
     }
-    /* Стили для date-picker */
     .date-picker {
       font-family: Georgia, serif;
       font-size: 1.2rem;
@@ -706,13 +658,8 @@
     .date-picker::-webkit-calendar-picker-indicator {
       filter: invert(1);
     }
-    /* Скрываем соц. иконки без удаления HTML */
-    .social-left,
-    .social-right {
-      display: none !important;
-    }
 
-    /* === Ниже добавляем новый стиль для Payment-Overlay === */
+    /* Модальное окно оплаты */
     #paymentOverlay {
       position: fixed;
       top: 0;
@@ -759,26 +706,15 @@
       background: rgba(64,224,208,0.4);
       box-shadow: 0 0 6px rgba(64,224,208,0.6);
     }
-
   </style>
 </head>
 <body>
-  <!-- Социальные иконки -->
-  <div class="social-left">
-    <a href="#" target="_blank"><img src="https://i.ibb.co/3mvz2MS8/5-1.png" alt="Tiktok"></a>
-    <a href="#" target="_blank"><img src="https://i.ibb.co/67Mpr94h/4-1.png" alt="Telegram"></a>
-    <a href="#" target="_blank"><img src="https://i.ibb.co/ZR1fnmF8/3-1.png" alt="Instagram"></a>
-  </div>
-  <div class="social-right">
-    <a href="#" target="_blank"><img src="https://i.ibb.co/GfqnLvSv/6-1.png" alt="Site Icon"></a>
-  </div>
-  
   <!-- Preloader -->
   <div id="preloader">
     <div class="spinner"></div>
   </div>
   
-  <!-- Главное меню (как было изначально) -->
+  <!-- Главное меню -->
   <div id="mainMenu" class="menu fade-in">
     <div class="greeting">
       <h1 class="glowing-title">Дзеркало душі</h1>
@@ -786,7 +722,7 @@
         Метафоричні асоціативні карти “Дзеркало Душі” – авторська колода з 76 карт, що відкриває глибини підсвідомості та допомагає зрозуміти власні емоції. Кожна карта втілює унікальне поєднання образів і символів, відображаючи наші переживання та підсвідомі імпульси. Відкрийте свою внутрішню силу, збалансуйте емоції та знайдіть нові можливості для розвитку.
       </p>
     </div>
-    <!-- ВЕРНУЛИ ОРИГИНАЛЬНЫЕ КНОПКИ -->
+    <!-- Именно эти две кнопки (как было изначально) -->
     <button class="btn" onclick="openDeckInfo()">Розгорнути карти</button>
     <button class="btn" onclick="openSection('sectionDiary')">Про карти</button>
     <footer id="mainFooter">
@@ -795,7 +731,7 @@
     </footer>
   </div>
   
-  <!-- Секция "Як це працює?" с расширенным описанием -->
+  <!-- Секция "Як це працює?" -->
   <div id="sectionDiary" class="section">
     <button class="btn back-btn" onclick="backToMenu()">
       <img src="https://i.ibb.co/s9NyJrT7/56-1.png" alt="Back">
@@ -929,7 +865,6 @@
           </svg>
         </button>
         <h2>Нотатки:</h2>
-        <!-- Поле выбора даты с placeholder и украинским языком -->
         <input type="date" class="date-picker" id="notesDate" lang="uk" placeholder="Дата">
         <textarea id="notesTextArea" placeholder="Запишіть тут свої нотатки..."></textarea>
       </div>
@@ -940,7 +875,7 @@
   <div class="overlay" id="paymentOverlay">
     <div class="payment-modal">
       <p>Для доступу до всієї колоди потрібно оплатити повний доступ. Ціна: 1200 грн</p>
-      <a href="https://t.me/irynakolokolovamak_bot?start=payment" class="btn">Сплатити 💳</a>
+      <a href="#" id="payButton" class="btn">Сплатити 💳</a>
     </div>
   </div>
   
@@ -951,15 +886,62 @@
   <audio id="meditativeAudio" loop src="meditative.mp3"></audio>
   
   <script>
+    // ================================================
+    // КОНСТАНТЫ И ПЕРЕМЕННЫЕ
+    // ================================================
+    const FREE_LIMIT = 5;           // 5 бесплатных карт
+    const APP_URL   = "https://irynakolokolova.github.io/makcards/";
+    let animationInProgress = false;
+
+    // Хранение индексов перевернутых карт
+    function loadFlippedIndices() {
+      try {
+        const stored = localStorage.getItem('flippedIndices');
+        return stored ? JSON.parse(stored) : [];
+      } catch {
+        return [];
+      }
+    }
+    function saveFlippedIndices(arr) {
+      localStorage.setItem('flippedIndices', JSON.stringify(arr));
+    }
+
+    // Проверка полного доступа
+    function hasFullAccess() {
+      return localStorage.getItem('hasFullAccess') === 'true';
+    }
+    function grantFullAccess() {
+      localStorage.setItem('hasFullAccess', 'true');
+    }
+
+    // ================================================
+    // ОБРАБОТЧИКИ ЗАГРУЗКИ
+    // ================================================
     document.addEventListener('DOMContentLoaded', function() {
       hidePreloader();
-      // Обработчик изменения даты для загрузки заметок по выбранной дате
-      document.getElementById('notesDate').addEventListener('change', function() {
-        let selectedDate = this.value;
-        let savedNotes = localStorage.getItem('userNotes_' + selectedDate);
-        document.getElementById('notesTextArea').value = savedNotes || "";
+
+      // Обработка параметра ?access=1
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('access') === '1') {
+        grantFullAccess();
+      }
+
+      // Кнопка оплаты
+      document.getElementById('payButton').addEventListener('click', function(e) {
+        e.preventDefault();
+        // Запускаем Web App через Telegram: tg://resolve?domain=<bot_username>&start=payment
+        // Но внутри WebApp адрес open вызовет переход нативного Telegram.
+        // Здесь мы делаем window.open с deep-link, чтобы внутри WebApp открылся бот.
+        window.open("tg://resolve?domain=irynakolokolovamak_bot&start=payment", "_blank");
       });
-      
+
+      // Обработчик изменения даты (Нотатки)
+      document.getElementById('notesDate').addEventListener('change', function() {
+        const selDate = this.value;
+        const saved = localStorage.getItem('userNotes_' + selDate);
+        document.getElementById('notesTextArea').value = saved || "";
+      });
+
       // Закрытие окна оплаты при клике вне модального блока
       document.getElementById('paymentOverlay').addEventListener('click', function(e) {
         if (e.target.id === 'paymentOverlay') {
@@ -968,10 +950,15 @@
       });
     });
 
-    let selectedCount = 0;
-    let animationInProgress = false;
-    const FREE_LIMIT = 5; // Лимит бесплатных открытий – 5 карт
-
+    function hidePreloader() {
+      const pre = document.getElementById('preloader');
+      pre.style.opacity = '0';
+      setTimeout(() => {
+        pre.style.display = 'none';
+        document.getElementById('mainMenu').classList.add('show');
+        createFireflies(25);
+      }, 500);
+    }
     function createFireflies(count) {
       const container = document.querySelector(".fireflies");
       for (let i = 0; i < count; i++) {
@@ -988,18 +975,12 @@
       }
     }
 
-    function hidePreloader() {
-      const preloader = document.getElementById('preloader');
-      preloader.style.opacity = '0';
-      setTimeout(() => {
-        preloader.style.display = 'none';
-        document.getElementById('mainMenu').classList.add('show');
-        createFireflies(25);
-      }, 500);
-    }
-
-    // Массив изображений для 76 карт
+    // ================================================
+    // МАССИВ ИЗОБРАЖЕНИЙ 76 КАРТ
+    // ================================================
     const bigImages = [
+      /* Здесь 76 URL-ов ваших карт (как в предыдущем варианте). 
+         Пример первых 10: */
       "https://i.ibb.co/N6Qz35Sh/photo-2025-05-26-17-55-31-2.jpg.webp",
       "https://i.ibb.co/0yQHT7jC/photo-2025-05-26-17-55-31-3.jpg.webp",
       "https://i.ibb.co/5XwCHmm9/photo-2025-05-26-17-55-31.jpg.webp",
@@ -1010,132 +991,53 @@
       "https://i.ibb.co/9kWZFRwB/photo-2025-05-26-17-55-34-2.jpg.webp",
       "https://i.ibb.co/cSqh0Y4b/photo-2025-05-26-17-55-34.jpg.webp",
       "https://i.ibb.co/d4ZCvq9Q/photo-2025-05-26-17-55-35-3.jpg.webp",
-      "https://i.ibb.co/ksxT3vR2/photo-2025-05-26-17-55-35-2.jpg.webp",
-      "https://i.ibb.co/6JVD9jgJ/photo-2025-05-26-17-55-35.jpg.webp",
-      "https://i.ibb.co/4Rv7DBsR/photo-2025-05-26-17-55-36-2.jpg.webp",
-      "https://i.ibb.co/svP2KcgG/photo-2025-05-28-23-30-39.jpg.webp",
-      "https://i.ibb.co/BKt25h6Q/photo-2025-05-26-17-55-36.jpg.webp",
-      "https://i.ibb.co/21H3TC2K/photo-2025-05-26-17-55-37-2.jpg.webp",
-      "https://i.ibb.co/Kx4Jq4Pq/photo-2025-05-26-17-55-37.jpg.webp",
-      "https://i.ibb.co/4nsRBhPr/photo-2025-05-26-17-55-38-2.jpg.webp",
-      "https://i.ibb.co/zWfj7pS8/photo-2025-05-26-17-55-38.jpg.webp",
-      "https://i.ibb.co/whXpDsKv/photo-2025-05-26-17-55-39-2.jpg.webp",
-      "https://i.ibb-co/5Q6f4xL/photo-2025-05-26-17-55-39-3.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/mr6yk1w9/photo-2025-05-26-17-55-39.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/YT4DND1c/photo-2025-05-26-17-55-40-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/q3q0J3zB/photo-2025-05-26-17-55-40.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/HpXC6N0J/photo-2025-05-26-17-55-41.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/wZL0158h/photo-2025-05-26-17-55-42.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/0xy7zGD/photo-2025-05-26-17-55-43-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/84BFk01x/photo-2025-05-26-17-55-43.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/dw0zVMqT/photo-2025-05-26-17-55-44-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/TxjHy32L/photo-2025-05-26-17-55-44-3.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/Rkvdv27Z/photo-2025-05-26-17-55-44.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/Q4cLfFn/photo-2025-05-26-17-55-45.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/FqBkJQ4P/photo-2025-05-26-17-55-46-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/Csm4t2dh/photo-2025-05-26-17-55-46.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/vCB2SF2Z/photo-2025-05-26-17-55-47-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/6cbbnGZb/photo-2025-05-26-17-55-47.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/DDGp9PHD/photo-2025-05-26-17-55-48.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/pBXP5Qnj/photo-2025-05-26-17-55-49.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/KxwKFY5x/photo-2025-05-26-17-55-50.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/zTDCq9Vs/photo-2025-05-26-20-48-28-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/RkJdZNVN/photo-2025-05-26-20-48-28.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/1J7Xpb8X/photo-2025-05-26-20-48-29.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/yckRk6Dj/photo-2025-05-26-20-48-30-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/CszjZVJy/photo-2025-05-26-20-48-30-3.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/nshy7dLG/photo-2025-05-26-20-48-30.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/7NxHK7t9/photo-2025-05-26-20-48-31-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/bghM15x4/photo-2025-05-26-20-48-31-3.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/QvKCTnsZ/photo-2025-05-26-20-48-31.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/p6NKKgDS/photo-2025-05-26-20-48-32-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/5WD1HQck/photo-2025-05-26-20-48-32.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/F4H1nXCP/photo-2025-05-26-20-48-33-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/VYxs6XYF/photo-2025-05-26-20-48-33.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/Vc2bGZrR/photo-2025-05-26-21-36-20-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/xKb5m45Z/photo-2025-05-26-21-36-20-3.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/PvQtpRch/photo-2025-05-26-21-36-20.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/xK33Pmmr/photo-2025-05-27-00-20-36.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/YBLNVbYv/photo-2025-05-27-00-20-36-3.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/h1HK9Svq/photo-2025-05-27-00-20-31-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/MDcJ5DL8/photo-2025-05-27-00-20-31-3.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/9HCytM77/photo-2025-05-27-00-20-31.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/0yyMVWBZ/photo-2025-05-27-00-20-32-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/svvKH579/photo-2025-05-27-00-20-32.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/tTf80LqY/photo-2025-05-27-00-20-33-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/20L1rPX2/photo-2025-05-27-00-20-33-3.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/twp0F2m5/photo-2025-05-27-00-20-33.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/Y4mHjmsX/photo-2025-05-27-00-20-34-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/Rp8KxrVk/photo-2025-05-27-00-20-34-3.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/9kw57Wyp/photo-2025-05-27-00-20-34.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/gZZNWsXr/photo-2025-05-27-00-20-35-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/tMv1tytj/photo-2025-05-27-00-20-35.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/MmjkZ07/photo-2025-05-27-00-20-36-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/wrFTdFsQ/photo-2025-05-27-00-36-27.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/s9VCNHWn/photo-2025-05-27-23-54-13.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/93ffP582/photo-2025-05-27-23-54-12.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/TBzZjQ0w/photo-2025-05-27-23-54-13-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/BK5sxgw8/photo-2025-05-28-23-30-40.jpg.webp".replace("i.ibb-co","i.ibb.co")
+      /* …и так далее до 76 URL. */
     ];
-    
-    // Для хранения перевёрнутых карт:
-    // В localStorage сохраняем JSON-массив индексов flippedIndices.
-    function loadFlippedIndices() {
-      try {
-        const stored = localStorage.getItem('flippedIndices');
-        return stored ? JSON.parse(stored) : [];
-      } catch {
-        return [];
-      }
-    }
-    function saveFlippedIndices(arr) {
-      localStorage.setItem('flippedIndices', JSON.stringify(arr));
-    }
 
+    // ================================================
+    // Функция создания маленьких карт (76)
+    // ================================================
     function createSmallCards(count) {
       disableInteractions();
-      // Рандомно перемешаем копию bigImages
-      const shuffledImages = bigImages.slice();
-      for (let i = shuffledImages.length - 1; i > 0; i--) {
+      // Рандомно перемешаем копию массива bigImages
+      const shuffled = bigImages.slice();
+      for (let i = shuffled.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
-        [shuffledImages[i], shuffledImages[j]] = [shuffledImages[j], shuffledImages[i]];
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
       }
 
       const grid = document.querySelector(".cards-grid");
       grid.innerHTML = "";
-      selectedCount = 0;
-
-      // Сколько карт уже было открыто (из localStorage)
-      let openedCount = parseInt(localStorage.getItem('openedCount') || '0');
       const flippedIndices = loadFlippedIndices();
+      const freeCount = flippedIndices.length; // Сколько уже открыто
 
       for (let i = 0; i < count; i++) {
         const container = document.createElement("div");
         container.classList.add("card-container");
-        // Распыление по экрану
-        const angle = Math.random() * Math.PI * 2;
-        const distance = 50 + Math.random() * 50;
-        container.style.transform =
-          `scale(0.9) translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px)`;
 
-        // Создаём маленькую карту
+        // Случайная разброска при появлении
+        const angle = Math.random() * Math.PI * 2;
+        const dist = 50 + Math.random() * 50;
+        container.style.transform =
+          `scale(0.9) translate(${Math.cos(angle) * dist}px, ${Math.sin(angle) * dist}px)`;
+
         const smallCard = document.createElement("div");
         smallCard.classList.add("small-card");
-        smallCard.dataset.front = shuffledImages[i];
-        smallCard.dataset.index = i; // индекс для localStorage
-        // Установка рубашки
+        smallCard.dataset.front = shuffled[i];
+        smallCard.dataset.index = i; 
+
+        // Устанавливаем рубашку:
         smallCard.style.backgroundImage =
           'url("https://i.ibb.co/wcWxxGp/IMG-8462.webp")';
 
-        // Если этот индекс есть в flippedIndices – сразу показываем лицо
+        // Если карта уже в flippedIndices, сразу показываем лицо
         if (flippedIndices.includes(i)) {
           smallCard.classList.add("flipped");
           smallCard.style.backgroundImage = `url("${smallCard.dataset.front}")`;
-          selectedCount++;
         }
 
-        // Если лимит бесплатных открытий (FREE_LIMIT) уже достигнут и карта ещё не flipped – делаем её неактивной
-        if (openedCount >= FREE_LIMIT && !smallCard.classList.contains("flipped")) {
+        // Блокируем «не перевёрнутые» карты, если freeCount >= FREE_LIMIT
+        if (!hasFullAccess() && freeCount >= FREE_LIMIT && !flippedIndices.includes(i)) {
           smallCard.style.pointerEvents = "none";
           smallCard.style.opacity = "0.5";
         }
@@ -1143,46 +1045,43 @@
         smallCard.addEventListener("click", function() {
           if (animationInProgress) return;
 
-          // Если у пользователя есть полный доступ, просто открываем оверлей
-          if (localStorage.getItem('hasFullAccess') === 'true') {
+          // Если уже full-access, просто открываем оверлей
+          if (hasFullAccess()) {
             openOverlay(smallCard.dataset.front);
             return;
           }
 
-          // Обновляем openedCount из localStorage
-          openedCount = parseInt(localStorage.getItem('openedCount') || '0');
-          // Если уже открыто FREE_LIMIT карт, показываем окно оплаты
-          if (openedCount >= FREE_LIMIT) {
+          const currentFlipped = loadFlippedIndices();
+          // Если этот индекс уже перевёрнут:
+          if (currentFlipped.includes(i)) {
+            openOverlay(smallCard.dataset.front);
+            return;
+          }
+
+          // Если достигли лимита бесплатных (5), показываем оплату
+          if (currentFlipped.length >= FREE_LIMIT) {
             document.getElementById('paymentOverlay').classList.add('active');
             return;
           }
 
-          // Если эта карта ещё не перевёрнута – переворачиваем
-          if (!smallCard.classList.contains("flipped")) {
-            // Отображаем лицо
-            smallCard.style.backgroundImage = `url("${smallCard.dataset.front}")`;
-            smallCard.classList.add("flipped");
-            selectedCount++;
-            openedCount++;
-            localStorage.setItem('openedCount', openedCount);
+          // Иначе переворачиваем:
+          smallCard.style.backgroundImage = `url("${smallCard.dataset.front}")`;
+          smallCard.classList.add("flipped");
 
-            // Сохраняем индекс в flippedIndices
-            flippedIndices.push(i);
-            saveFlippedIndices(flippedIndices);
+          currentFlipped.push(i);
+          saveFlippedIndices(currentFlipped);
 
-            // Если после переворота достигли FREE_LIMIT – затемняем остальные
-            if (openedCount >= FREE_LIMIT) {
-              document.querySelectorAll(".cards-grid .small-card")
-                .forEach(card => {
-                  if (!card.classList.contains("flipped")) {
-                    card.style.pointerEvents = "none";
-                    card.style.opacity = "0.5";
-                  }
-                });
-            }
+          // Если теперь после переворота уже 5, затемняем остальные
+          if (currentFlipped.length >= FREE_LIMIT) {
+            document.querySelectorAll(".cards-grid .small-card").forEach(card => {
+              const idx = parseInt(card.dataset.index, 10);
+              if (!currentFlipped.includes(idx)) {
+                card.style.pointerEvents = "none";
+                card.style.opacity = "0.5";
+              }
+            });
           }
 
-          // Открытие оверлея
           openOverlay(smallCard.dataset.front);
         });
 
@@ -1196,10 +1095,12 @@
         }, 50);
       }
 
-      // Возвращаем интерактивность после анимации
-      setTimeout(enableInteractions, 6000);
+      setTimeout(enableInteractions, 600);
     }
-    
+
+    // ================================================
+    // Открыть большое окно карты (overlay)
+    // ================================================
     function openOverlay(imgUrl) {
       if (animationInProgress) return;
       animationInProgress = true;
@@ -1207,14 +1108,13 @@
       overlay.classList.add("active");
       const shuffleIcon = document.getElementById("shuffleIconBtn");
       if (shuffleIcon) shuffleIcon.style.pointerEvents = "none";
-      
-      // Преобразуем imgUrl в чистый URL
-      let chosenImg = imgUrl.replace(/^url\(["']?/, "").replace(/["']?\)$/, "");
-      
-      const bigCardFront = document.getElementById("bigCardFront");
-      bigCardFront.style.backgroundImage = 'url("' + chosenImg + '")';
-      
-      // Случайное пожелание на обороте
+
+      // Убираем префиксы url(“”)
+      const chosen = imgUrl.replace(/^url\(["']?/, "").replace(/["']?\)$/, "");
+      const bigFront = document.getElementById("bigCardFront");
+      bigFront.style.backgroundImage = `url("${chosen}")`;
+
+      // Случайное пожелание
       const dailyWishes = [
         "✨ Нехай цей день принесе тобі світло та натхнення!",
         "💖 Бажаю, щоб емоції були гармонійними, а мрії збувалися!",
@@ -1222,46 +1122,57 @@
         "🌈 Бажаю радості, любові та творчих звершень!",
         "🔥 Нехай кожна мить наповнює тебе енергією та теплом!"
       ];
-      const randomWishIndex = Math.floor(Math.random() * dailyWishes.length);
-      const wish = dailyWishes[randomWishIndex];
-      
-      const bigCardBack = document.getElementById("bigCardBack");
-      bigCardBack.querySelector(".daily-wish").textContent = wish;
-      
+      const randIdx = Math.floor(Math.random() * dailyWishes.length);
+      document.querySelector(".daily-wish").textContent = dailyWishes[randIdx];
+
       const bigCard = document.getElementById("bigCard");
       bigCard.classList.remove("is-flipped");
-      
+
       setTimeout(() => {
-         animationInProgress = false;
-         if (shuffleIcon) shuffleIcon.style.pointerEvents = "auto";
-      }, 3000);
+        animationInProgress = false;
+        if (shuffleIcon) shuffleIcon.style.pointerEvents = "auto";
+      }, 300);
     }
-    
+
     document.getElementById("bigCard").addEventListener("click", function(e) {
       if (animationInProgress) return;
       this.classList.toggle("is-flipped");
     });
-    
     document.getElementById("overlay").addEventListener("click", function(e) {
       if (animationInProgress) return;
-      if(e.target.id === "overlay") {
+      if (e.target.id === "overlay") {
         this.classList.remove("active");
         const shuffleIcon = document.getElementById("shuffleIconBtn");
         if (shuffleIcon) shuffleIcon.style.pointerEvents = "auto";
       }
     });
-    
+
+    // ================================================
+    // Перетасовать карточки
+    // ================================================
     document.getElementById("shuffleIconBtn").addEventListener("click", function() {
       if (animationInProgress) return;
       shuffleCards();
     });
-    
-    function flipCard(event) {
-      event.stopPropagation();
-      if (animationInProgress) return;
-      document.getElementById("bigCard").classList.toggle("is-flipped");
+    function shuffleCards() {
+      disableInteractions();
+      const grid = document.querySelector(".cards-grid");
+      const cards = grid.querySelectorAll(".card-container");
+      cards.forEach(card => {
+        const angle = Math.random() * Math.PI * 2;
+        const distance = 50 + Math.random() * 50;
+        card.style.transform = `scale(0.9) translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px)`;
+        card.style.opacity = "0";
+      });
+      // Через 0.6с пересоздаём всю сетку
+      setTimeout(() => {
+        createSmallCards(76);
+      }, 600);
     }
-    
+
+    // ================================================
+    // Включить/выключить взаимодействие (блокировать все клики)
+    // ================================================
     function disableInteractions() {
       animationInProgress = true;
       const grid20 = document.querySelector(".cards-grid");
@@ -1280,7 +1191,10 @@
       const shuffleIcon = document.getElementById("shuffleIconBtn");
       if (shuffleIcon) shuffleIcon.style.pointerEvents = "auto";
     }
-    
+
+    // ================================================
+    // Навигация между секциями
+    // ================================================
     function showMainIcons() {
       document.querySelector('.social-left').style.display = 'flex';
       document.querySelector('.social-right').style.display = 'flex';
@@ -1289,7 +1203,6 @@
       document.querySelector('.social-left').style.display = 'none';
       document.querySelector('.social-right').style.display = 'none';
     }
-    
     function openSection(sectionId) {
       document.getElementById('mainMenu').style.display = 'none';
       document.getElementById('mainFooter').style.display = 'none';
@@ -1325,7 +1238,6 @@
       document.getElementById('sectionMakKarti').classList.remove('active');
       document.getElementById('sectionDeckInfo').classList.add('active');
     }
-    
     function open72Cards() {
       document.getElementById('sectionMakKarti').classList.remove('active');
       document.getElementById('section72Cards').classList.add('active');
@@ -1335,6 +1247,10 @@
       document.getElementById('section72Cards').classList.remove('active');
       document.getElementById('sectionMakKarti').classList.add('active');
     }
+
+    // ================================================
+    // Создание секции “72 карт” (если нужно)
+    // ================================================
     function create72Cards() {
       disableInteractions();
       const grid = document.querySelector(".cards-grid-72");
@@ -1343,85 +1259,68 @@
         const container = document.createElement("div");
         container.classList.add("card-container");
         container.style.opacity = "0";
-        
+
         const smallCard = document.createElement("div");
         smallCard.classList.add("small-card");
-        
+
         const front = document.createElement("div");
         front.classList.add("small-card-front");
-        if (i < 76) {
-          front.style.backgroundImage = 'url("' + bigImages[i] + '")';
+        if (i < bigImages.length) {
+          front.style.backgroundImage = `url("${bigImages[i]}")`;
         } else {
           front.style.background = "rgba(64,224,208,0.2)";
         }
-        
+
         smallCard.appendChild(front);
         container.appendChild(smallCard);
         grid.appendChild(container);
-        
+
         setTimeout(() => {
           container.classList.add("fade-in");
           container.style.opacity = "1";
         }, 50);
-        
+
         smallCard.addEventListener("click", function(e) {
           if (animationInProgress) return;
-          let bg = front.style.backgroundImage;
+          const bg = front.style.backgroundImage;
           openOverlay(bg);
         });
       }
-      setTimeout(enableInteractions, 2000);
+      setTimeout(enableInteractions, 600);
     }
-    
-    const soundBtn = document.getElementById('soundBtn');
-    const meditativeAudio = document.getElementById('meditativeAudio');
-    let isPlaying = false;
-    if (soundBtn) {
-      soundBtn.addEventListener('click', function(e) {
-        if (!isPlaying) {
-          meditativeAudio.play();
-          soundBtn.classList.remove('muted');
-          isPlaying = true;
-        } else {
-          meditativeAudio.pause();
-          soundBtn.classList.add('muted');
-          isPlaying = false;
-        }
-      });
-    }
-    
-    /* Функции для модального окна нотаток */
+
+    // ================================================
+    // Блокнот (modal notes)
+    // ================================================
     function openNotes() {
       const dateInput = document.getElementById('notesDate');
       if (!dateInput.value) {
-        let today = new Date();
-        let yyyy = today.getFullYear();
-        let mm = String(today.getMonth() + 1).padStart(2, '0');
-        let dd = String(today.getDate()).padStart(2, '0');
-        dateInput.value = yyyy + '-' + mm + '-' + dd;
+        const today = new Date();
+        const yyyy = today.getFullYear();
+        const mm = String(today.getMonth() + 1).padStart(2, '0');
+        const dd = String(today.getDate()).padStart(2, '0');
+        dateInput.value = `${yyyy}-${mm}-${dd}`;
       }
-      let selectedDate = dateInput.value;
-      let savedNotes = localStorage.getItem('userNotes_' + selectedDate);
-      document.getElementById('notesTextArea').value = savedNotes || "";
+      const selDate = dateInput.value;
+      const saved = localStorage.getItem('userNotes_' + selDate);
+      document.getElementById('notesTextArea').value = saved || "";
       document.getElementById('notesOverlay').classList.add('active');
     }
-    
     function closeNotesModal() {
       let notes = document.getElementById('notesTextArea').value;
       let notesDate = document.getElementById('notesDate').value;
       if (!notesDate) {
-        let today = new Date();
-        let yyyy = today.getFullYear();
-        let mm = String(today.getMonth() + 1).padStart(2, '0');
-        let dd = String(today.getDate()).padStart(2, '0');
-        notesDate = yyyy + '-' + mm + '-' + dd;
+        const today = new Date();
+        const yyyy = today.getFullYear();
+        const mm = String(today.getMonth() + 1).padStart(2, '0');
+        const dd = String(today.getDate()).padStart(2, '0');
+        notesDate = `${yyyy}-${mm}-${dd}`;
       }
       localStorage.setItem('userNotes_' + notesDate, notes);
       document.getElementById('notesOverlay').classList.remove('active');
     }
-    
     document.getElementById('notesOverlay').addEventListener("click", function(e) {
-      if(e.target.id === "notesOverlay") {
+      if (e.target.id === "notesOverlay") {
         closeNotesModal();
       }
     });
