@@ -1227,8 +1227,9 @@
               showPurchaseModal();
               return;
             }
-            // Показываем спиннер и загружаем изображение
+            // Показываем спиннер и очищаем фон до загрузки
             smallCard.classList.add("loading");
+            smallCard.style.backgroundImage = "none";
             const spinnerElm = document.createElement("div");
             spinnerElm.classList.add("spinner-small");
             smallCard.appendChild(spinnerElm);
