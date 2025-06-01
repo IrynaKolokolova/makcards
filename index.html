@@ -779,7 +779,7 @@
     <div class="spinner"></div>
   </div>
   
-  <!-- Главное меню -->
+  <!-- Главное меню (как было изначально) -->
   <div id="mainMenu" class="menu fade-in">
     <div class="greeting">
       <h1 class="glowing-title">Дзеркало душі</h1>
@@ -787,9 +787,9 @@
         Метафоричні асоціативні карти “Дзеркало Душі” – авторська колода з 76 карт, що відкриває глибини підсвідомості та допомагає зрозуміти власні емоції. Кожна карта втілює унікальне поєднання образів і символів, відображаючи наші переживання та підсвідомі імпульси. Відкрийте свою внутрішню силу, збалансуйте емоції та знайдіть нові можливості для розвитку.
       </p>
     </div>
-    <!-- Изменили: вместо двух кнопок – одна кнопка «Дзеркало Душі», которая открывает WebApp -->
-    <button id="openWebAppBtn" class="btn">💫 Дзеркало Душі</button>
-    <button class="btn" onclick="openSection('sectionDiary')">ℹ️ Про карти</button>
+    <!-- ВЕРНУЛИ ОРИГИНАЛЬНЫЕ КНОПКИ -->
+    <button class="btn" onclick="openDeckInfo()">Розгорнути карти</button>
+    <button class="btn" onclick="openSection('sectionDiary')">Про карти</button>
     <footer id="mainFooter">
       © 2025 Усі права захищені.
       <span class="second-line">Авторська колода «Дзеркало душі» від Ірини Колоколової</span>
@@ -967,16 +967,6 @@
           this.classList.remove('active');
         }
       });
-      
-      // Кнопка «Дзеркало Душі» – открывает WebApp внутри Telegram, или fallback в браузере
-      document.getElementById('openWebAppBtn').addEventListener('click', function() {
-        if (window.Telegram && Telegram.WebApp) {
-          Telegram.WebApp.open();
-        } else {
-          // Если не из WebApp, просто открываем URL в новой вкладке
-          window.open("https://irynakolokolova.github.io/makcards/", "_blank");
-        }
-      });
     });
 
     let selectedCount = 0;
@@ -1037,11 +1027,11 @@
       "https://i.ibb.co/q3q0J3zB/photo-2025-05-26-17-55-40.jpg.webp",
       "https://i.ibb.co/HpXC6N0J/photo-2025-05-26-17-55-41.jpg.webp",
       "https://i.ibb.co/wZL0158h/photo-2025-05-26-17-55-42.jpg.webp",
-      "https://i.ibb.co/0xy7zGD/photo-2025-05-26-17-55-43-2.jpg.webp",
-      "https://i.ibb.co/84BFk01x/photo-2025-05-26-17-55-43.jpg.webp",
-      "https://i.ibb.co/dw0zVMqT/photo-2025-05-26-17-55-44-2.jpg.webp",
-      "https://i.ibb.co/TxjHy32L/photo-2025-05-26-17-55-44-3.jpg.webp",
-      "https://i.ibb.co/Rkvdv27Z/photo-2025-05-26-17-55-44.jpg.webp",
+      "https://i.ibb-co/0xy7zGD/photo-2025-05-26-17-55-43-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/84BFk01x/photo-2025-05-26-17-55-43.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/dw0zVMqT/photo-2025-05-26-17-55-44-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/TxjHy32L/photo-2025-05-26-17-55-44-3.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/Rkvdv27Z/photo-2025-05-26-17-55-44.jpg.webp".replace("i.ibb-co","i.ibb.co"),
       "https://i.ibb-co/Q4cLfFn/photo-2025-05-26-17-55-45.jpg.webp".replace("i.ibb-co","i.ibb.co"),
       "https://i.ibb-co/FqBkJQ4P/photo-2025-05-26-17-55-46-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
       "https://i.ibb-co/Csm4t2dh/photo-2025-05-26-17-55-46.jpg.webp".replace("i.ibb-co","i.ibb.co"),
@@ -1231,7 +1221,7 @@
         "💖 Бажаю, щоб емоції були гармонійними, а мрії збувалися!",
         "🌟 Нехай твоя душа знайде відповіді на всі важливі питання!",
         "🌈 Бажаю радості, любові та творчих звершень!",
-        "🔥 Нехай кожна мить наповнює тебе енергією та теплом!",
+        "🔥 Нехай кожна мить наповнює тебе енергією та теплом!"
       ];
       const randomWishIndex = Math.floor(Math.random() * dailyWishes.length);
       const wish = dailyWishes[randomWishIndex];
