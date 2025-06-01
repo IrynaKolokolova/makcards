@@ -7,14 +7,13 @@
   <title>Дзеркало душі — Односторінковий додаток</title>
   
   <!-- Подключение шрифта Great Vibes (только для заголовка и кнопок) -->
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
-  
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet" />
   <!-- Подключение красивого курсивного шрифта (Allura) -->
-  <link href="https://fonts.googleapis.com/css2?family=Allura&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Allura&display=swap" rel="stylesheet" />
 
   <style>
-    /* Общие стили */
+    /* ====== ОБЩИЕ СТИЛИ ====== */
     * {
       margin: 0;
       padding: 0;
@@ -52,7 +51,7 @@
       text-shadow: 2px 2px 4px rgba(0,0,0,1);
     }
 
-    /* Preloader */
+    /* ====== PRELOADER ====== */
     #preloader {
       position: fixed;
       top: 0;
@@ -78,7 +77,7 @@
       to { transform: rotate(360deg); }
     }
 
-    /* Анимированное название */
+    /* ====== АНИМИРОВАННОЕ НАЗВАНИЕ ====== */
     .glowing-title {
       font-family: 'Great Vibes', cursive;
       font-size: 3rem;
@@ -103,12 +102,12 @@
       text-shadow: 0 0 6px rgba(255,255,255,0.8);
     }
 
-    /* Главное меню */
+    /* ====== ГЛАВНОЕ МЕНЮ ====== */
     .menu {
       display: flex;
       flex-direction: column;
       gap: 20px;
-      justify-content: flex-start; /* прижмёт всё вверх */
+      justify-content: flex-start;
       align-items: center;
       height: 100vh;
       text-align: center;
@@ -171,7 +170,7 @@
       100% { opacity: 0; }
     }
 
-    /* Кнопки "Назад", "Продовжити" и кнопка звука */
+    /* ====== КНОПКИ BACK, CONTINUE, SOUND ====== */
     .btn.back-btn, .btn.continue-btn, .btn.sound-btn {
       padding: 4px 10px;
       min-width: auto;
@@ -193,7 +192,8 @@
     .btn.continue-btn img {
       transform: scaleY(-1);
     }
-    /* Shuffle-кнопка */
+
+    /* ====== SHUFFLE-КНОПКА ====== */
     .btn.shuffle-btn {
       padding: 4px 10px;
       min-width: auto;
@@ -207,7 +207,7 @@
       height: 17px;
     }
 
-    /* Контейнер для двух кнопок */
+    /* ====== КОНТЕЙНЕР ДЛЯ NAV BUTTONS ====== */
     .nav-buttons {
       display: flex;
       justify-content: space-between;
@@ -216,7 +216,7 @@
       padding: 10px;
     }
 
-    /* Центральный текст между кнопками */
+    /* ====== ЦЕНТРАЛЬНЫЙ ТЕКСТ ====== */
     .center-text {
       font-family: Georgia, serif;
       font-size: 1rem;
@@ -227,7 +227,6 @@
       align-items: center;
       white-space: nowrap;
     }
-    /* Подпись в разделе "Мак-карти" */
     #sectionMakKarti .center-text {
       display: block !important;
       width: 100%;
@@ -235,7 +234,7 @@
       margin: 10px 0;
     }
 
-    /* Иконки под карточками */
+    /* ====== ИКОНКИ ПОД КАРТАМИ ====== */
     .deck-icons {
       display: flex;
       justify-content: center;
@@ -268,7 +267,7 @@
       filter: brightness(0) invert(1);
     }
 
-    /* Социальные иконки */
+    /* ====== СОЦИАЛЬНЫЕ ИКОНКИ ====== */
     .social-left {
       position: fixed;
       top: 10px;
@@ -294,7 +293,7 @@
       filter: brightness(0) invert(1);
     }
 
-    /* Секции */
+    /* ====== СЕКЦИИ ====== */
     .section {
       display: none;
       padding: 10px;
@@ -307,11 +306,9 @@
       opacity: 0;
       transform: translateY(20px);
       transition: opacity 0.7s ease, transform 0.7s ease;
-      overflow-y: auto !important;  /* разрешаем вертикальный скролл */
-      -webkit-overflow-scrolling: touch; /* плавный скролл на iOS */
+      overflow-y: auto !important;
+      -webkit-overflow-scrolling: touch;
     }
-
-    /* Для секции "Як це працює?" возвращаем скроллинг */
     #sectionDiary {
       overflow-y: auto !important;
     }
@@ -321,6 +318,7 @@
       transform: translateY(0);
     }
 
+    /* ====== КОНТЕНТ ====== */
     .content {
       max-width: 90%;
       margin: 30px auto 0 auto;
@@ -331,7 +329,6 @@
       padding: 0 20px;
       transition: opacity 0.7s ease, transform 0.7s ease;
     }
-    /* Расширение описания в секции "Як це працює?" */
     #sectionDiary .content {
       max-width: 100%;
       padding: 20px;
@@ -342,8 +339,6 @@
     .how-it-works-text ol {
       margin-bottom: 15px;
     }
-
-    /* Секция "Як це працює?" с расширенным описанием */
     .how-it-works-text {
       padding: 15px;
       text-align: justify;
@@ -353,7 +348,7 @@
       text-shadow: none;
     }
 
-    /* Секция "Розгорнути колоду" */
+    /* ====== СЕКЦИЯ "ROZGORNYTЬ" ====== */
     #sectionDeckInfo {
       overflow: hidden;
     }
@@ -377,7 +372,7 @@
       text-align: justify;
     }
 
-    /* Секция "Мак-карти" */
+    /* ====== СЕКЦИЯ "МАК-КАРТИ" ====== */
     #sectionMakKarti {
       overflow: hidden;
     }
@@ -452,7 +447,7 @@
       opacity: 0.5;
     }
 
-    /* Секция "72 карт" */
+    /* ====== СЕКЦИЯ "72 КАРТ" ====== */
     #section72Cards {
       overflow-y: auto;
     }
@@ -478,7 +473,7 @@
       position: relative;
     }
 
-    /* Глобальный оверлей для великої карти */
+    /* ====== GIF OVERLAY ДЛЯ БОЛЬШОЙ КАРТЫ ====== */
     .overlay {
       position: fixed;
       top: 0;
@@ -534,21 +529,21 @@
       pointer-events: none;
       z-index: 2;
       border: 2px solid rgba(64,224,208,0.5);
-      box-shadow: 
-        0 0 10px rgba(64,224,208,0.6), 
-        0 0 20px rgba(64,224,208,0.4), 
+      box-shadow:
+        0 0 10px rgba(64,224,208,0.6),
+        0 0 20px rgba(64,224,208,0.4),
         0 0 30px rgba(64,224,208,0.2);
       animation: borderGlow 3s infinite alternate;
     }
     @keyframes borderGlow {
       0% {
-        box-shadow: 
+        box-shadow:
           0 0 10px rgba(64,224,208,0.6),
           0 0 20px rgba(64,224,208,0.4),
           0 0 30px rgba(64,224,208,0.2);
       }
       100% {
-        box-shadow: 
+        box-shadow:
           0 0 20px rgba(64,224,208,0.8),
           0 0 40px rgba(64,224,208,0.6),
           0 0 60px rgba(64,224,208,0.4);
@@ -661,7 +656,7 @@
       100% { opacity: 0; transform: scale(0.8); }
     }
 
-    /* Футер */
+    /* ====== ФУТЕР ====== */
     #mainFooter {
       position: absolute;
       bottom: 10px;
@@ -679,7 +674,7 @@
       white-space: nowrap;
     }
 
-    /* Модальное окно Нотатки */
+    /* ====== НОТАТКИ ====== */
     .overlay-notes-container {
       position: relative;
       width: 400px;
@@ -697,7 +692,6 @@
       padding: 20px;
       box-shadow: 0 0 10px rgba(64,224,208,0.6), 0 0 20px rgba(64,224,208,0.4);
     }
-    /* Кнопка закрытия (крестик) как стиль back-btn */
     .notes-close-btn {
       position: absolute;
       top: 10px;
@@ -725,7 +719,6 @@
       );
       box-sizing: border-box;
     }
-    /* Стили для date-picker */
     .date-picker {
       font-family: Georgia, serif;
       font-size: 1.2rem;
@@ -744,13 +737,12 @@
     .date-picker::-webkit-calendar-picker-indicator {
       filter: invert(1);
     }
-    /* Скрываем соц. иконки без удаления HTML */
     .social-left,
     .social-right {
       display: none !important;
     }
 
-    /* Модальное окно оплаты */
+    /* ====== МОДАЛЬНОЕ ОКНО ОПЛАТЫ ====== */
     .payment-modal {
       position: fixed;
       top: 0;
@@ -828,12 +820,12 @@
   <div class="social-right">
     <a href="#" target="_blank"><img src="https://i.ibb.co/GfqnLvSv/6-1.png" alt="Site Icon"></a>
   </div>
-   
+
   <!-- Preloader -->
   <div id="preloader">
     <div class="spinner"></div>
   </div>
-   
+
   <!-- Главное меню -->
   <div id="mainMenu" class="menu fade-in">
     <div class="greeting">
@@ -849,8 +841,8 @@
       <span class="second-line">Авторська колода «Дзеркало душі» від Ірини Колоколової</span>
     </footer>
   </div>
-   
-  <!-- Секция "Як це працює?" с расширенным описанием -->
+
+  <!-- Секция "Як це працює?" -->
   <div id="sectionDiary" class="section">
     <button class="btn back-btn" onclick="backToMenu()">
       <img src="https://i.ibb.co/s9NyJrT7/56-1.png" alt="Back">
@@ -898,7 +890,7 @@
       </div>
     </div>
   </div>
-   
+
   <!-- Секция "Розгорнути колоду" -->
   <div id="sectionDeckInfo" class="section">
     <div class="nav-buttons">
@@ -919,7 +911,7 @@
       </ol>
     </div>
   </div>
-   
+
   <!-- Секция "Мак-карти" -->
   <div id="sectionMakKarti" class="section">
     <div class="nav-buttons">
@@ -932,18 +924,16 @@
         <img src="https://i.ibb.co/jP8HZYJr/7-1.png" alt="Shuffle">
       </button>
     </div>
-
     <!-- Подпись под кнопками -->
     <div class="center-text">
       Прислухайся до себе та обери свою карту:
     </div>
-
     <!-- Сетка карт -->
     <div class="content" style="margin-top: 10px;">
       <div class="cards-grid"></div>
     </div>
   </div>
-   
+
   <!-- Секция "72 карт" -->
   <div id="section72Cards" class="section">
     <div class="nav-buttons">
@@ -955,14 +945,14 @@
       <div class="cards-grid-72"></div>
     </div>
   </div>
-   
-  <!-- Глобальный оверлей для карточки -->
+
+  <!-- Глобальный оверлей для карты -->
   <div class="overlay" id="overlay">
     <div class="overlay-card-container">
       <div class="big-card" id="bigCard">
         <div class="big-card-face big-card-front" id="bigCardFront">
           <div class="logo">by Iryna Kolokolova</div>
-          <img src="https://i.ibb.co/s9NyJrT7/56-1.png" alt="Flip" class="icon-flip" onclick="flipCard(event)">
+          <img src="https://i.ibb.co/s9NyJrT7/56-1.png" alt="Flip" class="icon-flip" onclick="flipCard(event)" />
         </div>
         <div class="big-card-face big-card-back" id="bigCardBack">
           <p class="daily-wish"></p>
@@ -971,51 +961,51 @@
       </div>
     </div>
   </div>
-   
+
   <!-- Глобальный оверлей для нотаток -->
   <div class="overlay" id="notesOverlay">
     <div class="overlay-notes-container">
       <div class="notes-card" id="notesCard">
         <button class="btn back-btn notes-close-btn" onclick="closeNotesModal()">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" viewBox="0 0 16 16">
-            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1              .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5              0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1              .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5              0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
           </svg>
         </button>
         <h2>Нотатки:</h2>
         <!-- Поле выбора даты с placeholder и украинским языком -->
-        <input type="date" class="date-picker" id="notesDate" lang="uk" placeholder="Дата">
+        <input type="date" class="date-picker" id="notesDate" lang="uk" placeholder="Дата" />
         <textarea id="notesTextArea" placeholder="Запишіть тут свої нотатки..."></textarea>
       </div>
     </div>
   </div>
-   
+
   <!-- Модальное окно оплаты -->
   <div class="payment-modal" id="paymentModal">
     <div class="payment-modal-content">
-      <img src="https://i.ibb.co/s9NyJrT7/56-1.png" class="payment-modal-close" id="paymentModalClose" alt="Close">
+      <img src="https://i.ibb.co/s9NyJrT7/56-1.png" class="payment-modal-close" id="paymentModalClose" alt="Close" />
       <h2>Повний доступ за 1200₴</h2>
-      <p>Ви використали 5 спроб.<br>Для подальшого доступу необхідна оплата.</p>
+      <p>Ви використали 5 спроб.<br />Для подальшого доступу необхідна оплата.</p>
       <a href="#" class="modal-btn" id="paymentModalBtn">Сплатити</a>
       <p style="font-size:0.9rem; margin-top:10px; color:rgba(255,255,255,0.8);">
         Після сплати бот надішле вам реквізити.
       </p>
     </div>
   </div>
-   
+
   <!-- Огни (fireflies) -->
   <div class="fireflies"></div>
-   
-  <!-- Аудіо для медитативной музики (placeholder) -->
+
+  <!-- Аудіо для медитативной музыки -->
   <audio id="meditativeAudio" loop src="meditative.mp3"></audio>
 
   <script>
-    // Переменные
+    // ====== ПЕРЕМЕННЫЕ ======
     let userId = null;
     let isPaid = false;
     let selectedCount = 0;
     let animationInProgress = false;
 
-    // Список ежедневных пожеланий
+    // ====== СПИСОК ПОЛЬЗОВАТЕЛЬСКИХ ПОЖЕЛАНИЙ ======
     const dailyWishes = [
       "Нехай цей день принесе тобі світло, тепло та нові можливості для здійснення мрій.",
       "Бажаю, щоб кожна мить сьогодні була наповнена радістю, любов’ю та гармонією в душі.",
@@ -1036,7 +1026,7 @@
       "Нехай сьогоднішній день принесе тобі безліч приємних сюрпризів і незабутніх моментів.",
       "Бажаю, щоб кожна зустріч надихала тебе, а кожне слово дарувало тепло і підтримку.",
       "Нехай твій день буде сповнений творчості, радості та сміливих рішень.",
-      "Бажаю, щоб сьогоднішній день став початком нових перемог і великих звершень.",
+      "Бажаю, щоби сьогоднішній день став початком нових перемог і великих звершень.",
       "Нехай твоє серце наповниться оптимізмом, а думки ведуть до нових ідей та рішень.",
       "Бажаю, щоб кожна хвилина цього дня була сповнена гармонією, любов’ю та внутрішнім спокоєм.",
       "Нехай кожен промінчик світла надихає тебе на великі справи і відкриття.",
@@ -1046,11 +1036,11 @@
       "Нехай сьогоднішній день стане для тебе джерелом радості, творчості та нових можливостей.",
       "Бажаю, щоб кожен момент цього дня приносив тобі посмішку, тепло та гармонію.",
       "Нехай твій день буде сповнений любов’ю, підтримкою та безмежним натхненням.",
-      "Бажаю, щоб цей день відкрив перед тобою нові горизонти, даруючи тепло і радість.",
+      "Бажаю, щоби цей день відкрив перед тобою нові горизонти, даруючи тепло і радість.",
       "Нехай у твоєму серці панує радість, а в душі — мир і впевненість у завтрашньому дні."
     ];
 
-    // Полный список URL-карт (точно 76 уникальных URL)
+    // ====== СПИСОК URL ДЛЯ 76 КАРТ ======
     const bigImages = [
       "https://i.ibb.co/N6Qz35Sh/photo-2025-05-26-17-55-31-2.jpg.webp",
       "https://i.ibb.co/0yQHT7jC/photo-2025-05-26-17-55-31-3.jpg.webp",
@@ -1061,14 +1051,14 @@
       "https://i.ibb.co/vCfXdgk7/photo-2025-05-27-23-54-14-2.jpg.webp",
       "https://i.ibb.co/N6Qz35Sh/photo-2025-05-26-17-55-34-2.jpg.webp",
       "https://i.ibb.co/0yQHT7jC/photo-2025-05-26-17-55-34.jpg.webp",
-      "https://i.ibb.co/5XwCHmm9/photo-2025-05-26-17-55-35-3.jpg.webp",
-      "https://i.ibb.co/nqxJW0Jz/photo-2025-05-26-17-55-35-2.jpg.webp",
-      "https://i.ibb.co/4ZcMXG42/photo-2025-05-26-17-55-35.jpg.webp",
-      "https://i.ibb.co/xSsY24T2/photo-2025-05-26-17-55-36-2.jpg.webp",
-      "https://i.ibb.co/vCfXdgk7/photo-2025-05-28-23-30-39.jpg.webp",
-      "https://i.ibb.co/N6Qz35Sh/photo-2025-05-26-17-55-36.jpg.webp",
-      "https://i.ibb.co/0yQHT7jC/photo-2025-05-26-17-55-37-2.jpg.webp",
-      "https://i.ibb.co/5XwCHmm9/photo-2025-05-26-17-55-37.jpg.webp",
+      "https://i.ibb-co-some-fix/photo-2025-05-26-17-55-35-3.jpg.webp".replace("i.ibb-co-some-fix","i.ibb.co"),
+      "https://i.ibb-co-some-fix/photo-2025-05-26-17-55-35-2.jpg.webp".replace("i.ibb-co-some-fix","i.ibb.co"),
+      "https://i.ibb-co-some-fix/photo-2025-05-26-17-55-35.jpg.webp".replace("i.ibb-co-some-fix","i.ibb.co"),
+      "https://i.ibb-co-some-fix/photo-2025-05-26-17-55-36-2.jpg.webp".replace("i.ibb-co-some-fix","i.ibb.co"),
+      "https://i.ibb-co-some-fix/photo-2025-05-28-23-30-39.jpg.webp".replace("i.ibb-co-some-fix","i.ibb.co"),
+      "https://i.ibb-co-some-fix/photo-2025-05-26-17-55-36.jpg.webp".replace("i.ibb-co-some-fix","i.ibb.co"),
+      "https://i.ibb-co-some-fix/photo-2025-05-26-17-55-37-2.jpg.webp".replace("i.ibb-co-some-fix","i.ibb.co"),
+      "https://i.ibb-co-some-fix/photo-2025-05-26-17-55-37.jpg.webp".replace("i.ibb-co-some-fix","i.ibb.co"),
       "https://i.ibb-co-some-fix/photo-2025-05-26-17-55-38-2.jpg.webp".replace("i.ibb-co-some-fix","i.ibb.co"),
       "https://i.ibb-co-some-fix/photo-2025-05-26-17-55-38.jpg.webp".replace("i.ibb-co-some-fix","i.ibb.co"),
       "https://i.ibb-co-some-fix/photo-2025-05-26-17-55-39-2.jpg.webp".replace("i.ibb-co-some-fix","i.ibb.co"),
@@ -1128,7 +1118,7 @@
       "https://i.ibb-co-some-fix/photo-2025-05-28-23-30-40.jpg.webp".replace("i.ibb-co-some-fix","i.ibb.co")
     ];
 
-    // Функция, чтобы preload’ить все изображения сразу
+    // ====== ПРЕДЗАГРУЗКА ИЗОБРАЖЕНИЙ ======
     function preloadImages(array) {
       array.forEach(src => {
         const img = new Image();
@@ -1136,22 +1126,22 @@
       });
     }
 
-    // Получаем userId из Telegram WebApp. Если Telegram.WebApp не доступен — fallback на localStorage предыдущий запись (если есть).
+    // ====== ПОЛУЧЕНИЕ userId ИЗ Telegram WebApp ======
     function getCurrentUserId() {
       if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initDataUnsafe) {
         return window.Telegram.WebApp.initDataUnsafe.user.id;
       }
-      // Fallback: если URL-параметр ?uid=<ID> передан извне (устаревший режим)
+      // Fallback через ?uid=<ID>
       const params = new URLSearchParams(window.location.search);
       const uid = params.get('uid');
       if (uid) return uid;
       return null;
     }
 
-    // После загрузки DOM
+    // ====== ПОСЛЕ ЗАГРУЗКИ DOM ======
     document.addEventListener('DOMContentLoaded', function() {
       hidePreloader();
-      preloadImages(bigImages.slice(0, 76)); // preload ровно 76 карт
+      preloadImages(bigImages.slice(0, 76));
 
       // Определяем userId и isPaid
       userId = getCurrentUserId();
@@ -1159,39 +1149,38 @@
         isPaid = true;
       }
 
-      // Обработчик изменения даты для загрузки заметок по выбранной дате
+      // Обработчик изменения даты для загрузки заметок
       document.getElementById('notesDate').addEventListener('change', function() {
         let selectedDate = this.value;
         let savedNotes = localStorage.getItem('userNotes_' + selectedDate);
         document.getElementById('notesTextArea').value = savedNotes || "";
       });
 
-      // Закрытие модального окна оплаты при клике на крестик
+      // Закрытие модалки оплаты при клике на крестик
       document.getElementById('paymentModalClose').addEventListener('click', function() {
         closePaymentModal();
       });
 
-      // Закрытие модального окна оплаты при клике на фон
+      // Закрытие модалки оплаты при клике на фон
       document.getElementById('paymentModal').addEventListener('click', function(e) {
         if (e.target.id === 'paymentModal') {
           closePaymentModal();
         }
       });
 
-      // Назначаем ссылку для кнопки "Сплатити" в модалке (открываем чат с ботом)
+      // Назначаем ссылку для кнопки "Сплатити"
       const payBtn = document.getElementById('paymentModalBtn');
       if (userId) {
         const botUsername = "irynakolokolovamak_bot";
         const payUrl = `https://t.me/${botUsername}?start=pay_${userId}`;
         payBtn.setAttribute('href', payUrl);
       } else {
-        // Если userId не определён (редко), открываем просто бота без параметра
         const botUsername = "irynakolokolovamak_bot";
         payBtn.setAttribute('href', `https://t.me/${botUsername}`);
       }
     });
 
-    // Скрываем preloader и показываем главное меню
+    // ====== СКРЫТЬ PRELOADER ======
     function hidePreloader() {
       const preloader = document.getElementById('preloader');
       preloader.style.opacity = '0';
@@ -1219,11 +1208,11 @@
       }
     }
 
-    // Создаем маленькие карты (76 штук)
+    // ====== СОЗДАНИЕ МАЛЕНЬКИХ КАРТОЧЕК ======
     function createSmallCards(count) {
       disableInteractions();
 
-      // Берём ровно 76 URL, делаем копию и перетасовываем (Fisher–Yates)
+      // Берём ровно 76 URL, перемешиваем (Fisher–Yates)
       const cards = bigImages.slice(0, 76);
       for (let i = cards.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -1235,7 +1224,7 @@
       for (let i = 0; i < count; i++) {
         const container = document.createElement("div");
         container.classList.add("card-container");
-        // Начальное расположение вне сетки
+        // Начальное смещение
         const angle = Math.random() * Math.PI * 2;
         const distance = 50 + Math.random() * 50;
         container.style.transform =
@@ -1244,41 +1233,34 @@
         // Создаём small-card
         const smallCard = document.createElement("div");
         smallCard.classList.add("small-card");
-        // Вставляем рубашку
         smallCard.style.backgroundImage =
-          'url("https://i.ibb.co/wcWxxGp/IMG-8462.webp")';
-        // Data-атрибут для лицевой стороны
+          'url("https://i.ibb.co/wcWxxGp/IMG-8462.webp")'; // рубашка
         smallCard.dataset.front = cards[i];
 
-        // Добавляем элемент для loader-а
+        // Loader
         const loader = document.createElement("div");
         loader.classList.add("loader-circle");
-        loader.style.display = "none"; // По умолчанию скрыт
+        loader.style.display = "none";
         smallCard.appendChild(loader);
 
-        // Если пользователь уже набрал 5 просмотров и не оплатил — делаем всё locked сразу
+        // Если уже 5 просмотров без оплаты — заблокировать
         if (!isPaid && selectedCount >= 5) {
           smallCard.classList.add("locked");
         }
 
-        // Обработчик клика
         smallCard.addEventListener("click", function() {
           if (animationInProgress) return;
 
           if (isPaid) {
-            // Если пользователь оплатил — переворачиваем без ограничений
             flipPaidCard(smallCard);
             openOverlay(smallCard.dataset.front);
             return;
           } else {
-            // Если не оплатил
             if (!smallCard.classList.contains("flipped")) {
               if (selectedCount >= 5) {
-                // Показ модалки оплаты
                 showPaymentModal();
                 return;
               }
-              // Показываем loader и ждём загрузки front-изображения
               loader.style.display = "block";
               const img = new Image();
               img.src = smallCard.dataset.front;
@@ -1288,7 +1270,6 @@
                 smallCard.classList.add("flipped");
                 selectedCount++;
                 if (selectedCount === 5) {
-                  // Визуально делаем остальные карты полупрозрачными
                   document.querySelectorAll(".cards-grid .small-card")
                     .forEach(card => {
                       if (!card.classList.contains("flipped")) {
@@ -1300,7 +1281,6 @@
               };
               return;
             }
-            // Открытие overlay для уже перевёрнутой
             openOverlay(smallCard.dataset.front);
           }
         });
@@ -1308,19 +1288,16 @@
         container.appendChild(smallCard);
         grid.appendChild(container);
 
-        // Анимация появления
         setTimeout(() => {
           container.classList.add("fade-in");
           container.style.transform = "";
         }, 50);
       }
 
-      // Возвращаем интерактивность после анимации
       setTimeout(enableInteractions, 500);
     }
 
     function flipPaidCard(card) {
-      // Если карточка не перевёрнута — переворачиваем
       if (!card.classList.contains("flipped")) {
         card.classList.add("flipped");
         card.style.backgroundImage = `url("${card.dataset.front}")`;
@@ -1471,11 +1448,7 @@
 
         const front = document.createElement("div");
         front.classList.add("small-card-front");
-        if (i < 76) {
-          front.style.backgroundImage = 'url("' + bigImages[i] + '")';
-        } else {
-          front.style.background = "rgba(64,224,208,0.2)";
-        }
+        front.style.backgroundImage = 'url("' + bigImages[i] + '")';
 
         smallCard.appendChild(front);
         container.appendChild(smallCard);
@@ -1512,7 +1485,7 @@
       });
     }
 
-    /* Функции для модального окна нотаток */
+    /* ====== НОТАТКИ ====== */
     function openNotes() {
       const dateInput = document.getElementById('notesDate');
       if (!dateInput.value) {
@@ -1548,7 +1521,7 @@
       }
     });
 
-    /* Функции для модального окна оплаты */
+    /* ====== МОДАЛЬНОЕ ОКНО ОПЛАТЫ ====== */
     function showPaymentModal() {
       const modal = document.getElementById("paymentModal");
       modal.classList.add("active");
