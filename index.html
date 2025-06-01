@@ -73,6 +73,20 @@
     @keyframes spin {
       to { transform: rotate(360deg); }
     }
+    /* -------------------- Маленький спиннер для каждой карты -------------------- */
+    .spinner-small {
+      border: 3px solid rgba(64,224,208,0.2);
+      border-top: 3px solid rgba(64,224,208,0.8);
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation: spin 1s linear infinite;
+      z-index: 2;
+    }
     /* -------------------- Анимированное название -------------------- */
     .glowing-title {
       font-family: 'Great Vibes', cursive;
@@ -891,7 +905,7 @@
         </div>
         <div class="big-card-face big-card-back" id="bigCardBack">
           <p class="daily-wish"></p>
-          <a class="consult-button" href="https://t.me/irynakolokolovamak_bot" target="_blank" onclick="event.stopPropagation();">Отримати консультацію</a>
+          <a class="consult-button" href="#" onclick="openBot()">Отримати консультацію</a>
         </div>
       </div>
     </div>
@@ -927,18 +941,17 @@
     <div id="paymentContent">
       <h2>Оплатіть повний доступ</h2>
       <p>
-        Ви вже відкрили 5 карт. Щоб отримати повний доступ до всіх карт, необхідно оплатити – <strong>1200 грн</strong>.
+        Ви вже відкрили 5 карт. Щоб отримати повний доступ до всіх карт, необхідно оплатити – <strong>1200 грн</strong>.  
       </p>
-      <button class="btn pay-btn" onclick="grantPaid()">Сплатити</button>
+      <button class="btn pay-btn" onclick="redirectToBot()">Сплатити</button>
     </div>
   </div>
 
   <script>
     // -------------------- Переменные состояния --------------------
-    let selectedCount = 0;        // сколько раз юзер перевернул карту
-    const MAX_OPENS = 5;          // после 5-ти открытий переключаем на оплату
-    let animationInProgress = true; // not clickable until initial animation done
-
+    let animationInProgress = true; // сначала блокируем клики, пока идёт прелоадер
+    const MAX_OPENS = 5;            // максимум бесплатных открытий до оплаты
+    
     // Список пожеланий и карт
     const dailyWishes = [
       "Нехай цей день принесе тобі світло, тепло та нові можливості для здійснення мрій.",
@@ -974,15 +987,15 @@
       "Нехай у твоєму серці панує радість, а в душі — мир і впевненість у завтрашньому дні."
     ];
 
-    // Исправленные URL всех 76 больших карт (домен i.ibb-co заменён на i.ibb.co)
+    // Список URL всех 76 карт (с исправленным доменом i.ibb-co → i.ibb.co)
     let bigImages = [
       "https://i.ibb.co/N6Qz35Sh/photo-2025-05-26-17-55-31-2.jpg.webp",
       "https://i.ibb.co/0yQHT7jC/photo-2025-05-26-17-55-31-3.jpg.webp",
-      "https://i.ibb.co/5XwCHmm9/photo-2025-05-26-17-55-31.jpg.webp",
-      "https://i.ibb.co/nqxJW0Jz/photo-2025-05-27-23-54-14-3.jpg.webp",
-      "https://i.ibb.co/4ZcMXG42/photo-2025-05-26-17-55-32-2.jpg.webp",
-      "https://i.ibb.co/xSsY24T2/photo-2025-05-26-17-55-33-2.jpg.webp",
-      "https://i.ibb.co/vCfXdgk7/photo-2025-05-27-23-54-14-2.jpg.webp",
+      "https://i.ibb-co/5XwCHmm9/photo-2025-05-26-17-55-31.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/nqxJW0Jz/photo-2025-05-27-23-54-14-3.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/4ZcMXG42/photo-2025-05-26-17-55-32-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/xSsY24T2/photo-2025-05-26-17-55-33-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/vCfXdgk7/photo-2025-05-27-23-54-14-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
       "https://i.ibb-co/9kWZFRwB/photo-2025-05-26-17-55-34-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
       "https://i.ibb-co/cSqh0Y4b/photo-2025-05-26-17-55-34.jpg.webp".replace("i.ibb-co","i.ibb.co"),
       "https://i.ibb-co/d4ZCvq9Q/photo-2025-05-26-17-55-35-3.jpg.webp".replace("i.ibb-co","i.ibb.co"),
@@ -1061,10 +1074,17 @@
 
     // -------------------- Инициализация --------------------
     function initializeDeck() {
-      // 1) Пытаемся загрузить paidFlag из localStorage
-      const savedPaid = localStorage.getItem('paidFlag');
-      if (savedPaid === 'true') {
+      // 1) Смотрим параметр URL: если есть ?paid=true → ставим paidFlag=true, сохраняем в localStorage
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('paid') === 'true') {
         paidFlag = true;
+        localStorage.setItem('paidFlag', 'true');
+      } else {
+        // Иначе пробуем прочитать из localStorage
+        const savedPaid = localStorage.getItem('paidFlag');
+        if (savedPaid === 'true') {
+          paidFlag = true;
+        }
       }
 
       // 2) Загружаем из localStorage уже сохранённый порядок и flippedIndices
@@ -1092,7 +1112,7 @@
 
     // -------------------- Функции работы с картами --------------------
     function createSmallCards(count) {
-      // блокируем клики пока идёт анимация
+      // Блокируем клики пока идёт анимация
       disableInteractions();
 
       const grid = document.querySelector(".cards-grid");
@@ -1102,7 +1122,7 @@
       for (let i = 0; i < count; i++) {
         const container = document.createElement("div");
         container.classList.add("card-container");
-        // рандомная разброска на старте
+        // Рандомная разброска на старте
         const angle = Math.random() * Math.PI * 2;
         const distance = 50 + Math.random() * 50;
         container.style.transform =
@@ -1112,12 +1132,13 @@
         smallCard.classList.add("small-card");
         smallCard.dataset.index = i; // индекс внутри deck
 
-        // Если пользователь уже заплатил (paidFlag) — сразу показываем лицевую сторону
+        // Если пользователь уже оплатил → сразу показываем лицевую сторону
         if (paidFlag || flippedIndices.includes(i)) {
-          smallCard.style.backgroundImage = `url("${bigImages[shuffledOrder[i]]}")`;
+          // Показать картинку с «спиннером»
+          showCardImageWithSpinner(smallCard, bigImages[shuffledOrder[i]]);
           smallCard.classList.add("flipped", "front-shown");
         } else {
-          // иначе рисуем рубашку
+          // Иначе рисуем рубашку
           smallCard.style.backgroundImage = 'url("https://i.ibb.co/wcWxxGp/IMG-8462.webp")';
         }
 
@@ -1126,29 +1147,31 @@
 
           const idx = parseInt(this.dataset.index);
           if (paidFlag) {
-            // Если оплатил, сразу открываем Overlay
-            revealFront(this, idx);
+            // Если уже оплатил, показываем Overlay
+            openOverlay(bigImages[shuffledOrder[idx]]);
             return;
           }
 
-          // Если карта уже перевёрнута (в flippedIndices) — снова показываем Overlay
+          // Если карта уже перевёрнута — снова показываем Overlay
           if (flippedIndices.includes(idx)) {
-            revealFront(this, idx);
+            openOverlay(bigImages[shuffledOrder[idx]]);
             return;
           }
 
-          // Если уже открыто 5 и не оплачен — показываем окно оплаты
+          // Если уже открыто MAX_OPENS и не оплачен → окно оплаты
           if (flippedIndices.length >= MAX_OPENS) {
             openPaymentModal();
             return;
           }
 
-          // Иначе – переворачиваем юбнои карту и сохраняем её индекс
-          revealFront(this, idx);
+          // Иначе — переворачиваем карту, сохраняем индекс
+          this.classList.add("flipped", "front-shown");
+          showCardImageWithSpinner(this, bigImages[shuffledOrder[idx]]);
           flippedIndices.push(idx);
           localStorage.setItem('flippedCards', JSON.stringify(flippedIndices));
+
           if (flippedIndices.length >= MAX_OPENS) {
-            // Затемняем все оставшиеся и делаем их некликабельными
+            // Затемняем все оставшиеся карты
             disableAllNonFlipped();
           }
         });
@@ -1172,11 +1195,25 @@
       setTimeout(enableInteractions, 1000);
     }
 
-    function revealFront(cardElem, idx) {
-      const imgUrl = bigImages[shuffledOrder[idx]];
-      cardElem.style.backgroundImage = `url("${imgUrl}")`;
-      cardElem.classList.add("flipped", "front-shown");
-      openOverlay(imgUrl);
+    // Показать изображение на карте с кружком загрузки
+    function showCardImageWithSpinner(cardElem, imageUrl) {
+      // 1) Добавим спиннер
+      const spinner = document.createElement("div");
+      spinner.classList.add("spinner-small");
+      cardElem.appendChild(spinner);
+
+      // 2) Предзагрузим Image
+      const img = new Image();
+      img.src = imageUrl;
+      img.onload = () => {
+        // После загрузки убираем спиннер и устанавливаем фон
+        spinner.remove();
+        cardElem.style.backgroundImage = `url("${imageUrl}")`;
+      };
+      img.onerror = () => {
+        // Если не загрузилась, просто удалим спиннер (фон останется пустым)
+        spinner.remove();
+      };
     }
 
     function disableAllNonFlipped() {
@@ -1184,6 +1221,7 @@
         const idx = parseInt(card.dataset.index);
         if (!flippedIndices.includes(idx)) {
           card.style.opacity = "0.5";
+          card.style.pointerEvents = "none";
         }
       });
     }
@@ -1224,7 +1262,7 @@
     // -------------------- Функция перемешивания карт --------------------
     function shuffleCards() {
       if (paidFlag) {
-        // Если уже оплачен — просто заново инициализируем и рисуем все 76
+        // Пользователь оплатил → просто снова инициализируем и рендерим все 76 без ограничений
         initializeDeck();
         flippedIndices = [];
         localStorage.setItem('flippedCards', JSON.stringify(flippedIndices));
@@ -1325,7 +1363,19 @@
         const front = document.createElement("div");
         front.classList.add("small-card-front");
         if (paidFlag || flippedIndices.includes(i)) {
-          front.style.backgroundImage = 'url("' + bigImages[shuffledOrder[i]] + '")';
+          // Показать изображение с кружком загрузки
+          const spinner = document.createElement("div");
+          spinner.classList.add("spinner-small");
+          container.appendChild(spinner);
+          const img = new Image();
+          img.src = bigImages[shuffledOrder[i]];
+          img.onload = () => {
+            spinner.remove();
+            front.style.backgroundImage = 'url("' + bigImages[shuffledOrder[i]] + '")';
+          };
+          img.onerror = () => {
+            spinner.remove();
+          };
         } else {
           front.style.background = "rgba(64,224,208,0.2)";
         }
@@ -1342,7 +1392,7 @@
         smallCard.addEventListener("click", function(e) {
           if (animationInProgress) return;
           let bg = front.style.backgroundImage;
-          openOverlay(bg);
+          openOverlay(bg.replace(/^url\(["']?/, "").replace(/["']?\)$/, ""));
         });
       }
       setTimeout(enableInteractions, 2000);
@@ -1415,25 +1465,19 @@
       }
     });
 
-    // -------------------- Функция «Сплатити» --------------------
-    function grantPaid() {
-      // Как только пользователь нажал «Сплатити», сразу считаем: 
-      // пользователь оплатил → снимаем ограничение
-      paidFlag = true;
-      localStorage.setItem('paidFlag', 'true');
-      // Убираем «окно оплаты»
+    // -------------------- Функция «Сплатити» (редирект в бот) --------------------
+    function redirectToBot() {
+      // При клике «Сплатити» мы переходим в Telegram-бот.
+      // После того как админ выполнит /unlock <user_id>, бот пошлёт пользователю ссылку 
+      // вида https://yourdomain.com/index.html?paid=true, и при её открытии WebApp станет платным.
+      window.open("https://t.me/irynakolokolovamak_bot", "_blank");
       closePaymentModal();
-      // Перерисовываем колоду сразу без ограничений
-      initializeDeck();
-      localStorage.removeItem('flippedCards');
-      flippedIndices = [];
-      createSmallCards(76);
     }
 
     // -------------------- Сохранение состояния и начальная инициализация --------------------
     window.addEventListener('load', function() {
       initializeDeck();
-      // прячем preloader
+      // Прячем preloader
       hidePreloader();
     });
 
