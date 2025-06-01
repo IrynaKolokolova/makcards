@@ -101,8 +101,7 @@
       display: flex;
       flex-direction: column;
       gap: 20px;
-      justify-content: center;
-      justify-content: flex-start;   /* прижмёт всё вверх */
+      justify-content: flex-start;
       align-items: center;
       height: 100vh;
       text-align: center;
@@ -110,7 +109,6 @@
       z-index: 2;
       max-width: 90%;
       margin: 0 auto;
-      padding: 10px;
       padding: 60px 10px 10px;
     }
     .greeting p {
@@ -125,7 +123,6 @@
     }
     .btn {
       font-family: 'Great Vibes', cursive;
-      font-style: normal;
       min-width: 250px;
       padding: 15px 30px;
       font-size: 1.8rem;
@@ -163,18 +160,15 @@
       50% { opacity: 0.5; }
       100% { opacity: 0; }
     }
-    /* -------------------- Кнопки «Назад» и «Продолжить» и «Shuffle» -------------------- */
-    .btn.back-btn, .btn.continue-btn, .btn.sound-btn {
+    /* -------------------- Кнопки «Назад» и «Shuffle» -------------------- */
+    .btn.back-btn, .btn.shuffle-btn {
       padding: 4px 10px;
       min-width: auto;
-      min-height: auto;
-      width: auto;
-      height: auto;
       display: inline-flex;
       align-items: center;
       justify-content: center;
     }
-    .btn.back-btn img, .btn.continue-btn img, .btn.sound-btn img {
+    .btn.back-btn img, .btn.shuffle-btn img {
       width: 16px;
       height: 16px;
       filter: brightness(0) invert(1);
@@ -182,18 +176,7 @@
     .btn.back-btn img {
       transform: rotate(180deg);
     }
-    .btn.continue-btn img {
-      transform: scaleY(-1);
-    }
-    .btn.shuffle-btn {
-      padding: 4px 10px;
-      min-width: auto;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-    }
     .btn.shuffle-btn img {
-      filter: brightness(0) invert(1);
       width: 17px;
       height: 17px;
     }
@@ -408,28 +391,15 @@
       transform: scale(0.95);
       box-shadow: 0 0 12px rgba(64,224,208,0.6);
     }
-    .small-card-front {
-      background-size: cover;
-      background-position: center;
-      width: 100%;
-      height: 100%;
+    .small-card.front-shown {
+      cursor: pointer; /* remain clickable */
     }
-    .small-card {
-      width: 80px;
-      height: 112px;
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      transition: transform 0.2s ease;
-      cursor: pointer;
-      border-radius: 8px;
-      overflow: hidden;
-      position: relative;
+    .small-card.front-shown:hover {
+      transform: none; /* no hover effect */
+      box-shadow: none;
     }
     .small-card.flipped {
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
+      cursor: pointer;
     }
     /* -------------------- Секция "72 карт" -------------------- */
     #section72Cards {
@@ -740,6 +710,7 @@
       text-align: center;
       font-family: Georgia, serif;
       color: #fff;
+      position: relative;
     }
     #paymentContent h2 {
       font-family: 'Great Vibes', cursive;
@@ -765,20 +736,10 @@
       display: inline-block;
       box-shadow: 0 0 4px rgba(64,224,208,0.5);
       transition: background 0.3s ease, box-shadow 0.3s ease;
-      margin: 5px;
     }
     #paymentContent .btn.pay-btn:hover {
       background: rgba(64,224,208,0.4);
       box-shadow: 0 0 6px rgba(64,224,208,0.6);
-    }
-    #paymentClose {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      cursor: pointer;
-      width: 24px;
-      height: 24px;
-      filter: brightness(0) invert(1);
     }
   </style>
 </head>
@@ -930,7 +891,7 @@
         </div>
         <div class="big-card-face big-card-back" id="bigCardBack">
           <p class="daily-wish"></p>
-          <a class="consult-button" href="https://t.me/" target="_blank" onclick="event.stopPropagation();">Отримати консультацію</a>
+          <a class="consult-button" href="https://t.me/irynakolokolovamak_bot" target="_blank" onclick="event.stopPropagation();">Отримати консультацію</a>
         </div>
       </div>
     </div>
@@ -964,23 +925,19 @@
   <!-- ========== Модалка «Оплатіть повний доступ» -------------------- -->
   <div id="paymentModal">
     <div id="paymentContent">
-      <img id="paymentClose" src="https://i.ibb.co/s9NyJrT7/56-1.png" alt="Close" onclick="closePaymentModal()">
-      <h2>Отримайте повний доступ<br>до колоди</h2>
+      <h2>Оплатіть повний доступ</h2>
       <p>
-        Ви вже відчинили карти 5 разів. Для доступу до всіх 76 карт колоди необхідно оплатити повний доступ – <strong>1200 грн</strong>. 
-        Після цього ви зможете відкривати та користуватися усіма картами без обмежень.
+        Ви вже відкрили 5 карт. Щоб отримати повний доступ до всіх карт, необхідно оплатити – <strong>1200 грн</strong>. 
       </p>
-      <!-- Ссылка на телеграм-бота: -->
-      <a class="btn pay-btn" href="https://t.me/irynakolokolovamak_bot" target="_blank">Сплатити</a>
-      <button class="btn pay-btn" onclick="grantAccess()">Отримати доступ</button>
+      <button class="btn pay-btn" onclick="openBotChat()">Сплатити</button>
     </div>
   </div>
 
   <script>
     // -------------------- Переменные состояния --------------------
     let selectedCount = 0;      // сколько раз юзер перевернул карту
-    const MAX_OPENS = 5;        // после 5-ти открытий блокируем доступ
-    let animationInProgress = false;
+    const MAX_OPENS = 5;        // после 5-ти открытий переключаем на оплату
+    let animationInProgress = true; // not clickable until initial animation done
 
     // Список пожеланий и карт
     const dailyWishes = [
@@ -1029,100 +986,121 @@
       "https://i.ibb.co/cSqh0Y4b/photo-2025-05-26-17-55-34.jpg.webp",
       "https://i.ibb.co/d4ZCvq9Q/photo-2025-05-26-17-55-35-3.jpg.webp",
       "https://i.ibb.co/ksxT3vR2/photo-2025-05-26-17-55-35-2.jpg.webp",
-      "https://i.ibb-co/4nsRBhPr/photo-2025-05-26-17-55-38-2.jpg.webp",
-      "https://i.ibb-co/zWfj7pS8/photo-2025-05-26-17-55-38.jpg.webp",
-      "https://i.ibb-co/whXpDsKv/photo-2025-05-26-17-55-39-2.jpg.webp",
-      "https://i.ibb-co/5Q6f4xL/photo-2025-05-26-17-55-39-3.jpg.webp",
-      "https://i.ibb-co/mr6yk1w9/photo-2025-05-26-17-55-39.jpg.webp",
-      "https://i.ibb-co/YT4DND1c/photo-2025-05-26-17-55-40-2.jpg.webp",
-      "https://i.ibb-co/q3q0J3zB/photo-2025-05-26-17-55-40.jpg.webp",
-      "https://i.ibb-co/HpXC6N0J/photo-2025-05-26-17-55-41.jpg.webp",
-      "https://i.ibb-co/wZL0158h/photo-2025-05-26-17-55-42.jpg.webp",
-      "https://i.ibb-co/0xy7zGD/photo-2025-05-26-17-55-43-2.jpg.webp",
-      "https://i.ibb-co/84BFk01x/photo-2025-05-26-17-55-43.jpg.webp",
-      "https://i.ibb-co/dw0zVMqT/photo-2025-05-26-17-55-44-2.jpg.webp",
-      "https://i.ibb-co/TxjHy32L/photo-2025-05-26-17-55-44-3.jpg.webp",
-      "https://i.ibb-co/Rkvdv27Z/photo-2025-05-26-17-55-44.jpg.webp",
-      "https://i.ibb-co/Q4cLfFn/photo-2025-05-26-17-55-45.jpg.webp",
-      "https://i.ibb-co/FqBkJQ4P/photo-2025-05-26-17-55-46-2.jpg.webp",
-      "https://i.ibb-co/Csm4t2dh/photo-2025-05-26-17-55-46.jpg.webp",
-      "https://i.ibb-co/vCB2SF2Z/photo-2025-05-26-17-55-47-2.jpg.webp",
-      "https://i.ibb-co/6cbbnGZb/photo-2025-05-26-17-55-47.jpg.webp",
-      "https://i.ibb-co/DDGp9PHD/photo-2025-05-26-17-55-48.jpg.webp",
-      "https://i.ibb-co/pBXP5Qnj/photo-2025-05-26-17-55-49.jpg.webp",
-      "https://i.ibb-co/KxwKFY5x/photo-2025-05-26-17-55-50.jpg.webp",
-      "https://i.ibb-co/zTDCq9Vs/photo-2025-05-26-20-48-28-2.jpg.webp",
-      "https://i.ibb-co/RkJdZNVN/photo-2025-05-26-20-48-28.jpg.webp",
-      "https://i.ibb-co/1J7Xpb8X/photo-2025-05-26-20-48-29.jpg.webp",
-      "https://i.ibb-co/yckRk6Dj/photo-2025-05-26-20-48-30-2.jpg.webp",
-      "https://i.ibb-co/CszjZVJy/photo-2025-05-26-20-48-30-3.jpg.webp",
-      "https://i.ibb-co/nshy7dLG/photo-2025-05-26-20-48-30.jpg.webp",
-      "https://i.ibb-co/7NxHK7t9/photo-2025-05-26-20-48-31-2.jpg.webp",
-      "https://i.ibb-co/bghM15x4/photo-2025-05-26-20-48-31-3.jpg.webp",
-      "https://i.ibb-co/QvKCTnsZ/photo-2025-05-26-20-48-31.jpg.webp",
-      "https://i.ibb-co/p6NKKgDS/photo-2025-05-26-20-48-32-2.jpg.webp",
-      "https://i.ibb-co/5WD1HQck/photo-2025-05-26-20-48-32.jpg.webp",
-      "https://i.ibb-co/F4H1nXCP/photo-2025-05-26-20-48-33-2.jpg.webp",
-      "https://i.ibb-co/VYxs6XYF/photo-2025-05-26-20-48-33.jpg.webp",
-      "https://i.ibb-co/Vc2bGZrR/photo-2025-05-26-21-36-20-2.jpg.webp",
-      "https://i.ibb-co/xKb5m45Z/photo-2025-05-26-21-36-20-3.jpg.webp",
-      "https://i.ibb-co/PvQtpRch/photo-2025-05-26-21-36-20.jpg.webp",
-      "https://i.ibb-co/xK33Pmmr/photo-2025-05-27-00-20-36.jpg.webp",
-      "https://i.ibb-co/YBLNVbYv/photo-2025-05-27-00-20-36-3.jpg.webp",
-      "https://i.ibb-co/h1HK9Svq/photo-2025-05-27-00-20-31-2.jpg.webp",
-      "https://i.ibb-co/MDcJ5DL8/photo-2025-05-27-00-20-31-3.jpg.webp",
-      "https://i.ibb-co/9HCytM77/photo-2025-05-27-00-20-31.jpg.webp",
-      "https://i.ibb-co/0yyMVWBZ/photo-2025-05-27-00-20-32-2.jpg.webp",
-      "https://i.ibb-co/svvKH579/photo-2025-05-27-00-20-32.jpg.webp",
-      "https://i.ibb-co/tTf80LqY/photo-2025-05-27-00-20-33-2.jpg.webp",
-      "https://i.ibb-co/20L1rPX2/photo-2025-05-27-00-20-33-3.jpg.webp",
-      "https://i.ibb-co/twp0F2m5/photo-2025-05-27-00-20-33.jpg.webp",  
-      "https://i.ibb-co/Y4mHjmsX/photo-2025-05-27-00-20-34-2.jpg.webp",
-      "https://i.ibb-co/Rp8KxrVk/photo-2025-05-27-00-20-34-3.jpg.webp",
-      "https://i.ibb-co/9kw57Wyp/photo-2025-05-27-00-20-34.jpg.webp",
-      "https://i.ibb-co/gZZNWsXr/photo-2025-05-27-00-20-35-2.jpg.webp",
-      "https://i.ibb-co/tMv1tytj/photo-2025-05-27-00-20-35.jpg.webp",
-      "https://i.ibb-co/MmjkZ07/photo-2025-05-27-00-20-36-2.jpg.webp",
-      "https://i.ibb-co/wrFTdFsQ/photo-2025-05-27-00-36-27.jpg.webp",
-      "https://i.ibb-co/s9VCNHWn/photo-2025-05-27-23-54-13.jpg.webp",
-      "https://i.ibb-co/93ffP582/photo-2025-05-27-23-54-12.jpg.webp",
-      "https://i.ibb-co/TBzZjQ0w/photo-2025-05-27-23-54-13-2.jpg.webp",
-      "https://i.ibb-co/BK5sxgw8/photo-2025-05-28-23-30-40.jpg.webp"
+      "https://i.ibb.co/6JVD9jgJ/photo-2025-05-26-17-55-35.jpg.webp",
+      "https://i.ibb.co/4Rv7DBsR/photo-2025-05-26-17-55-36-2.jpg.webp",
+      "https://i.ibb.co/svP2KcgG/photo-2025-05-28-23-30-39.jpg.webp",
+      "https://i.ibb.co/BKt25h6Q/photo-2025-05-26-17-55-36.jpg.webp",
+      "https://i.ibb.co/21H3TC2K/photo-2025-05-26-17-55-37-2.jpg.webp",
+      "https://i.ibb.co/Kx4Jq4Pq/photo-2025-05-26-17-55-37.jpg.webp",
+      "https://i.ibb.co/4nsRBhPr/photo-2025-05-26-17-55-38-2.jpg.webp",
+      "https://i.ibb.co/zWfj7pS8/photo-2025-05-26-17-55-38.jpg.webp",
+      "https://i.ibb.co/whXpDsKv/photo-2025-05-26-17-55-39-2.jpg.webp",
+      "https://i.ibb.co/5Q6f4xL/photo-2025-05-26-17-55-39-3.jpg.webp",
+      "https://i.ibb.co/mr6yk1w9/photo-2025-05-26-17-55-39.jpg.webp",
+      "https://i.ibb.co/YT4DND1c/photo-2025-05-26-17-55-40-2.jpg.webp",
+      "https://i.ibb.co/q3q0J3zB/photo-2025-05-26-17-55-40.jpg.webp",
+      "https://i.ibb.co/HpXC6N0J/photo-2025-05-26-17-55-41.jpg.webp",
+      "https://i.ibb.co/wZL0158h/photo-2025-05-26-17-55-42.jpg.webp",
+      "https://i.ibb.co/0xy7zGD/photo-2025-05-26-17-55-43-2.jpg.webp",
+      "https://i.ibb.co/84BFk01x/photo-2025-05-26-17-55-43.jpg.webp",
+      "https://i.ibb.co/dw0zVMqT/photo-2025-05-26-17-55-44-2.jpg.webp",
+      "https://i.ibb.co/TxjHy32L/photo-2025-05-26-17-55-44-3.jpg.webp",
+      "https://i.ibb.co/Rkvdv27Z/photo-2025-05-26-17-55-44.jpg.webp",
+      "https://i.ibb.co/Q4cLfFn/photo-2025-05-26-17-55-45.jpg.webp",
+      "https://i.ibb.co/FqBkJQ4P/photo-2025-05-26-17-55-46-2.jpg.webp",
+      "https://i.ibb.co/Csm4t2dh/photo-2025-05-26-17-55-46.jpg.webp",
+      "https://i.ibb.co/vCB2SF2Z/photo-2025-05-26-17-55-47-2.jpg.webp",
+      "https://i.ibb.co/6cbbnGZb/photo-2025-05-26-17-55-47.jpg.webp",
+      "https://i.ibb.co/DDGp9PHD/photo-2025-05-26-17-55-48.jpg.webp",
+      "https://i.ibb.co/pBXP5Qnj/photo-2025-05-26-17-55-49.jpg.webp",
+      "https://i.ibb.co/KxwKFY5x/photo-2025-05-26-17-55-50.jpg.webp",
+      "https://i.ibb.co/zTDCq9Vs/photo-2025-05-26-20-48-28-2.jpg.webp",
+      "https://i.ibb.co/RkJdZNVN/photo-2025-05-26-20-48-28.jpg.webp",
+      "https://i.ibb.co/1J7Xpb8X/photo-2025-05-26-20-48-29.jpg.webp",
+      "https://i.ibb.co/yckRk6Dj/photo-2025-05-26-20-48-30-2.jpg.webp",
+      "https://i.ibb.co/CszjZVJy/photo-2025-05-26-20-48-30-3.jpg.webp",
+      "https://i.ibb.co/nshy7dLG/photo-2025-05-26-20-48-30.jpg.webp",
+      "https://i.ibb.co/7NxHK7t9/photo-2025-05-26-20-48-31-2.jpg.webp",
+      "https://i.ibb.co/bghM15x4/photo-2025-05-26-20-48-31-3.jpg.webp",
+      "https://i.ibb.co/QvKCTnsZ/photo-2025-05-26-20-48-31.jpg.webp",
+      "https://i.ibb.co/p6NKKgDS/photo-2025-05-26-20-48-32-2.jpg.webp",
+      "https://i.ibb.co/5WD1HQck/photo-2025-05-26-20-48-32.jpg.webp",
+      "https://i.ibb.co/F4H1nXCP/photo-2025-05-26-20-48-33-2.jpg.webp",
+      "https://i.ibb.co/VYxs6XYF/photo-2025-05-26-20-48-33.jpg.webp",
+      "https://i.ibb.co/Vc2bGZrR/photo-2025-05-26-21-36-20-2.jpg.webp",
+      "https://i.ibb.co/xKb5m45Z/photo-2025-05-26-21-36-20-3.jpg.webp",
+      "https://i.ibb.co/PvQtpRch/photo-2025-05-26-21-36-20.jpg.webp",
+      "https://i.ibb.co/xK33Pmmr/photo-2025-05-27-00-20-36.jpg.webp",
+      "https://i.ibb.co/YBLNVbYv/photo-2025-05-27-00-20-36-3.jpg.webp",
+      "https://i.ibb.co/h1HK9Svq/photo-2025-05-27-00-20-31-2.jpg.webp",
+      "https://i.ibb.co/MDcJ5DL8/photo-2025-05-27-00-20-31-3.jpg.webp",
+      "https://i.ibb.co/9HCytM77/photo-2025-05-27-00-20-31.jpg.webp",
+      "https://i.ibb.co/0yyMVWBZ/photo-2025-05-27-00-20-32-2.jpg.webp",
+      "https://i.ibb.co/svvKH579/photo-2025-05-27-00-20-32.jpg.webp",
+      "https://i.ibb.co/tTf80LqY/photo-2025-05-27-00-20-33-2.jpg.webp",
+      "https://i.ibb.co/20L1rPX2/photo-2025-05-27-00-20-33-3.jpg.webp",
+      "https://i.ibb.co/twp0F2m5/photo-2025-05-27-00-20-33.jpg.webp",
+      "https://i.ibb.co/Y4mHjmsX/photo-2025-05-27-00-20-34-2.jpg.webp",
+      "https://i.ibb.co/Rp8KxrVk/photo-2025-05-27-00-20-34-3.jpg.webp",
+      "https://i.ibb.co/9kw57Wyp/photo-2025-05-27-00-20-34.jpg.webp",
+      "https://i.ibb.co/gZZNWsXr/photo-2025-05-27-00-20-35-2.jpg.webp",
+      "https://i.ibb.co/tMv1tytj/photo-2025-05-27-00-20-35.jpg.webp",
+      "https://i.ibb.co/MmjkZ07/photo-2025-05-27-00-20-36-2.jpg.webp",
+      "https://i.ibb.co/wrFTdFsQ/photo-2025-05-27-00-36-27.jpg.webp",
+      "https://i.ibb.co/s9VCNHWn/photo-2025-05-27-23-54-13.jpg.webp",
+      "https://i.ibb.co/93ffP582/photo-2025-05-27-23-54-12.jpg.webp",
+      "https://i.ibb.co/TBzZjQ0w/photo-2025-05-27-23-54-13-2.jpg.webp",
+      "https://i.ibb.co/BK5sxgw8/photo-2025-05-28-23-30-40.jpg.webp"
     ];
-    // Исправляем все вхождения i.ibb-co → i.ibb.co
+    // Исправляем все некорректные домены
     bigImages = bigImages.map(url => url.replace(/i\.ibb-co/g, "i.ibb.co"));
+
+    // -------------------- Состояние --------------------
+    let shuffledOrder = [];       // порядок карт (массив индексов в bigImages)
+    let flippedIndices = [];      // какие индексы уже открыты (сохраняются в localStorage)
+    let paidFlag = false;         // полная разблокировка
+
+    // -------------------- Инициализация --------------------
+    function initializeDeck() {
+      // Если уже есть сохранённый порядок и перевёрнутые индексы, загружаем их
+      const savedOrder = localStorage.getItem('deckOrder');
+      const savedFlipped = localStorage.getItem('flippedCards');
+      const savedPaid = localStorage.getItem('paidFlag');
+
+      if (savedPaid === 'true') {
+        paidFlag = true;
+      }
+      if (savedOrder) {
+        shuffledOrder = JSON.parse(savedOrder);
+      } else {
+        // создаём новый порядок
+        shuffledOrder = Array.from(bigImages.keys());
+        for (let i = shuffledOrder.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [shuffledOrder[i], shuffledOrder[j]] = [shuffledOrder[j], shuffledOrder[i]];
+        }
+        localStorage.setItem('deckOrder', JSON.stringify(shuffledOrder));
+      }
+      if (savedFlipped) {
+        flippedIndices = JSON.parse(savedFlipped);
+      } else {
+        flippedIndices = [];
+      }
+    }
 
     // -------------------- Функции работы с картами --------------------
     function createSmallCards(count) {
+      // отключаем клики, пока идёт анимация
       disableInteractions();
 
-      const isPaid = localStorage.getItem('paid') === 'true';
-      if (isPaid) {
-        _createGrid(count, bigImages);
-        setTimeout(enableInteractions, 1000);
-        return;
-      }
-
-      // Перемешиваем массив карт
-      const shuffledImages = bigImages.slice();
-      for (let i = shuffledImages.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [shuffledImages[i], shuffledImages[j]] = [shuffledImages[j], shuffledImages[i]];
-      }
-
-      _createGrid(count, shuffledImages);
-      setTimeout(enableInteractions, 1000);
-    }
-
-    function _createGrid(count, imagesArray) {
       const grid = document.querySelector(".cards-grid");
       grid.innerHTML = "";
-      const isPaid = localStorage.getItem('paid') === 'true';
 
+      // Показываем карты в сохранённом порядке
       for (let i = 0; i < count; i++) {
         const container = document.createElement("div");
         container.classList.add("card-container");
-        // Рандомная разброска
+        // рандомная разброска позиции на старте
         const angle = Math.random() * Math.PI * 2;
         const distance = 50 + Math.random() * 50;
         container.style.transform =
@@ -1130,22 +1108,39 @@
 
         const smallCard = document.createElement("div");
         smallCard.classList.add("small-card");
-        smallCard.style.backgroundImage = 'url("https://i.ibb.co/wcWxxGp/IMG-8462.webp")';
-        smallCard.dataset.front = imagesArray[i];
+        smallCard.dataset.index = i; // наш индекс внутри deck
+        // если этот индекс уже в flippedIndices или paidFlag, показываем front:
+        if (paidFlag || flippedIndices.includes(i)) {
+          smallCard.style.backgroundImage = `url("${bigImages[shuffledOrder[i]]}")`;
+          smallCard.classList.add("flipped", "front-shown");
+        } else {
+          smallCard.style.backgroundImage = 'url("https://i.ibb.co/wcWxxGp/IMG-8462.webp")';
+        }
 
         smallCard.addEventListener("click", function() {
           if (animationInProgress) return;
-          if (localStorage.getItem('paid') === 'true') {
-            revealCard(this);
+
+          const idx = parseInt(this.dataset.index);
+          if (paidFlag) {
+            revealFront(this, idx);
             return;
           }
-          if (selectedCount >= MAX_OPENS) {
+          if (flippedIndices.includes(idx)) {
+            // повторный клик по уже открытому – показываем Overlay
+            revealFront(this, idx);
+            return;
+          }
+          // если не оплачено и ещё не открыто, но достигли лимита:
+          if (flippedIndices.length >= MAX_OPENS) {
             openPaymentModal();
             return;
           }
-          revealCard(this);
-          selectedCount++;
-          if (selectedCount >= MAX_OPENS) {
+          // иначе – переворачиваем карту
+          revealFront(this, idx);
+          flippedIndices.push(idx);
+          localStorage.setItem('flippedCards', JSON.stringify(flippedIndices));
+          if (flippedIndices.length >= MAX_OPENS) {
+            // больше не кликабельны незаполненные
             disableAllNonFlipped();
           }
         });
@@ -1158,22 +1153,22 @@
           container.style.transform = "";
         }, 50);
       }
+
+      // после завершения анимации – включаем клики
+      setTimeout(enableInteractions, 1000);
     }
 
-    function revealCard(cardElem) {
-      if (!cardElem.classList.contains("flipped")) {
-        cardElem.style.backgroundImage = `url("${cardElem.dataset.front}")`;
-        cardElem.classList.add("flipped");
-        openOverlay(cardElem.dataset.front);
-      } else {
-        openOverlay(cardElem.dataset.front);
-      }
+    function revealFront(cardElem, idx) {
+      const imgUrl = bigImages[shuffledOrder[idx]];
+      cardElem.style.backgroundImage = `url("${imgUrl}")`;
+      cardElem.classList.add("flipped", "front-shown");
+      openOverlay(imgUrl);
     }
 
     function disableAllNonFlipped() {
       document.querySelectorAll(".cards-grid .small-card").forEach(card => {
-        if (!card.classList.contains("flipped")) {
-          card.style.pointerEvents = "none";
+        const idx = parseInt(card.dataset.index);
+        if (!flippedIndices.includes(idx)) {
           card.style.opacity = "0.5";
         }
       });
@@ -1185,17 +1180,9 @@
       animationInProgress = true;
       const overlay = document.getElementById("overlay");
       overlay.classList.add("active");
-      const shuffleIcon = document.getElementById("shuffleIconBtn");
-      if (shuffleIcon) shuffleIcon.style.pointerEvents = "none";
-
-      let chosenImg = imgUrl.replace(/^url\(["']?/, "").replace(/["']?\)$/, "");
-      if (!chosenImg) {
-        const randomIndex = Math.floor(Math.random() * bigImages.length);
-        chosenImg = bigImages[randomIndex];
-      }
 
       const bigCardFront = document.getElementById("bigCardFront");
-      bigCardFront.style.backgroundImage = 'url("' + chosenImg + '")';
+      bigCardFront.style.backgroundImage = 'url("' + imgUrl + '")';
 
       const randomWishIndex = Math.floor(Math.random() * dailyWishes.length);
       document.querySelector(".daily-wish").textContent = dailyWishes[randomWishIndex];
@@ -1205,7 +1192,6 @@
 
       setTimeout(() => {
         animationInProgress = false;
-        if (shuffleIcon) shuffleIcon.style.pointerEvents = "auto";
       }, 3000);
     }
 
@@ -1218,39 +1204,30 @@
       if (animationInProgress) return;
       if (e.target.id === "overlay") {
         this.classList.remove("active");
-        const shuffleIcon = document.getElementById("shuffleIconBtn");
-        if (shuffleIcon) shuffleIcon.style.pointerEvents = "auto";
       }
     });
 
     // -------------------- Функция перемешивания карт --------------------
     function shuffleCards() {
-      disableInteractions();
-      const grid = document.querySelector(".cards-grid");
-      const cards = grid.querySelectorAll(".card-container");
-      cards.forEach(card => {
-        const angle = Math.random() * Math.PI * 2;
-        const distance = 50 + Math.random() * 50;
-        card.style.transform = `scale(0.9) translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px)`;
-        card.style.opacity = "0";
-      });
-      setTimeout(() => {
+      // при полной оплате просто заново рендерим без ограничения
+      if (paidFlag) {
+        initializeDeck();
+        localStorage.removeItem('flippedCards');
+        flippedIndices = [];
         createSmallCards(76);
-      }, 6000);
-    }
-
-    function flipCard(event) {
-      event.stopPropagation();
-      if (animationInProgress) return;
-      document.getElementById("bigCard").classList.toggle("is-flipped");
+        return;
+      }
+      // иначе очищаем текущее состояние, создаём новую колоду
+      initializeDeck();
+      flippedIndices = [];
+      localStorage.setItem('flippedCards', JSON.stringify(flippedIndices));
+      createSmallCards(76);
     }
 
     function disableInteractions() {
       animationInProgress = true;
       const grid20 = document.querySelector(".cards-grid");
       if (grid20) grid20.style.pointerEvents = "none";
-      const grid72 = document.querySelector(".cards-grid-72");
-      if (grid72) grid72.style.pointerEvents = "none";
       const shuffleIcon = document.getElementById("shuffleIconBtn");
       if (shuffleIcon) shuffleIcon.style.pointerEvents = "none";
     }
@@ -1258,8 +1235,6 @@
       animationInProgress = false;
       const grid20 = document.querySelector(".cards-grid");
       if (grid20) grid20.style.pointerEvents = "auto";
-      const grid72 = document.querySelector(".cards-grid-72");
-      if (grid72) grid72.style.pointerEvents = "auto";
       const shuffleIcon = document.getElementById("shuffleIconBtn");
       if (shuffleIcon) shuffleIcon.style.pointerEvents = "auto";
     }
@@ -1304,8 +1279,7 @@
     function continueToDeck() {
       document.getElementById('sectionDeckInfo').classList.remove('active');
       document.getElementById('sectionMakKarti').classList.add('active');
-      selectedCount = 0;
-      localStorage.removeItem('opens');
+      initializeDeck();
       createSmallCards(76);
     }
     function backToDeckInfo() {
@@ -1336,8 +1310,8 @@
         
         const front = document.createElement("div");
         front.classList.add("small-card-front");
-        if (localStorage.getItem('paid') === 'true' || i < 76) {
-          front.style.backgroundImage = 'url("' + bigImages[i] + '")';
+        if (paidFlag || flippedIndices.includes(i)) {
+          front.style.backgroundImage = 'url("' + bigImages[shuffledOrder[i]] + '")';
         } else {
           front.style.background = "rgba(64,224,208,0.2)";
         }
@@ -1421,18 +1395,22 @@
       const modal = document.getElementById("paymentModal");
       modal.classList.remove("active");
     }
-    function grantAccess() {
-      localStorage.setItem('paid', 'true');
-      closePaymentModal();
-      const isPaid = true;
-      createSmallCards(76);
+    document.getElementById("paymentModal").addEventListener("click", function(e) {
+      if (e.target.id === "paymentModal") {
+        closePaymentModal();
+      }
+    });
+
+    function openBotChat() {
+      // открываем чат бота Telegram
+      window.open("https://t.me/irynakolokolovamak_bot", "_blank");
     }
 
     // -------------------- Сохранение состояния и начальная инициализация --------------------
     window.addEventListener('load', function() {
+      initializeDeck();
+      // прячем preloader
       hidePreloader();
-      selectedCount = 0;
-      localStorage.removeItem('opens');
     });
 
     function hidePreloader() {
