@@ -216,13 +216,6 @@
       width: 100%;
       padding: 10px;
     }
-    .nav-buttons {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width: 100%;
-      padding: 10px;
-    }
     
     /* Изменённый стиль для центрального текста между кнопками */
     .center-text {
@@ -231,13 +224,11 @@
       font-style: italic;
       color: #fff;
       text-shadow: 2px 2px 4px rgba(0,0,0,1);
-      /* уберите здесь margin:0 10px; — он теперь не нужен */
       display: inline-flex;
       align-items: center;
       white-space: nowrap;
     }
-
-    /* вот это вставьте сразу ниже */
+    /* для Мак-карт */
     #sectionMakKarti .center-text {
       display: block !important;
       width: 100%;
@@ -463,7 +454,6 @@
       overflow: hidden;
       position: relative;
     }
-
     /* Перевернутая карта */
     .small-card.flipped {
       background-size: cover;
@@ -757,6 +747,54 @@
     .social-right {
       display: none !important;
     }
+
+    /* Модальное окно платежа */
+    #paymentOverlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.85);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 10001;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    #paymentOverlay.active {
+      display: flex;
+      opacity: 1;
+    }
+    .payment-modal {
+      background: #1b1b2d;
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+      max-width: 300px;
+    }
+    .payment-modal p {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+    }
+    .payment-modal a.btn {
+      display: inline-block;
+      margin-top: 10px;
+      text-decoration: none;
+      font-family: 'Great Vibes', cursive;
+      font-size: 1.5rem;
+      background: rgba(64,224,208,0.2);
+      border: 1px solid rgba(64,224,208,0.5);
+      border-radius: 6px;
+      color: #fff;
+      padding: 10px 20px;
+      box-shadow: 0 0 4px rgba(64,224,208,0.5);
+    }
+    .payment-modal a.btn:hover {
+      background: rgba(64,224,208,0.4);
+      box-shadow: 0 0 6px rgba(64,224,208,0.6);
+    }
   </style>
 </head>
 <body>
@@ -764,7 +802,7 @@
   <div class="social-left">
     <a href="#" target="_blank"><img src="https://i.ibb.co/3mvz2MS8/5-1.png" alt="Tiktok"></a>
     <a href="#" target="_blank"><img src="https://i.ibb.co/67Mpr94h/4-1.png" alt="Telegram"></a>
-    <a href="#" target="_blank"><img src="https://i.ibb.co/ZR1fnmF8/3-1.png" alt="Instagram"></a>
+    <a href="#" target="_blank"><img src="https://i.ibb-co/ZR1fnmF8/3-1.png" alt="Instagram"></a>
   </div>
   <div class="social-right">
     <a href="#" target="_blank"><img src="https://i.ibb.co/GfqnLvSv/6-1.png" alt="Site Icon"></a>
@@ -844,16 +882,16 @@
   <div id="sectionDeckInfo" class="section">
     <div class="nav-buttons">
       <button class="btn back-btn" onclick="backToMenu()">
-        <img src="https://i.ibb.co/s9NyJrT7/56-1.png" alt="Back">
+        <img src="https://i.ibb-co/s9NyJrT7/56-1.png" alt="Back">
       </button>
       <button class="btn continue-btn" onclick="continueToDeck()">
-        <img src="https://i.ibb.co/s9NyJrT7/56-1.png" alt="Continue">
+        <img src="https://i.ibb-co/s9NyJrT7/56-1.png" alt="Continue">
       </button>
     </div>
     <div class="content">
       <ol>
         <li><strong class="highlight">Сформулюй питання:</strong><br>Зосередься на темі, яка хвилює. Подумай, що саме ти хочеш зрозуміти чи змінити.</li>
-        <li><strong class="highlight">Обери карту:</strong><br>Вибери з колоди ту, що привертає увагу чи викликає особливий відгук у душі.</li>
+        <li><strong class="highlight">Обери карту:</strong><br>Виберіть з колоди ту, що привертає увагу чи викликає особливий відгук у душі.</li>
         <li><strong class="highlight">Розглянь зображення:</strong><br>Уважно вдивляйся у деталі, кольори та символи, які можуть приховувати важливі підказки.</li>
         <li><strong class="highlight">Прислухайся:</strong><br>Зверни увагу на почуття та думки, що виникають у процесі споглядання, аналізуй власні реакції.</li>
         <li><strong class="highlight">Зроби висновки:</strong><br>Подумай, як ця карта може допомогти тобі побачити ситуацію під іншим кутом і знайти відповіді.</li>
@@ -866,11 +904,11 @@
     <div class="nav-buttons">
       <!-- Кнопка "Назад" -->
       <button class="btn back-btn" onclick="backToDeckInfo()">
-        <img src="https://i.ibb.co/s9NyJrT7/56-1.png" alt="Back">
+        <img src="https://i.ibb-co/s9NyJrT7/56-1.png" alt="Back">
       </button>
       <!-- Кнопка "Перетасувати" -->
       <button id="shuffleIconBtn" class="btn shuffle-btn" onclick="shuffleCards()">
-        <img src="https://i.ibb.co/jP8HZYJr/7-1.png" alt="Shuffle">
+        <img src="https://i.ibb-co/jP8HZYJr/7-1.png" alt="Shuffle">
       </button>
     </div>
 
@@ -889,7 +927,7 @@
   <div id="section72Cards" class="section">
     <div class="nav-buttons">
       <button class="btn back-btn" onclick="backToMakKartiFrom72()">
-        <img src="https://i.ibb.co/s9NyJrT7/56-1.png" alt="Back">
+        <img src="https://i.ibb-co/s9NyJrT7/56-1.png" alt="Back">
       </button>
     </div>
     <div class="content" style="margin-top: 10px;">
@@ -903,13 +941,21 @@
       <div class="big-card" id="bigCard">
         <div class="big-card-face big-card-front" id="bigCardFront">
           <div class="logo">by Iryna Kolokolova</div>
-          <img src="https://i.ibb.co/s9NyJrT7/56-1.png" alt="Flip" class="icon-flip" onclick="flipCard(event)">
+          <img src="https://i.ibb-co/s9NyJrT7/56-1.png" alt="Flip" class="icon-flip" onclick="flipCard(event)">
         </div>
         <div class="big-card-face big-card-back" id="bigCardBack">
           <p class="daily-wish"></p>
           <a class="consult-button" href="https://t.me/" target="_blank" onclick="event.stopPropagation();">Отримати консультацію</a>
         </div>
       </div>
+    </div>
+  </div>
+  
+  <!-- Модальное окно платежа -->
+  <div class="overlay" id="paymentOverlay">
+    <div class="payment-modal">
+      <p>Для доступу до всієї колоди потрібно оплатити повний доступ. Ціна: <strong>1200 грн</strong>.</p>
+      <a href="https://t.me/MakCardsBot" class="btn">Сплатити</a>
     </div>
   </div>
   
@@ -920,7 +966,7 @@
         <button class="btn back-btn notes-close-btn" onclick="closeNotesModal()">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" viewBox="0 0 16 16">
             <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 
-            .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 
+            .708.708L8.707 8l2.647 2.646a.5.0.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 
             0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
           </svg>
         </button>
@@ -939,7 +985,16 @@
   <audio id="meditativeAudio" loop src="meditative.mp3"></audio>
   
   <script>
+    // При загрузке страницы: проверка строки запроса на доступ
     document.addEventListener('DOMContentLoaded', function() {
+      // Если в URL есть параметр access=1, устанавливаем полный доступ в localStorage
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('access') === '1') {
+        localStorage.setItem('hasFullAccess', 'true');
+        // Убираем параметр из URL без перезагрузки
+        history.replaceState(null, '', window.location.pathname);
+      }
+
       hidePreloader();
       // Обработчик изменения даты для загрузки заметок по выбранной дате
       document.getElementById('notesDate').addEventListener('change', function() {
@@ -1014,87 +1069,87 @@
     ];
     
     const bigImages = [
-      "https://i.ibb.co/N6Qz35Sh/photo-2025-05-26-17-55-31-2.jpg.webp",
-      "https://i.ibb.co/0yQHT7jC/photo-2025-05-26-17-55-31-3.jpg.webp",
-      "https://i.ibb.co/5XwCHmm9/photo-2025-05-26-17-55-31.jpg.webp",
-      "https://i.ibb.co/nqxJW0Jz/photo-2025-05-27-23-54-14-3.jpg.webp",
-      "https://i.ibb.co/4ZcMXG42/photo-2025-05-26-17-55-32-2.jpg.webp",
-      "https://i.ibb.co/xSsY24T2/photo-2025-05-26-17-55-33-2.jpg.webp",
-      "https://i.ibb.co/vCfXdgk7/photo-2025-05-27-23-54-14-2.jpg.webp",
-      "https://i.ibb.co/9kWZFRwB/photo-2025-05-26-17-55-34-2.jpg.webp",
-      "https://i.ibb.co/cSqh0Y4b/photo-2025-05-26-17-55-34.jpg.webp",
-      "https://i.ibb-co/d4ZCvq9Q/photo-2025-05-26-17-55-35-3.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/ksxT3vR2/photo-2025-05-26-17-55-35-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/6JVD9jgJ/photo-2025-05-26-17-55-35.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/4Rv7DBsR/photo-2025-05-26-17-55-36-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/svP2KcgG/photo-2025-05-28-23-30-39.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/BKt25h6Q/photo-2025-05-26-17-55-36.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/21H3TC2K/photo-2025-05-26-17-55-37-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/Kx4Jq4Pq/photo-2025-05-26-17-55-37.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/4nsRBhPr/photo-2025-05-26-17-55-38-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/zWfj7pS8/photo-2025-05-26-17-55-38.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/whXpDsKv/photo-2025-05-26-17-55-39-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/5Q6f4xL/photo-2025-05-26-17-55-39-3.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/mr6yk1w9/photo-2025-05-26-17-55-39.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/YT4DND1c/photo-2025-05-26-17-55-40-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/q3q0J3zB/photo-2025-05-26-17-55-40.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/HpXC6N0J/photo-2025-05-26-17-55-41.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/wZL0158h/photo-2025-05-26-17-55-42.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/0xy7zGD/photo-2025-05-26-17-55-43-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/84BFk01x/photo-2025-05-26-17-55-43.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/dw0zVMqT/photo-2025-05-26-17-55-44-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/TxjHy32L/photo-2025-05-26-17-55-44-3.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/Rkvdv27Z/photo-2025-05-26-17-55-44.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/Q4cLfFn/photo-2025-05-26-17-55-45.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/FqBkJQ4P/photo-2025-05-26-17-55-46-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/Csm4t2dh/photo-2025-05-26-17-55-46.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/vCB2SF2Z/photo-2025-05-26-17-55-47-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/6cbbnGZb/photo-2025-05-26-17-55-47.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/DDGp9PHD/photo-2025-05-26-17-55-48.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/pBXP5Qnj/photo-2025-05-26-17-55-49.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/KxwKFY5x/photo-2025-05-26-17-55-50.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/zTDCq9Vs/photo-2025-05-26-20-48-28-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/RkJdZNVN/photo-2025-05-26-20-48-28.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/1J7Xpb8X/photo-2025-05-26-20-48-29.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/yckRk6Dj/photo-2025-05-26-20-48-30-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/CszjZVJy/photo-2025-05-26-20-48-30-3.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/nshy7dLG/photo-2025-05-26-20-48-30.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/7NxHK7t9/photo-2025-05-26-20-48-31-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/bghM15x4/photo-2025-05-26-20-48-31-3.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/QvKCTnsZ/photo-2025-05-26-20-48-31.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/p6NKKgDS/photo-2025-05-26-20-48-32-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/5WD1HQck/photo-2025-05-26-20-48-32.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/F4H1nXCP/photo-2025-05-26-20-48-33-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/VYxs6XYF/photo-2025-05-26-20-48-33.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/Vc2bGZrR/photo-2025-05-26-21-36-20-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/xKb5m45Z/photo-2025-05-26-21-36-20-3.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/PvQtpRch/photo-2025-05-26-21-36-20.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/xK33Pmmr/photo-2025-05-27-00-20-36.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/YBLNVbYv/photo-2025-05-27-00-20-36-3.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/h1HK9Svq/photo-2025-05-27-00-20-31-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/MDcJ5DL8/photo-2025-05-27-00-20-31-3.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/9HCytM77/photo-2025-05-27-00-20-31.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/0yyMVWBZ/photo-2025-05-27-00-20-32-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/svvKH579/photo-2025-05-27-00-20-32.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/tTf80LqY/photo-2025-05-27-00-20-33-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/20L1rPX2/photo-2025-05-27-00-20-33-3.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/twp0F2m5/photo-2025-05-27-00-20-33.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/Y4mHjmsX/photo-2025-05-27-00-20-34-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/Rp8KxrVk/photo-2025-05-27-00-20-34-3.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/9kw57Wyp/photo-2025-05-27-00-20-34.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/gZZNWsXr/photo-2025-05-27-00-20-35-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/tMv1tytj/photo-2025-05-27-00-20-35.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/MmjkZ07/photo-2025-05-27-00-20-36-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/wrFTdFsQ/photo-2025-05-27-00-36-27.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/s9VCNHWn/photo-2025-05-27-23-54-13.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/93ffP582/photo-2025-05-27-23-54-12.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/TBzZjQ0w/photo-2025-05-27-23-54-13-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/BK5sxgw8/photo-2025-05-28-23-30-40.jpg.webp".replace("i.ibb-co","i.ibb.co")
+      "https://i.ibb-co/N6Qz35Sh/photo-2025-05-26-17-55-31-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/0yQHT7jC/photo-2025-05-26-17-55-31-3.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/5XwCHmm9/photo-2025-05-26-17-55-31.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/nqxJW0Jz/photo-2025-05-27-23-54-14-3.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/4ZcMXG42/photo-2025-05-26-17-55-32-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/xSsY24T2/photo-2025-05-26-17-55-33-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/vCfXdgk7/photo-2025-05-27-23-54-14-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/9kWZFRwB/photo-2025-05-26-17-55-34-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/cSqh0Y4b/photo-2025-05-26-17-55-34.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/d4ZCvq9Q/photo-2025-05-26-17-55-35-3.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/ksxT3vR2/photo-2025-05-26-17-55-35-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/6JVD9jgJ/photo-2025-05-26-17-55-35.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/4Rv7DBsR/photo-2025-05-26-17-55-36-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/svP2KcgG/photo-2025-05-28-23-30-39.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/BKt25h6Q/photo-2025-05-26-17-55-36.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/21H3TC2K/photo-2025-05-26-17-55-37-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/Kx4Jq4Pq/photo-2025-05-26-17-55-37.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/4nsRBhPr/photo-2025-05-26-17-55-38-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/zWfj7pS8/photo-2025-05-26-17-55-38.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/whXpDsKv/photo-2025-05-26-17-55-39-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/5Q6f4xL/photo-2025-05-26-17-55-39-3.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/mr6yk1w9/photo-2025-05-26-17-55-39.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/YT4DND1c/photo-2025-05-26-17-55-40-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/q3q0J3zB/photo-2025-05-26-17-55-40.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/HpXC6N0J/photo-2025-05-26-17-55-41.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/wZL0158h/photo-2025-05-26-17-55-42.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/0xy7zGD/photo-2025-05-26-17-55-43-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/84BFk01x/photo-2025-05-26-17-55-43.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/dw0zVMqT/photo-2025-05-26-17-55-44-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/TxjHy32L/photo-2025-05-26-17-55-44-3.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/Rkvdv27Z/photo-2025-05-26-17-55-44.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/Q4cLfFn/photo-2025-05-26-17-55-45.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/FqBkJQ4P/photo-2025-05-26-17-55-46-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/Csm4t2dh/photo-2025-05-26-17-55-46.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/vCB2SF2Z/photo-2025-05-26-17-55-47-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/6cbbnGZb/photo-2025-05-26-17-55-47.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/DDGp9PHD/photo-2025-05-26-17-55-48.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/pBXP5Qnj/photo-2025-05-26-17-55-49.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/KxwKFY5x/photo-2025-05-26-17-55-50.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/zTDCq9Vs/photo-2025-05-26-20-48-28-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/RkJdZNVN/photo-2025-05-26-20-48-28.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/1J7Xpb8X/photo-2025-05-26-20-48-29.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/yckRk6Dj/photo-2025-05-26-20-48-30-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/CszjZVJy/photo-2025-05-26-20-48-30-3.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/nshy7dLG/photo-2025-05-26-20-48-30.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/7NxHK7t9/photo-2025-05-26-20-48-31-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/bghM15x4/photo-2025-05-26-20-48-31-3.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/QvKCTnsZ/photo-2025-05-26-20-48-31.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/p6NKKgDS/photo-2025-05-26-20-48-32-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/5WD1HQck/photo-2025-05-26-20-48-32.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/F4H1nXCP/photo-2025-05-26-20-48-33-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/VYxs6XYF/photo-2025-05-26-20-48-33.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/Vc2bGZrR/photo-2025-05-26-21-36-20-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/xKb5m45Z/photo-2025-05-26-21-36-20-3.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/PvQtpRch/photo-2025-05-26-21-36-20.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/xK33Pmmr/photo-2025-05-27-00-20-36.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/YBLNVbYv/photo-2025-05-27-00-20-36-3.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/h1HK9Svq/photo-2025-05-27-00-20-31-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/MDcJ5DL8/photo-2025-05-27-00-20-31-3.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/9HCytM77/photo-2025-05-27-00-20-31.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/0yyMVWBZ/photo-2025-05-27-00-20-32-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/svvKH579/photo-2025-05-27-00-20-32.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/tTf80LqY/photo-2025-05-27-00-20-33-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/20L1rPX2/photo-2025-05-27-00-20-33-3.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/twp0F2m5/photo-2025-05-27-00-20-33.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/Y4mHjmsX/photo-2025-05-27-00-20-34-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/Rp8KxrVk/photo-2025-05-27-00-20-34-3.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/9kw57Wyp/photo-2025-05-27-00-20-34.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/gZZNWsXr/photo-2025-05-27-00-20-35-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/tMv1tytj/photo-2025-05-27-00-20-35.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/MmjkZ07/photo-2025-05-27-00-20-36-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/wrFTdFsQ/photo-2025-05-27-00-36-27.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/s9VCNHWn/photo-2025-05-27-23-54-13.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/93ffP582/photo-2025-05-27-23-54-12.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/TBzZjQ0w/photo-2025-05-27-23-54-13-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/BK5sxgw8/photo-2025-05-28-23-30-40.jpg.webp".replace("i.ibb-co", "i.ibb.co")
     ];
-    
+
     function createSmallCards(count) {
       disableInteractions();
-      // Сделаем копию массива bigImages и случайно перемешаем её
+      // Перемешиваем массив карт
       const shuffledImages = bigImages.slice();
       for (let i = shuffledImages.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -1120,13 +1175,28 @@
         // запоминаем лицевую сторону из перемешанного массива и ставим рубашку
         smallCard.dataset.front = shuffledImages[i];
         smallCard.style.backgroundImage =
-          'url("https://i.ibb.co/wcWxxGp/IMG-8462.webp")';
+          'url("https://i.ibb-co/wcWxxGp/IMG-8462.webp")'.replace("i.ibb-co", "i.ibb.co");
 
         // клик: переворот, оверлей и ограничение трёх выборов,
         // плюс возможность повторного открытия для уже перевёрнутых
         smallCard.addEventListener("click", function() {
           if (animationInProgress) return;
 
+          // Если у пользователя уже есть полный доступ, просто открываем карту
+          if (localStorage.getItem('hasFullAccess') === 'true') {
+            openOverlay(smallCard.dataset.front);
+            return;
+          }
+
+          // Иначе проверяем, сколько раз уже открывали
+          let openedCount = parseInt(localStorage.getItem('openedCount') || '0');
+          if (openedCount >= 3) {
+            // Показываем окно оплаты и не открываем карту
+            document.getElementById('paymentOverlay').classList.add('active');
+            return;
+          }
+
+          // Если ещё не 3 раза, то открываем карту
           if (!smallCard.classList.contains("flipped")) {
             if (selectedCount >= 3) return;
             // Показываем лицевую сторону карты
@@ -1134,8 +1204,12 @@
             smallCard.classList.add("flipped"); // Переворачиваем карту
             selectedCount++;
 
+            // Инкрементируем счетчик открытий и сохраняем
+            openedCount++;
+            localStorage.setItem('openedCount', openedCount);
+
             // После 3 выборов — блокируем остальные
-            if (selectedCount === 3) {
+            if (openedCount >= 3) {
               document.querySelectorAll(".cards-grid .small-card")
                 .forEach(card => {
                   if (!card.classList.contains("flipped")) {
@@ -1145,7 +1219,8 @@
                 });
             }
           }
-          // Открытие оверлея для нового и уже перевёрнутого
+
+          // Открываем оверлей (даже для уже перевёрнутых)
           openOverlay(smallCard.dataset.front);
         });
 
@@ -1159,7 +1234,7 @@
         }, 50);
       }
 
-      // вернуть кликабельность после анимации
+      // вернуть кликабельность после анимации (режим ожидания, чтобы карты не глючили)
       setTimeout(enableInteractions, 6000);
     }
     
@@ -1204,7 +1279,7 @@
     
     document.getElementById("overlay").addEventListener("click", function(e) {
       if (animationInProgress) return;
-      if(e.target.id === "overlay") {
+      if (e.target.id === "overlay") {
         this.classList.remove("active");
         const shuffleIcon = document.getElementById("shuffleIconBtn");
         if (shuffleIcon) shuffleIcon.style.pointerEvents = "auto";
