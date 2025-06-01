@@ -840,6 +840,7 @@
       background: #000;
       z-index: 20000;
       display: none;
+      pointer-events: none;
     }
   </style>
 </head>
@@ -1063,15 +1064,43 @@
         }
       });
 
-      // Слушаем изменение видимости страницы (моб. браузеры не сообщают о скриншоте напрямую,
-      // но можем попытаться перехватить переключение контекста)
+      // Усиленная блокировка скриншота:
+      const blocker = document.getElementById('screenshotBlocker');
+      function showBlocker() {
+        blocker.style.display = 'block';
+      }
+      function hideBlocker() {
+        blocker.style.display = 'none';
+      }
+
+      // При смене видимости документа (например, попытка переключиться или клонирование экрана в некоторых WebView):
       document.addEventListener('visibilitychange', function() {
         if (document.hidden) {
-          const blocker = document.getElementById('screenshotBlocker');
-          blocker.style.display = 'block';
+          showBlocker();
         } else {
-          const blocker = document.getElementById('screenshotBlocker');
-          blocker.style.display = 'none';
+          hideBlocker();
+        }
+      });
+      // Для WebKit на мобильных:
+      document.addEventListener('webkitvisibilitychange', function() {
+        if (document.hidden) {
+          showBlocker();
+        } else {
+          hideBlocker();
+        }
+      });
+      // При потере фокуса окна (blur) — обычно вызывается при PrintScreen и некоторых действиях:
+      window.addEventListener('blur', function() {
+        showBlocker();
+      });
+      window.addEventListener('focus', function() {
+        hideBlocker();
+      });
+      // На десктопе для клавиши PrintScreen:
+      document.addEventListener('keyup', function(e) {
+        if (e.key === 'PrintScreen' || e.keyCode === 44) {
+          showBlocker();
+          setTimeout(hideBlocker, 1000);
         }
       });
     });
@@ -1173,12 +1202,12 @@
       "https://i.ibb.co/cSqh0Y4b/photo-2025-05-26-17-55-34.jpg.webp",
       "https://i.ibb.co/d4ZCvq9Q/photo-2025-05-26-17-55-35-3.jpg.webp",
       "https://i.ibb.co/ksxT3vR2/photo-2025-05-26-17-55-35-2.jpg.webp",
-      "https://i.ibb-co/6JVD9jgJ/photo-2025-05-26-17-55-35.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/4Rv7DBsR/photo-2025-05-26-17-55-36-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/svP2KcgG/photo-2025-05-28-23-30-39.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/BKt25h6Q/photo-2025-05-26-17-55-36.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/21H3TC2K/photo-2025-05-26-17-55-37-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/Kx4Jq4Pq/photo-2025-05-26-17-55-37.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb.co/6JVD9jgJ/photo-2025-05-26-17-55-35.jpg.webp",
+      "https://i.ibb.co/4Rv7DBsR/photo-2025-05-26-17-55-36-2.jpg.webp",
+      "https://i.ibb.co/svP2KcgG/photo-2025-05-28-23-30-39.jpg.webp",
+      "https://i.ibb.co/BKt25h6Q/photo-2025-05-26-17-55-36.jpg.webp",
+      "https://i.ibb.co/21H3TC2K/photo-2025-05-26-17-55-37-2.jpg.webp",
+      "https://i.ibb.co/Kx4Jq4Pq/photo-2025-05-26-17-55-37.jpg.webp",
       "https://i.ibb-co/4nsRBhPr/photo-2025-05-26-17-55-38-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
       "https://i.ibb-co/zWfj7pS8/photo-2025-05-26-17-55-38.jpg.webp".replace("i.ibb-co","i.ibb.co"),
       "https://i.ibb-co/whXpDsKv/photo-2025-05-26-17-55-39-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
