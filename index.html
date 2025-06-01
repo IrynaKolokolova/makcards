@@ -6,13 +6,15 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
   <title>Дзеркало душі — Односторінковий додаток</title>
   
-  <!-- Шрифты -->
+  <!-- Подключение шрифта Great Vibes (только для заголовка и кнопок) -->
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+  
+  <!-- Подключение красивого курсивного шрифта (Allura) -->
   <link href="https://fonts.googleapis.com/css2?family=Allura&display=swap" rel="stylesheet">
 
   <style>
-    /* Общие стили */
+    /* -------------------- Общие стили -------------------- */
     * {
       margin: 0;
       padding: 0;
@@ -31,7 +33,6 @@
       font-size: 1.3rem;
       line-height: 1.3;
     }
-    
     .btn, .content, .deck-icons, .icon-btn {
       transition: opacity 0.5s ease, transform 0.5s ease;
     }
@@ -44,12 +45,10 @@
       opacity: 1;
       transform: translateY(0);
     }
-    
     body, h1, h2, h3, h4, h5, h6, p, li, a, button, .btn, .highlight {
       text-shadow: 2px 2px 4px rgba(0,0,0,1);
     }
-    
-    /* Preloader */
+    /* -------------------- Preloader -------------------- */
     #preloader {
       position: fixed;
       top: 0;
@@ -74,8 +73,7 @@
     @keyframes spin {
       to { transform: rotate(360deg); }
     }
-    
-    /* Анимированное название */
+    /* -------------------- Анимированное название -------------------- */
     .glowing-title {
       font-family: 'Great Vibes', cursive;
       font-size: 3rem;
@@ -94,18 +92,17 @@
         text-shadow: 0 0 3px rgba(255,255,255,0.4), 0 0 5px rgba(255,255,255,0.4);
       }
     }
-    
     .highlight {
       color: #fff;
       text-shadow: 0 0 6px rgba(255,255,255,0.8);
     }
-    
-    /* Главное меню */
+    /* -------------------- Главное меню -------------------- */
     .menu {
       display: flex;
       flex-direction: column;
       gap: 20px;
-      justify-content: flex-start; 
+      justify-content: center;
+      justify-content: flex-start;   /* прижмёт всё вверх */
       align-items: center;
       height: 100vh;
       text-align: center;
@@ -113,9 +110,9 @@
       z-index: 2;
       max-width: 90%;
       margin: 0 auto;
+      padding: 10px;
       padding: 60px 10px 10px;
     }
-    
     .greeting p {
       font-family: Georgia, serif;
       font-style: italic;
@@ -126,9 +123,11 @@
       margin-bottom: 10px;
       margin-top: 20px;
     }
-    
     .btn {
       font-family: 'Great Vibes', cursive;
+      font-style: normal;
+      min-width: 250px;
+      padding: 15px 30px;
       font-size: 1.8rem;
       background: rgba(64,224,208,0.2);
       border: 1px solid rgba(64,224,208,0.5);
@@ -137,7 +136,6 @@
       color: #fff;
       text-align: center;
       box-shadow: 0 0 4px rgba(64,224,208,0.5);
-      padding: 15px 30px;
       position: relative;
       overflow: hidden;
     }
@@ -165,10 +163,11 @@
       50% { opacity: 0.5; }
       100% { opacity: 0; }
     }
-    
+    /* -------------------- Кнопки «Назад» и «Продолжить» и «Shuffle» -------------------- */
     .btn.back-btn, .btn.continue-btn, .btn.sound-btn {
       padding: 4px 10px;
       min-width: auto;
+      min-height: auto;
       width: auto;
       height: auto;
       display: inline-flex;
@@ -198,7 +197,6 @@
       width: 17px;
       height: 17px;
     }
-
     .nav-buttons {
       display: flex;
       justify-content: space-between;
@@ -206,19 +204,23 @@
       width: 100%;
       padding: 10px;
     }
-    
     .center-text {
       font-family: Georgia, serif;
       font-size: 1rem;
       font-style: italic;
       color: #fff;
       text-shadow: 2px 2px 4px rgba(0,0,0,1);
+      display: inline-flex;
+      align-items: center;
+      white-space: nowrap;
+    }
+    #sectionMakKarti .center-text {
       display: block !important;
       width: 100%;
       text-align: center;
       margin: 10px 0;
     }
-
+    /* -------------------- Иконки под карточками -------------------- */
     .deck-icons {
       display: flex;
       justify-content: center;
@@ -250,7 +252,7 @@
       height: 30px;
       filter: brightness(0) invert(1);
     }
-    
+    /* -------------------- Социальные иконки -------------------- */
     .social-left {
       position: fixed;
       top: 10px;
@@ -275,7 +277,7 @@
       height: 20px; 
       filter: brightness(0) invert(1);
     }
-    
+    /* -------------------- Секции -------------------- */
     .section {
       display: none;
       padding: 10px;
@@ -299,7 +301,6 @@
       opacity: 1;
       transform: translateY(0);
     }
-    
     .content {
       max-width: 90%;
       margin: 30px auto 0 auto;
@@ -314,7 +315,6 @@
       max-width: 100%;
       padding: 20px;
     }
-    
     .how-it-works-text p,
     .how-it-works-text ul,
     .how-it-works-text ol {
@@ -328,7 +328,6 @@
       font-style: italic;
       text-shadow: none;
     }
-    
     #sectionDeckInfo {
       overflow: hidden;
     }
@@ -351,7 +350,7 @@
       text-shadow: none;
       text-align: justify;
     }
-    
+    /* -------------------- Секция "Мак-карти" -------------------- */
     #sectionMakKarti {
       overflow: hidden;
     }
@@ -409,12 +408,30 @@
       transform: scale(0.95);
       box-shadow: 0 0 12px rgba(64,224,208,0.6);
     }
+    .small-card-front {
+      background-size: cover;
+      background-position: center;
+      width: 100%;
+      height: 100%;
+    }
+    .small-card {
+      width: 80px;
+      height: 112px;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      transition: transform 0.2s ease;
+      cursor: pointer;
+      border-radius: 8px;
+      overflow: hidden;
+      position: relative;
+    }
     .small-card.flipped {
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
     }
-    
+    /* -------------------- Секция "72 карт" -------------------- */
     #section72Cards {
       overflow-y: auto;
     }
@@ -439,7 +456,7 @@
       perspective: 1000px;
       position: relative;
     }
-    
+    /* -------------------- Глобальный оверлей для великої карти -------------------- */
     .overlay {
       position: fixed;
       top: 0;
@@ -565,6 +582,9 @@
     }
     .consult-button {
       font-family: 'Great Vibes', cursive;
+      font-style: normal;
+      min-width: 180px;
+      padding: 10px 20px;
       font-size: 1.4rem;
       background: rgba(64,224,208,0.2);
       border: 1px solid rgba(64,224,208,0.5);
@@ -573,7 +593,8 @@
       color: #fff;
       text-align: center;
       box-shadow: 0 0 4px rgba(64,224,208,0.5);
-      padding: 10px 20px;
+      position: relative;
+      overflow: hidden;
       margin-top: 20px;
       text-decoration: none;
     }
@@ -581,7 +602,7 @@
       background: rgba(64,224,208,0.4);
       box-shadow: 0 0 6px rgba(64,224,208,0.6);
     }
-    
+    /* -------------------- Огни (fireflies) -------------------- */
     .fireflies {
       position: fixed;
       top: 0;
@@ -606,8 +627,7 @@
       75% { opacity: 1; transform: scale(1); filter: drop-shadow(0 0 16px #fff); }
       100% { opacity: 0; transform: scale(0.8); }
     }
-    
-    /* Футер */
+    /* -------------------- Футер -------------------- */
     #mainFooter {
       position: absolute;
       bottom: 10px;
@@ -624,8 +644,7 @@
       margin-top: 3px;
       white-space: nowrap;
     }
-    
-    /* Модальное окно Нотатки */
+    /* -------------------- Модальное окно Нотатки -------------------- */
     .overlay-notes-container {
       position: relative;
       width: 400px;
@@ -692,9 +711,8 @@
     .social-right {
       display: none !important;
     }
-
-    /* —— Окно оплаты —— */
-    #paymentOverlay {
+    /* -------------------- Модалка «Оплатіть повний доступ» -------------------- */
+    #paymentModal {
       position: fixed;
       top: 0;
       left: 0;
@@ -708,55 +726,63 @@
       opacity: 0;
       transition: opacity 0.4s ease;
     }
-    #paymentOverlay.active {
+    #paymentModal.active {
       display: flex;
       opacity: 1;
     }
-    .payment-container {
+    #paymentContent {
       background: #1e1e2f;
-      padding: 30px;
       border-radius: 12px;
-      box-shadow: 0 0 10px rgba(64,224,208,0.6), 0 0 20px rgba(64,224,208,0.4);
-      max-width: 320px;
+      padding: 20px;
+      max-width: 90%;
+      width: 360px;
+      box-shadow: 0 0 15px rgba(64,224,208,0.7);
       text-align: center;
-      position: relative;
-      z-index: 10002;
-    }
-    .payment-container p {
       font-family: Georgia, serif;
-      font-size: 1.2rem;
-      margin-bottom: 20px;
+      color: #fff;
+    }
+    #paymentContent h2 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2rem;
+      margin-bottom: 15px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,1);
+    }
+    #paymentContent p {
+      font-size: 1rem;
       line-height: 1.4;
+      margin-bottom: 20px;
       text-align: justify;
     }
-    .payment-container .btn.pay-btn {
+    #paymentContent .btn.pay-btn {
+      font-family: 'Great Vibes', cursive;
       font-size: 1.6rem;
-      padding: 12px 20px;
+      padding: 10px 20px;
       background: rgba(64,224,208,0.2);
       border: 1px solid rgba(64,224,208,0.5);
       border-radius: 6px;
       color: #fff;
-      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
       box-shadow: 0 0 4px rgba(64,224,208,0.5);
+      transition: background 0.3s ease, box-shadow 0.3s ease;
     }
-    .payment-container .btn.pay-btn:hover {
+    #paymentContent .btn.pay-btn:hover {
       background: rgba(64,224,208,0.4);
       box-shadow: 0 0 6px rgba(64,224,208,0.6);
     }
-    .payment-container .btn.pay-btn:active {
-      transform: scale(0.95);
-    }
-    /* Закрытие платёжного окошка при клике вне */
-    .payment-container-close-area {
+    #paymentClose {
       position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      z-index: 1;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+      width: 24px;
+      height: 24px;
+      filter: brightness(0) invert(1);
     }
   </style>
 </head>
 <body>
-  <!-- Социальные иконки (появятся после скрытия preloader) -->
+  <!-- ========== Социальные иконки ========== -->
   <div class="social-left">
     <a href="#" target="_blank"><img src="https://i.ibb.co/3mvz2MS8/5-1.png" alt="Tiktok"></a>
     <a href="#" target="_blank"><img src="https://i.ibb.co/67Mpr94h/4-1.png" alt="Telegram"></a>
@@ -766,12 +792,12 @@
     <a href="#" target="_blank"><img src="https://i.ibb.co/GfqnLvSv/6-1.png" alt="Site Icon"></a>
   </div>
   
-  <!-- Preloader -->
+  <!-- ========== Preloader ========== -->
   <div id="preloader">
     <div class="spinner"></div>
   </div>
   
-  <!-- Главное меню -->
+  <!-- ========== Главное меню ========== -->
   <div id="mainMenu" class="menu fade-in">
     <div class="greeting">
       <h1 class="glowing-title">Дзеркало душі</h1>
@@ -787,7 +813,7 @@
     </footer>
   </div>
   
-  <!-- Секция "Як це працює?" -->
+  <!-- ========== Секция "Як це працює?" с расширенным описанием ========== -->
   <div id="sectionDiary" class="section">
     <button class="btn back-btn" onclick="backToMenu()">
       <img src="https://i.ibb.co/s9NyJrT7/56-1.png" alt="Back">
@@ -806,42 +832,58 @@
         <p><span class="highlight">Як це працює:</span></p>
         <ol>
           <li><strong class="highlight">Інтуїтивний вибір:</strong><br>
-            Довірте своїм внутрішнім відчуттям і оберіть карту, яка миттєво привертає вашу увагу.</li>
+            Довірте своїм внутрішнім відчуттям і оберіть карту, яка миттєво привертає вашу увагу. Ваш вибір може бути обумовлений як кольорами, так і символами, що відгукуються у вашій душі.
+          </li>
           <li><strong class="highlight">Детальний аналіз:</strong><br>
-            Ретельно розгляньте кожну деталь зображення, символи, кольори та композицію.</li>
+            Ретельно розгляньте кожну деталь зображення:
+            <ul>
+              <li><em>Символи:</em> Відображають глибинні аспекти вашої особистості та життєвих ситуацій;</li>
+              <li><em>Кольори:</em> Передають емоційне забарвлення і можуть впливати на ваше поточне самопочуття;</li>
+              <li><em>Композиція:</em> Підказує про взаємозв’язки між різними аспектами вашого життя.</li>
+            </ul>
+          </li>
           <li><strong class="highlight">Саморефлексія:</strong><br>
-            Задайте собі питання: Що символізує ця карта? Які емоції вона викликає? Як її образи співвідносяться з моїми переживаннями?</li>
+            Поставте собі запитання:
+            <ul>
+              <li>Що символізує ця карта для мене?</li>
+              <li>Які емоції вона викликає?</li>
+              <li>Як її образи співвідносяться з моїми особистими переживаннями?</li>
+            </ul>
+          </li>
           <li><strong class="highlight">Поглиблений аналіз:</strong><br>
-            Ведіть щоденник думок і емоцій – це допоможе виявити повторювані теми.</li>
+            Вивчіть власні реакції та асоціації. Ведіть щоденник, у якому фіксуються ваші думки та емоції після роботи з картами – це допоможе виявити повторювані теми та сигнали вашої підсвідомості.
+          </li>
           <li><strong class="highlight">Консультація:</strong><br>
-            За потреби зверніться до психолога або коуча для глибшого розуміння карт.</li>
+            За потреби зверніться до психолога або коуча, який спеціалізується на роботі з асоціативними картами. Професійна підтримка допоможе глибше зрозуміти зміст образів і використати їх для особистісного зростання.
+          </li>
         </ol>
+        <p>Таким чином, метафоричні асоціативні карти стають містком між свідомістю та підсвідомістю, відкриваючи нові шляхи для самопізнання та внутрішнього розвитку. Вони сприяють не лише розумінню себе, але й стимулюють творчий процес, допомагаючи знайти відповіді на важливі життєві питання.</p>
       </div>
     </div>
   </div>
   
-  <!-- Секция "Розгорнути колоду" -->
+  <!-- ========== Секция "Розгорнути колоду" ========== -->
   <div id="sectionDeckInfo" class="section">
     <div class="nav-buttons">
       <button class="btn back-btn" onclick="backToMenu()">
         <img src="https://i.ibb.co/s9NyJrT7/56-1.png" alt="Back">
       </button>
       <button class="btn continue-btn" onclick="continueToDeck()">
-        <img src="https://i.ibb-co/s9NyJrT7/56-1.png" alt="Continue">
+        <img src="https://i.ibb.co/s9NyJrT7/56-1.png" alt="Continue">
       </button>
     </div>
     <div class="content">
       <ol>
-        <li><strong class="highlight">Сформулюй питання:</strong><br>Зосередься на темі, яка хвилює.</li>
-        <li><strong class="highlight">Обери карту:</strong><br>Вибери ту карту, що найбільше привертає увагу.</li>
-        <li><strong class="highlight">Розглянь зображення:</strong><br>Уважно вдивляйся у деталі, кольори й символи.</li>
-        <li><strong class="highlight">Прислухайся:</strong><br>Зверни увагу на почуття й думки під час роботи з картою.</li>
-        <li><strong class="highlight">Зроби висновки:</strong><br>Обміркуй, як карта допомагає побачити ситуацію з іншого боку.</li>
+        <li><strong class="highlight">Сформулюй питання:</strong><br>Зосередься на темі, яка хвилює. Подумай, що саме ти хочеш зрозуміти чи змінити.</li>
+        <li><strong class="highlight">Обери карту:</strong><br>Вибери з колоди ту, що привертає увагу чи викликає особливий відгук у душі.</li>
+        <li><strong class="highlight">Розглянь зображення:</strong><br>Уважно вдивляйся у деталі, кольори та символи, які можуть приховувати важливі підказки.</li>
+        <li><strong class="highlight">Прислухайся:</strong><br>Зверни увагу на почуття та думки, що виникають у процесі споглядання, аналізуй власні реакції.</li>
+        <li><strong class="highlight">Зроби висновки:</strong><br>Подумай, як ця карта може допомогти тобі побачити ситуацію під іншим кутом і знайти відповідь.</li>
       </ol>
     </div>
   </div>
   
-  <!-- Секция "Мак-карти" -->
+  <!-- ========== Секция "Мак-карти" ========== -->
   <div id="sectionMakKarti" class="section">
     <div class="nav-buttons">
       <!-- Кнопка "Назад" -->
@@ -865,7 +907,7 @@
     </div>
   </div>
   
-  <!-- Секция "72 карт" -->
+  <!-- ========== Секция "72 карт" ========== -->
   <div id="section72Cards" class="section">
     <div class="nav-buttons">
       <button class="btn back-btn" onclick="backToMakKartiFrom72()">
@@ -877,70 +919,68 @@
     </div>
   </div>
   
-  <!-- Оверлей большой карты -->
+  <!-- ========== Глобальный оверлей для карточки ========== -->
   <div class="overlay" id="overlay">
     <div class="overlay-card-container">
       <div class="big-card" id="bigCard">
         <div class="big-card-face big-card-front" id="bigCardFront">
-          <div class="logo">by Iryna Kolok​olova</div>
-          <img src="https://i.ibb-co/s9NyJrT7/56-1.png" alt="Flip" class="icon-flip" onclick="flipCard(event)">
+          <div class="logo">by Iryna Kolokolova</div>
+          <img src="https://i.ibb.co/s9NyJrT7/56-1.png" alt="Flip" class="icon-flip" onclick="flipCard(event)">
         </div>
         <div class="big-card-face big-card-back" id="bigCardBack">
           <p class="daily-wish"></p>
-          <a class="consult-button" href="https://t.me/makcards_bot" target="_blank" onclick="event.stopPropagation();">Отримати консультацію</a>
+          <a class="consult-button" href="https://t.me/" target="_blank" onclick="event.stopPropagation();">Отримати консультацію</a>
         </div>
       </div>
     </div>
   </div>
   
-  <!-- Оверлей оплаты -->
-  <div id="paymentOverlay">
-    <div class="payment-container-close-area" onclick="closePaymentOverlay()"></div>
-    <div class="payment-container">
-      <p>Для використання повної колоди «Дзеркало душі» вам потрібно сплатити повний доступ 1200 грн.</p>
-      <button class="btn pay-btn" onclick="onPayClick()">Сплатити</button>
-    </div>
-  </div>
-  
-  <!-- Оверлей заметок -->
+  <!-- ========== Глобальный оверлей для нотаток ========== -->
   <div class="overlay" id="notesOverlay">
     <div class="overlay-notes-container">
       <div class="notes-card" id="notesCard">
         <button class="btn back-btn notes-close-btn" onclick="closeNotesModal()">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" viewBox="0 0 16 16">
-            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 
+            .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 
+            0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
           </svg>
         </button>
         <h2>Нотатки:</h2>
+        <!-- Поле выбора даты с placeholder и украинским языком -->
         <input type="date" class="date-picker" id="notesDate" lang="uk" placeholder="Дата">
         <textarea id="notesTextArea" placeholder="Запишіть тут свої нотатки..."></textarea>
       </div>
     </div>
   </div>
   
-  <!-- Fireflies -->
+  <!-- ========== Огни (fireflies) ========== -->
   <div class="fireflies"></div>
   
-  <!-- Медитативная музыка (placeholder) -->
+  <!-- ========== Аудіо для медитативной музики (placeholder) ========== -->
   <audio id="meditativeAudio" loop src="meditative.mp3"></audio>
   
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      hidePreloader();
-      // Если в URL есть ?paid=1, сохраняем оплату
-      const params = new URLSearchParams(window.location.search);
-      if (params.get('paid') === '1') {
-        localStorage.setItem('makcards_paid', 'true');
-      }
-      document.getElementById('notesDate').addEventListener('change', function() {
-        const selectedDate = this.value;
-        const saved = localStorage.getItem('userNotes_' + selectedDate);
-        document.getElementById('notesTextArea').value = saved || "";
-      });
-    });
+  <!-- ========== Модалка «Оплатіть повний доступ» ========== -->
+  <div id="paymentModal">
+    <div id="paymentContent">
+      <img id="paymentClose" src="https://i.ibb.co/s9NyJrT7/56-1.png" alt="Close" onclick="closePaymentModal()">
+      <h2>Отримайте повний доступ<br>до колоди</h2>
+      <p>
+        Ви вже відчинили карти 3 рази. Для доступу до всіх 76 карт колоди необхідно оплатити повний доступ – <strong>1200 грн</strong>. 
+        Після цього ви зможете відкривати та користуватися усіма картами без обмежень.
+      </p>
+      <!-- Ссылка на телеграм-бота: замените makcards_unlock_bot на username вашего бота -->
+      <a class="btn pay-btn" href="https://t.me/makcards_unlock_bot" target="_blank">Сплатити</a>
+    </div>
+  </div>
 
+  <script>
+    // -------------------- Переменные состояния --------------------
+    let selectedCount = 0;      // сколько раз юзер перевернул карту
+    const MAX_OPENS = 3;        // после 3-х открытий блокируем доступ
     let animationInProgress = false;
 
+    // Список пожеланий и карт (тот же, что и раньше)...
     const dailyWishes = [
       "Нехай цей день принесе тобі світло, тепло та нові можливості для здійснення мрій.",
       "Бажаю, щоб кожна мить сьогодні була наповнена радістю, любов’ю та гармонією в душі.",
@@ -974,160 +1014,190 @@
       "Бажаю, щоб цей день відкрив перед тобою нові горизонти, даруючи тепло і радість.",
       "Нехай у твоєму серці панує радість, а в душі — мир і впевненість у завтрашньому дні."
     ];
-
-    // URL-список всех лицевых карт (только 76 первого уровня)
     const bigImages = [
-      "https://i.ibb-co/N6Qz35Sh/photo-2025-05-26-17-55-31-2.jpg.webp",
-      "https://i.ibb-co/0yQHT7jC/photo-2025-05-26-17-55-31-3.jpg.webp",
-      "https://i.ibb-co/5XwCHmm9/photo-2025-05-26-17-55-31.jpg.webp",
-      "https://i.ibb-co/nqxJW0Jz/photo-2025-05-27-23-54-14-3.jpg.webp",
-      "https://i.ibb-co/4ZcMXG42/photo-2025-05-26-17-55-32-2.jpg.webp",
-      "https://i.ibb-co/xSsY24T2/photo-2025-05-26-17-55-33-2.jpg.webp",
-      "https://i.ibb-co/vCfXdgk7/photo-2025-05-27-23-54-14-2.jpg.webp",
-      "https://i.ibb-co/9kWZFRwB/photo-2025-05-26-17-55-34-2.jpg.webp",
-      "https://i.ibb-co/cSqh0Y4b/photo-2025-05-26-17-55-34.jpg.webp",
-      "https://i.ibb-co/d4ZCvq9Q/photo-2025-05-26-17-55-35-3.jpg.webp",
-      "https://i.ibb-co/ksxT3vR2/photo-2025-05-26-17-55-35-2.jpg.webp",
-      "https://i.ibb-co/6JVD9jgJ/photo-2025-05-26-17-55-35.jpg.webp",
-      "https://i.ibb-co/4Rv7DBsR/photo-2025-05-26-17-55-36-2.jpg.webp",
-      "https://i.ibb-co/svP2KcgG/photo-2025-05-28-23-30-39.jpg.webp",
-      "https://i.ibb-co/BKt25h6Q/photo-2025-05-26-17-55-36.jpg.webp",
-      "https://i.ibb-co/21H3TC2K/photo-2025-05-26-17-55-37-2.jpg.webp",
-      "https://i.ibb-co/Kx4Jq4Pq/photo-2025-05-26-17-55-37.jpg.webp",
-      "https://i.ibb-co/4nsRBhPr/photo-2025-05-26-17-55-38-2.jpg.webp",
-      "https://i.ibb-co/zWfj7pS8/photo-2025-05-26-17-55-38.jpg.webp",
-      "https://i.ibb-co/whXpDsKv/photo-2025-05-26-17-55-39-2.jpg.webp",
-      "https://i.ibb-co/5Q6f4xL/photo-2025-05-26-17-55-39-3.jpg.webp",
-      "https://i.ibb-co/mr6yk1w9/photo-2025-05-26-17-55-39.jpg.webp",
-      "https://i.ibb-co/YT4DND1c/photo-2025-05-26-17-55-40-2.jpg.webp",
-      "https://i.ibb-co/q3q0J3zB/photo-2025-05-26-17-55-40.jpg.webp",
-      "https://i.ibb-co/HpXC6N0J/photo-2025-05-26-17-55-41.jpg.webp",
-      "https://i.ibb-co/wZL0158h/photo-2025-05-26-17-55-42.jpg.webp",
-      "https://i.ibb-co/0xy7zGD/photo-2025-05-26-17-55-43-2.jpg.webp",
-      "https://i.ibb-co/84BFk01x/photo-2025-05-26-17-55-43.jpg.webp",
-      "https://i.ibb-co/dw0zVMqT/photo-2025-05-26-17-55-44-2.jpg.webp",
-      "https://i.ibb-co/TxjHy32L/photo-2025-05-26-17-55-44-3.jpg.webp",
-      "https://i.ibb-co/Rkvdv27Z/photo-2025-05-26-17-55-44.jpg.webp",
-      "https://i.ibb-co/Q4cLfFn/photo-2025-05-26-17-55-45.jpg.webp",
-      "https://i.ibb-co/FqBkJQ4P/photo-2025-05-26-17-55-46-2.jpg.webp",
-      "https://i.ibb-co/Csm4t2dh/photo-2025-05-26-17-55-46.jpg.webp",
-      "https://i.ibb-co/vCB2SF2Z/photo-2025-05-26-17-55-47-2.jpg.webp",
-      "https://i.ibb-co/6cbbnGZb/photo-2025-05-26-17-55-47.jpg.webp",
-      "https://i.ibb-co/DDGp9PHD/photo-2025-05-26-17-55-48.jpg.webp",
-      "https://i.ibb-co/pBXP5Qnj/photo-2025-05-26-17-55-49.jpg.webp",
-      "https://i.ibb-co/KxwKFY5x/photo-2025-05-26-17-55-50.jpg.webp",
-      "https://i.ibb-co/zTDCq9Vs/photo-2025-05-26-20-48-28-2.jpg.webp",
-      "https://i.ibb-co/RkJdZNVN/photo-2025-05-26-20-48-28.jpg.webp",
-      "https://i.ibb-co/1J7Xpb8X/photo-2025-05-26-20-48-29.jpg.webp",
-      "https://i.ibb-co/yckRk6Dj/photo-2025-05-26-20-48-30-2.jpg.webp",
-      "https://i.ibb-co/CszjZVJy/photo-2025-05-26-20-48-30-3.jpg.webp",
-      "https://i.ibb-co/nshy7dLG/photo-2025-05-26-20-48-30.jpg.webp",
-      "https://i.ibb-co/7NxHK7t9/photo-2025-05-26-20-48-31-2.jpg.webp",
-      "https://i.ibb-co/bghM15x4/photo-2025-05-26-20-48-31-3.jpg.webp",
-      "https://i.ibb-co/QvKCTnsZ/photo-2025-05-26-20-48-31.jpg.webp",
-      "https://i.ibb-co/p6NKKgDS/photo-2025-05-26-20-48-32-2.jpg.webp",
-      "https://i.ibb-co/5WD1HQck/photo-2025-05-26-20-48-32.jpg.webp",
-      "https://i.ibb-co/F4H1nXCP/photo-2025-05-26-20-48-33-2.jpg.webp",
-      "https://i.ibb-co/VYxs6XYF/photo-2025-05-26-20-48-33.jpg.webp",
-      "https://i.ibb-co/Vc2bGZrR/photo-2025-05-26-21-36-20-2.jpg.webp",
-      "https://i.ibb-co/xKb5m45Z/photo-2025-05-26-21-36-20-3.jpg.webp",
-      "https://i.ibb-co/PvQtpRch/photo-2025-05-26-21-36-20.jpg.webp",
-      "https://i.ibb-co/xK33Pmmr/photo-2025-05-27-00-20-36.jpg.webp",
-      "https://i.ibb-co/YBLNVbYv/photo-2025-05-27-00-20-36-3.jpg.webp",
-      "https://i.ibb-co/h1HK9Svq/photo-2025-05-27-00-20-31-2.jpg.webp",
-      "https://i.ibb-co/MDcJ5DL8/photo-2025-05-27-00-20-31-3.jpg.webp",
-      "https://i.ibb-co/9HCytM77/photo-2025-05-27-00-20-31.jpg.webp",
-      "https://i.ibb-co/0yyMVWBZ/photo-2025-05-27-00-20-32-2.jpg.webp",
-      "https://i.ibb-co/svvKH579/photo-2025-05-27-00-20-32.jpg.webp",
-      "https://i.ibb-co/tTf80LqY/photo-2025-05-27-00-20-33-2.jpg.webp",
-      "https://i.ibb-co/20L1rPX2/photo-2025-05-27-00-20-33-3.jpg.webp",
-      "https://i.ibb-co/twp0F2m5/photo-2025-05-27-00-20-33.jpg.webp",
-      "https://i.ibb-co/Y4mHjmsX/photo-2025-05-27-00-20-34-2.jpg.webp",
-      "https://i.ibb-co/Rp8KxrVk/photo-2025-05-27-00-20-34-3.jpg.webp",
-      "https://i.ibb-co/9kw57Wyp/photo-2025-05-27-00-20-34.jpg.webp",
-      "https://i.ibb-co/gZZNWsXr/photo-2025-05-27-00-20-35-2.jpg.webp",
-      "https://i.ibb-co/tMv1tytj/photo-2025-05-27-00-20-35.jpg.webp",
-      "https://i.ibb-co/MmjkZ07/photo-2025-05-27-00-20-36-2.jpg.webp",
-      "https://i.ibb-co/wrFTdFsQ/photo-2025-05-27-00-36-27.jpg.webp",
-      "https://i.ibb-co/s9VCNHWn/photo-2025-05-27-23-54-13.jpg.webp",
-      "https://i.ibb-co/93ffP582/photo-2025-05-27-23-54-12.jpg.webp",
-      "https://i.ibb-co/TBzZjQ0w/photo-2025-05-27-23-54-13-2.jpg.webp",
-      "https://i.ibb-co/BK5sxgw8/photo-2025-05-28-23-30-40.jpg.webp"
+      "https://i.ibb.co/N6Qz35Sh/photo-2025-05-26-17-55-31-2.jpg.webp",
+      "https://i.ibb.co/0yQHT7jC/photo-2025-05-26-17-55-31-3.jpg.webp",
+      "https://i.ibb.co/5XwCHmm9/photo-2025-05-26-17-55-31.jpg.webp",
+      "https://i.ibb.co/nqxJW0Jz/photo-2025-05-27-23-54-14-3.jpg.webp",
+      "https://i.ibb.co/4ZcMXG42/photo-2025-05-26-17-55-32-2.jpg.webp",
+      "https://i.ibb.co/xSsY24T2/photo-2025-05-26-17-55-33-2.jpg.webp",
+      "https://i.ibb.co/vCfXdgk7/photo-2025-05-27-23-54-14-2.jpg.webp",
+      "https://i.ibb.co/9kWZFRwB/photo-2025-05-26-17-55-34-2.jpg.webp",
+      "https://i.ibb.co/cSqh0Y4b/photo-2025-05-26-17-55-34.jpg.webp",
+      "https://i.ibb.co/d4ZCvq9Q/photo-2025-05-26-17-55-35-3.jpg.webp",
+      "https://i.ibb.co/ksxT3vR2/photo-2025-05-26-17-55-35-2.jpg.webp",
+      "https://i.ibb.co/6JVD9jgJ/photo-2025-05-26-17-55-35.jpg.webp",
+      "https://i.ibb.co/4Rv7DBsR/photo-2025-05-26-17-55-36-2.jpg.webp",
+      "https://i.ibb.co/svP2KcgG/photo-2025-05-28-23-30-39.jpg.webp",
+      "https://i.ibb.co/BKt25h6Q/photo-2025-05-26-17-55-36.jpg.webp",
+      "https://i.ibb.co/21H3TC2K/photo-2025-05-26-17-55-37-2.jpg.webp",
+      "https://i.ibb.co/Kx4Jq4Pq/photo-2025-05-26-17-55-37.jpg.webp",
+      "https://i.ibb-co/4nsRBhPr/photo-2025-05-26-17-55-38-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/zWfj7pS8/photo-2025-05-26-17-55-38.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/whXpDsKv/photo-2025-05-26-17-55-39-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/5Q6f4xL/photo-2025-05-26-17-55-39-3.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/mr6yk1w9/photo-2025-05-26-17-55-39.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/YT4DND1c/photo-2025-05-26-17-55-40-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/q3q0J3zB/photo-2025-05-26-17-55-40.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/HpXC6N0J/photo-2025-05-26-17-55-41.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/wZL0158h/photo-2025-05-26-17-55-42.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/0xy7zGD/photo-2025-05-26-17-55-43-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/84BFk01x/photo-2025-05-26-17-55-43.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/dw0zVMqT/photo-2025-05-26-17-55-44-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/TxjHy32L/photo-2025-05-26-17-55-44-3.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/Rkvdv27Z/photo-2025-05-26-17-55-44.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/Q4cLfFn/photo-2025-05-26-17-55-45.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/FqBkJQ4P/photo-2025-05-26-17-55-46-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/Csm4t2dh/photo-2025-05-26-17-55-46.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/vCB2SF2Z/photo-2025-05-26-17-55-47-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/6cbbnGZb/photo-2025-05-26-17-55-47.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/DDGp9PHD/photo-2025-05-26-17-55-48.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/pBXP5Qnj/photo-2025-05-26-17-55-49.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/KxwKFY5x/photo-2025-05-26-17-55-50.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/zTDCq9Vs/photo-2025-05-26-20-48-28-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/RkJdZNVN/photo-2025-05-26-20-48-28.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/1J7Xpb8X/photo-2025-05-26-20-48-29.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/yckRk6Dj/photo-2025-05-26-20-48-30-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/CszjZVJy/photo-2025-05-26-20-48-30-3.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/nshy7dLG/photo-2025-05-26-20-48-30.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/7NxHK7t9/photo-2025-05-26-20-48-31-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/bghM15x4/photo-2025-05-26-20-48-31-3.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/QvKCTnsZ/photo-2025-05-26-20-48-31.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/p6NKKgDS/photo-2025-05-26-20-48-32-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/5WD1HQck/photo-2025-05-26-20-48-32.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/F4H1nXCP/photo-2025-05-26-20-48-33-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/VYxs6XYF/photo-2025-05-26-20-48-33.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/Vc2bGZrR/photo-2025-05-26-21-36-20-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/xKb5m45Z/photo-2025-05-26-21-36-20-3.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/PvQtpRch/photo-2025-05-26-21-36-20.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/xK33Pmmr/photo-2025-05-27-00-20-36.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/YBLNVbYv/photo-2025-05-27-00-20-36-3.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/h1HK9Svq/photo-2025-05-27-00-20-31-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/MDcJ5DL8/photo-2025-05-27-00-20-31-3.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/9HCytM77/photo-2025-05-27-00-20-31.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/0yyMVWBZ/photo-2025-05-27-00-20-32-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/svvKH579/photo-2025-05-27-00-20-32.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/tTf80LqY/photo-2025-05-27-00-20-33-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/20L1rPX2/photo-2025-05-27-00-20-33-3.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/twp0F2m5/photo-2025-05-27-00-20-33.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/Y4mHjmsX/photo-2025-05-27-00-20-34-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/Rp8KxrVk/photo-2025-05-27-00-20-34-3.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/9kw57Wyp/photo-2025-05-27-00-20-34.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/gZZNWsXr/photo-2025-05-27-00-20-35-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/tMv1tytj/photo-2025-05-27-00-20-35.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/MmjkZ07/photo-2025-05-27-00-20-36-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/wrFTdFsQ/photo-2025-05-27-00-36-27.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/s9VCNHWn/photo-2025-05-27-23-54-13.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/93ffP582/photo-2025-05-27-23-54-12.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/TBzZjQ0w/photo-2025-05-27-23-54-13-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/BK5sxgw8/photo-2025-05-28-23-30-40.jpg.webp".replace("i.ibb-co","i.ibb.co")
     ];
 
-    /**
-     * Читает из localStorage массив перевёрнутых карт (по индексам).
-     * Если нет – возвращает пустой массив.
-     */
-    function getFlippedList() {
-      const raw = localStorage.getItem('makcards_flipped');
-      return raw ? JSON.parse(raw) : [];
+    // -------------------- Функции работы с картами --------------------
+    function createSmallCards(count) {
+      disableInteractions();
+
+      // Если пользователь уже оплатил, просто сразу раскладываем без проверки
+      const isPaid = localStorage.getItem('paid') === 'true';
+      if (isPaid) {
+        // раскладываем карты без ограничения
+        _createGrid(count, bigImages);
+        setTimeout(enableInteractions, 1000);
+        return;
+      }
+
+      // Перемешиваем массив карт
+      const shuffledImages = bigImages.slice();
+      for (let i = shuffledImages.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffledImages[i], shuffledImages[j]] = [shuffledImages[j], shuffledImages[i]];
+      }
+
+      // Если пользователь ещё не дошёл до 3-х открытий, можно отображать карты,
+      // но ограничиваем их переворачивание после 3-х раз:
+      _createGrid(count, shuffledImages);
+      setTimeout(enableInteractions, 1000);
     }
 
-    /**
-     * Сохраняет в localStorage массив flipped.
-     */
-    function setFlippedList(arr) {
-      localStorage.setItem('makcards_flipped', JSON.stringify(arr));
-    }
+    // Вспомогательная функция для фактического заполнения сетки
+    function _createGrid(count, imagesArray) {
+      const grid = document.querySelector(".cards-grid");
+      grid.innerHTML = "";
+      // Если уже было 3 открытий и не оплачен ‒ просто рисуем «рубашки», но клики не реагируют:
+      const isPaid = localStorage.getItem('paid') === 'true';
 
-    /**
-     * Возвращает число попыток (от 0 до ∞).
-     */
-    function getAttempts() {
-      return parseInt(localStorage.getItem('makcards_attempts') || '0', 10);
-    }
-
-    /**
-     * Устанавливает число попыток.
-     */
-    function setAttempts(n) {
-      localStorage.setItem('makcards_attempts', String(n));
-    }
-
-    /**
-     * Проверяет, оплатил ли пользователь.
-     */
-    function isPaid() {
-      return localStorage.getItem('makcards_paid') === 'true';
-    }
-
-    /**
-     * Скрывает preloader, показывает меню, иконки, создаёт fireflies.
-     */
-    function hidePreloader() {
-      const preloader = document.getElementById('preloader');
-      preloader.style.opacity = '0';
-      setTimeout(() => {
-        preloader.style.display = 'none';
-        document.getElementById('mainMenu').classList.add('show');
-        showMainIcons();
-        createFireflies(25);
-      }, 500);
-    }
-
-    /**
-     * Генерирует fireflies.
-     */
-    function createFireflies(count) {
-      const container = document.querySelector(".fireflies");
       for (let i = 0; i < count; i++) {
-        const firefly = document.createElement("div");
-        firefly.className = "firefly";
-        const size = 2 + Math.random() * 4;
-        firefly.style.width = size + "px";
-        firefly.style.height = size + "px";
-        firefly.style.top = Math.random() * 100 + "%";
-        firefly.style.left = Math.random() * 100 + "%";
-        firefly.style.animationDelay = Math.random() * 3 + "s";
-        firefly.style.animationDuration = (3 + Math.random() * 5) + "s";
-        container.appendChild(firefly);
+        const container = document.createElement("div");
+        container.classList.add("card-container");
+        // Рандомная разброска
+        const angle = Math.random() * Math.PI * 2;
+        const distance = 50 + Math.random() * 50;
+        container.style.transform =
+          `scale(0.9) translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px)`;
+
+        // Создаём small-card
+        const smallCard = document.createElement("div");
+        smallCard.classList.add("small-card");
+        smallCard.style.backgroundImage = 'url("https://i.ibb.co/wcWxxGp/IMG-8462.webp")';
+        smallCard.dataset.front = imagesArray[i];
+
+        // Навешиваем логику клика:
+        smallCard.addEventListener("click", function() {
+          if (animationInProgress) return;
+          // Если уже оплачено ‒ пускаем без ограничений
+          if (localStorage.getItem('paid') === 'true') {
+            revealCard(this);
+            return;
+          }
+          // Если не оплачено, но открытий уже >=3 – блокируем
+          if (selectedCount >= MAX_OPENS) {
+            // показываем модалку с оплатой
+            openPaymentModal();
+            return;
+          }
+          // Иначе: открываем карту
+          revealCard(this);
+          selectedCount++;
+          localStorage.setItem('opens', selectedCount.toString());
+          if (selectedCount >= MAX_OPENS) {
+            disableAllNonFlipped();
+          }
+        });
+
+        container.appendChild(smallCard);
+        grid.appendChild(container);
+
+        // Анимация появления
+        setTimeout(() => {
+          container.classList.add("fade-in");
+          container.style.transform = "";
+        }, 50);
       }
     }
 
-    /**
-     * Открывает (переворачивает) большую карту в оверлее.
-     */
+    // Функция «перевернуть» конкретную карту:
+    function revealCard(cardElem) {
+      if (!cardElem.classList.contains("flipped")) {
+        cardElem.style.backgroundImage = `url("${cardElem.dataset.front}")`;
+        cardElem.classList.add("flipped");
+        openOverlay(cardElem.dataset.front);
+      } else {
+        // Уже перевёрнута – просто открываем Overlay
+        openOverlay(cardElem.dataset.front);
+      }
+    }
+
+    // Блокируем все карты, которые ещё не перевернуты
+    function disableAllNonFlipped() {
+      document.querySelectorAll(".cards-grid .small-card").forEach(card => {
+        if (!card.classList.contains("flipped")) {
+          card.style.pointerEvents = "none";
+          card.style.opacity = "0.5";
+        }
+      });
+    }
+
+    // -------------------- Логика Overlay большой карты --------------------
     function openOverlay(imgUrl) {
       if (animationInProgress) return;
       animationInProgress = true;
@@ -1135,190 +1205,58 @@
       overlay.classList.add("active");
       const shuffleIcon = document.getElementById("shuffleIconBtn");
       if (shuffleIcon) shuffleIcon.style.pointerEvents = "none";
-      
-      // Получаем URL изображения (без префикса url("..."))
+
       let chosenImg = imgUrl.replace(/^url\(["']?/, "").replace(/["']?\)$/, "");
+      if (!chosenImg) {
+        const randomIndex = Math.floor(Math.random() * bigImages.length);
+        chosenImg = bigImages[randomIndex];
+      }
+
       const bigCardFront = document.getElementById("bigCardFront");
       bigCardFront.style.backgroundImage = 'url("' + chosenImg + '")';
-      
+
       const randomWishIndex = Math.floor(Math.random() * dailyWishes.length);
-      const wish = dailyWishes[randomWishIndex];
-      const bigCardBack = document.getElementById("bigCardBack");
-      bigCardBack.querySelector(".daily-wish").textContent = wish;
-      
+      document.querySelector(".daily-wish").textContent = dailyWishes[randomWishIndex];
+
       const bigCard = document.getElementById("bigCard");
       bigCard.classList.remove("is-flipped");
-      
+
       setTimeout(() => {
         animationInProgress = false;
         if (shuffleIcon) shuffleIcon.style.pointerEvents = "auto";
       }, 3000);
     }
 
-    /**
-     * Закрывает платёжное oверлей.
-     */
-    function closePaymentOverlay() {
-      const overlay = document.getElementById('paymentOverlay');
-      overlay.classList.remove('active');
-    }
-
-    /**
-     * Открывает платёжное окно при переходе в диалог с ботом.
-     */
-    function showPaymentOverlay() {
-      const overlay = document.getElementById('paymentOverlay');
-      overlay.classList.add('active');
-    }
-
-    /**
-     * Обработчик кнопки «Сплатити» в платёжном окне.
-     * Переходит в диалог с ботом.
-     */
-    function onPayClick() {
-      // Сразу закрываем платёжное окно
-      closePaymentOverlay();
-      // Открываем чат Telegram-бота
-      window.location.href = 'https://t.me/makcards_bot';
-    }
-
-    /**
-     * Пытается открыть карту маленькую (index — её номер от 0 до bigImages.length-1).
-     * Если карта уже перевёрнута → показываем overlay.
-     * Если карта не перевёрнута:
-     *    • Если isPaid() → сразу openOverlay.
-     *    • Иначе: если попыток < 5 → переворачиваем и сохраняем, иначе → платёжное окно.
-     */
-    function tryOpenCard(smallCard, index) {
+    document.getElementById("bigCard").addEventListener("click", function(e) {
       if (animationInProgress) return;
+      this.classList.toggle("is-flipped");
+    });
 
-      const flippedList = getFlippedList();
-      const alreadyFlipped = flippedList.includes(index);
-
-      if (alreadyFlipped || isPaid()) {
-        // Если уже перевёрнут или оплата есть – просто открываем overlay
-        if (!alreadyFlipped && !flippedList.includes(index)) {
-          // Если isPaid, но не было в списке, добавляем – чтобы отображалось
-          flippedList.push(index);
-          setFlippedList(flippedList);
-        }
-        openOverlay(smallCard.dataset.front);
-        return;
+    document.getElementById("overlay").addEventListener("click", function(e) {
+      if (animationInProgress) return;
+      if (e.target.id === "overlay") {
+        this.classList.remove("active");
+        const shuffleIcon = document.getElementById("shuffleIconBtn");
+        if (shuffleIcon) shuffleIcon.style.pointerEvents = "auto";
       }
+    });
 
-      // Если не перевёрнут и не оплачен
-      const attempts = getAttempts();
-      if (attempts < 5) {
-        // Разрешаем открыть: переворачиваем маленькую
-        smallCard.style.backgroundImage = `url("${smallCard.dataset.front}")`;
-        smallCard.classList.add("flipped");
-        flippedList.push(index);
-        setFlippedList(flippedList);
-
-        const newCount = attempts + 1;
-        setAttempts(newCount);
-
-        // Если после этого попытки == 5: блокируем остальные
-        if (newCount >= 5) {
-          document.querySelectorAll(".cards-grid .small-card")
-            .forEach(cardElem => {
-              if (!cardElem.classList.contains("flipped")) {
-                cardElem.style.pointerEvents = "none";
-                cardElem.style.opacity = "0.5";
-              }
-            });
-        }
-
-        // Открываем overlay с увеличенной картой
-        openOverlay(smallCard.dataset.front);
-      } else {
-        // Если попыток уже 5+: показываем платёжное окно
-        showPaymentOverlay();
-      }
-    }
-
-    /**
-     * Создаёт все маленькие карты (их число = bigImages.length).
-     * При загрузке проверяет localStorage, чтобы восстановить:
-     *   • Перевёрнутые (flipped) карты,
-     *   • Заблокировать (opacity 0.5, pointerEvents none) все неперевёрнутые, если attempts >=5.
-     */
-    function createSmallCards() {
-      disableInteractions();
-      const grid = document.querySelector(".cards-grid");
-      grid.innerHTML = "";
-      const flippedList = getFlippedList();
-      const attempts = getAttempts();
-      const blockedAll = attempts >= 5 && !isPaid();
-
-      bigImages.forEach((imgUrl, index) => {
-        const container = document.createElement("div");
-        container.classList.add("card-container");
-        // рандомная разброска
-        const angle = Math.random() * Math.PI * 2;
-        const distance = 50 + Math.random() * 50;
-        container.style.transform =
-          `scale(0.9) translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px)`;
-
-        // создаём одну small-card
-        const smallCard = document.createElement("div");
-        smallCard.classList.add("small-card");
-        smallCard.dataset.front = imgUrl;
-        // Если было перевёрнуто ранее, сразу ставим лицо
-        if (flippedList.includes(index) || isPaid()) {
-          smallCard.classList.add("flipped");
-          smallCard.style.backgroundImage = `url("${imgUrl}")`;
-        } else {
-          // Иначе – рубашка
-          smallCard.style.backgroundImage = 'url("https://i.ibb-co/wcWxxGp/IMG-8462.webp")';
-        }
-
-        // Если все заблокированы (attempts>=5 и не paid), блокируем неперевёрнутые
-        if (blockedAll && !smallCard.classList.contains("flipped")) {
-          smallCard.style.pointerEvents = "none";
-          smallCard.style.opacity = "0.5";
-        }
-
-        // По клику пробуем открыть карту с учётом limit
-        smallCard.addEventListener("click", function() {
-          tryOpenCard(smallCard, index);
-        });
-
-        container.appendChild(smallCard);
-        grid.appendChild(container);
-
-        // анимация появления
-        setTimeout(() => {
-          container.classList.add("fade-in");
-          container.style.transform = "";
-        }, 50);
-      });
-
-      // вернуть кликабельность после анимации
-      setTimeout(enableInteractions, 6000);
-    }
-
-    /**
-     * Перемешивает маленькие карты (анимационно), затем пересоздаёт.
-     */
+    // -------------------- Функция перемешивания карт --------------------
     function shuffleCards() {
       disableInteractions();
       const grid = document.querySelector(".cards-grid");
-      const containers = Array.from(grid.querySelectorAll(".card-container"));
-      containers.forEach(container => {
+      const cards = grid.querySelectorAll(".card-container");
+      cards.forEach(card => {
         const angle = Math.random() * Math.PI * 2;
         const distance = 50 + Math.random() * 50;
-        container.style.transform = `scale(0.9) translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px)`;
-        container.style.opacity = "0";
+        card.style.transform = `scale(0.9) translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px)`;
+        card.style.opacity = "0";
       });
       setTimeout(() => {
-        createSmallCards();
+        createSmallCards(76);
       }, 6000);
     }
 
-    /**
-     * Функция поворота большой карты при клике по ней.
-     */
     function flipCard(event) {
       event.stopPropagation();
       if (animationInProgress) return;
@@ -1344,6 +1282,7 @@
       if (shuffleIcon) shuffleIcon.style.pointerEvents = "auto";
     }
 
+    // -------------------- Показ/скрытие основных иконок --------------------
     function showMainIcons() {
       document.querySelector('.social-left').style.display = 'flex';
       document.querySelector('.social-right').style.display = 'flex';
@@ -1352,16 +1291,21 @@
       document.querySelector('.social-left').style.display = 'none';
       document.querySelector('.social-right').style.display = 'none';
     }
-    
+
+    // -------------------- Навигация по секциям --------------------
     function openSection(sectionId) {
       document.getElementById('mainMenu').style.display = 'none';
       document.getElementById('mainFooter').style.display = 'none';
       hideMainIcons();
-      document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+      document.querySelectorAll('.section').forEach(sec => {
+        sec.classList.remove('active');
+      });
       document.getElementById(sectionId).classList.add('active');
     }
     function backToMenu() {
-      document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+      document.querySelectorAll('.section').forEach(sec => {
+        sec.classList.remove('active');
+      });
       document.getElementById('mainMenu').style.display = 'flex';
       document.getElementById('mainFooter').style.display = 'block';
       showMainIcons();
@@ -1370,18 +1314,21 @@
       document.getElementById('mainMenu').style.display = 'none';
       document.getElementById('mainFooter').style.display = 'none';
       hideMainIcons();
-      document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+      document.querySelectorAll('.section').forEach(sec => {
+        sec.classList.remove('active');
+      });
       document.getElementById('sectionDeckInfo').classList.add('active');
     }
     function continueToDeck() {
       document.getElementById('sectionDeckInfo').classList.remove('active');
       document.getElementById('sectionMakKarti').classList.add('active');
-      createSmallCards();
+      createSmallCards(76);
     }
     function backToDeckInfo() {
       document.getElementById('sectionMakKarti').classList.remove('active');
       document.getElementById('sectionDeckInfo').classList.add('active');
     }
+
     function open72Cards() {
       document.getElementById('sectionMakKarti').classList.remove('active');
       document.getElementById('section72Cards').classList.add('active');
@@ -1395,7 +1342,7 @@
       disableInteractions();
       const grid = document.querySelector(".cards-grid-72");
       grid.innerHTML = "";
-      bigImages.forEach(imgUrl => {
+      for (let i = 0; i < 76; i++) {
         const container = document.createElement("div");
         container.classList.add("card-container");
         container.style.opacity = "0";
@@ -1405,7 +1352,11 @@
         
         const front = document.createElement("div");
         front.classList.add("small-card-front");
-        front.style.backgroundImage = 'url("' + imgUrl + '")';
+        if (localStorage.getItem('paid') === 'true' || i < 76) {
+          front.style.backgroundImage = 'url("' + bigImages[i] + '")';
+        } else {
+          front.style.background = "rgba(64,224,208,0.2)";
+        }
         
         smallCard.appendChild(front);
         container.appendChild(smallCard);
@@ -1421,10 +1372,11 @@
           let bg = front.style.backgroundImage;
           openOverlay(bg);
         });
-      });
+      }
       setTimeout(enableInteractions, 2000);
     }
 
+    // -------------------- Звук (медитативное аудио) --------------------
     const soundBtn = document.getElementById('soundBtn');
     const meditativeAudio = document.getElementById('meditativeAudio');
     let isPlaying = false;
@@ -1442,7 +1394,7 @@
       });
     }
 
-    /* Модальное окно заметок */
+    // -------------------- Работа с нотатками --------------------
     function openNotes() {
       const dateInput = document.getElementById('notesDate');
       if (!dateInput.value) {
@@ -1457,7 +1409,6 @@
       document.getElementById('notesTextArea').value = savedNotes || "";
       document.getElementById('notesOverlay').classList.add('active');
     }
-
     function closeNotesModal() {
       let notes = document.getElementById('notesTextArea').value;
       let notesDate = document.getElementById('notesDate').value;
@@ -1471,13 +1422,56 @@
       localStorage.setItem('userNotes_' + notesDate, notes);
       document.getElementById('notesOverlay').classList.remove('active');
     }
-
     document.getElementById('notesOverlay').addEventListener("click", function(e) {
-      if (e.target.id === "notesOverlay") {
+      if(e.target.id === "notesOverlay") {
         closeNotesModal();
       }
     });
 
+    // -------------------- Работа с «Payment modal» --------------------
+    function openPaymentModal() {
+      const modal = document.getElementById("paymentModal");
+      modal.classList.add("active");
+    }
+    function closePaymentModal() {
+      const modal = document.getElementById("paymentModal");
+      modal.classList.remove("active");
+    }
+
+    // -------------------- Сохранение состояния после ?paid=true --------------------
+    window.addEventListener('load', function() {
+      // Скрываем Preloader и показываем mainMenu
+      hidePreloader();
+
+      // Если в URL есть ?paid=true, сохраняем и разблокируем
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('paid') === 'true') {
+        localStorage.setItem('paid', 'true');
+        // Немного задержки, чтобы пользователь увидел, что всё разблокировано
+        setTimeout(() => {
+          closePaymentModal();
+          // Перерисуем карты сразу полностью
+          if (document.getElementById('sectionMakKarti').classList.contains('active')) {
+            createSmallCards(76);
+          }
+        }, 500);
+      }
+
+      // Считываем сохранённое значение открытий
+      const savedOpens = parseInt(localStorage.getItem('opens') || '0', 10);
+      selectedCount = isNaN(savedOpens) ? 0 : savedOpens;
+    });
+
+    function hidePreloader() {
+      const preloader = document.getElementById('preloader');
+      preloader.style.opacity = '0';
+      setTimeout(() => {
+        preloader.style.display = 'none';
+        document.getElementById('mainMenu').classList.add('show');
+        showMainIcons();
+        createFireflies(25);
+      }, 500);
+    }
   </script>
 </body>
 </html>
