@@ -216,13 +216,6 @@
       width: 100%;
       padding: 10px;
     }
-    .nav-buttons {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width: 100%;
-      padding: 10px;
-    }
     
     /* Изменённый стиль для центрального текста между кнопками */
     .center-text {
@@ -231,7 +224,6 @@
       font-style: italic;
       color: #fff;
       text-shadow: 2px 2px 4px rgba(0,0,0,1);
-      /* уберите здесь margin:0 10px; — он теперь не нужен */
       display: inline-flex;
       align-items: center;
       white-space: nowrap;
@@ -979,22 +971,8 @@
     // ================================================
     // КОНСТАНТЫ И ПЕРЕМЕННЫЕ
     // ================================================
-    const FREE_LIMIT = 5;           // 5 бесплатных карт
     const APP_URL   = "https://irynakolokolova.github.io/makcards/";
     let animationInProgress = false;
-
-    // Хранение индексов перевернутых карт
-    function loadFlippedIndices() {
-      try {
-        const stored = localStorage.getItem('flippedIndices');
-        return stored ? JSON.parse(stored) : [];
-      } catch {
-        return [];
-      }
-    }
-    function saveFlippedIndices(arr) {
-      localStorage.setItem('flippedIndices', JSON.stringify(arr));
-    }
 
     // Проверка полного доступа
     function hasFullAccess() {
@@ -1008,6 +986,9 @@
     // ОБРАБОТЧИКИ ЗАГРУЗКИ
     // ================================================
     document.addEventListener('DOMContentLoaded', function() {
+      // Сбрасываем ранее сохранённые перевёрнутые карты
+      localStorage.removeItem('flippedIndices');
+
       hidePreloader();
 
       // Обработка параметра ?access=1
@@ -1150,17 +1131,8 @@
     // ================================================
     function createSmallCards(count) {
       disableInteractions();
-      // Рандомно перемешаем копию массива bigImages
-      const shuffled = bigImages.slice();
-      for (let i = shuffled.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-      }
-
       const grid = document.querySelector(".cards-grid");
       grid.innerHTML = "";
-      const flippedIndices = loadFlippedIndices();
-      const freeCount = flippedIndices.length; // Сколько уже открыто
 
       for (let i = 0; i < count; i++) {
         const container = document.createElement("div");
@@ -1174,21 +1146,15 @@
 
         const smallCard = document.createElement("div");
         smallCard.classList.add("small-card");
-        smallCard.dataset.front = shuffled[i];
+        smallCard.dataset.front = bigImages[i];
         smallCard.dataset.index = i; 
 
         // Устанавливаем рубашку:
         smallCard.style.backgroundImage =
           'url("https://i.ibb.co/wcWxxGp/IMG-8462.webp")';
 
-        // Если карта уже в flippedIndices, сразу показываем лицо
-        if (flippedIndices.includes(i)) {
-          smallCard.classList.add("flipped");
-          smallCard.style.backgroundImage = `url("${smallCard.dataset.front}")`;
-        }
-
-        // Блокируем «не перевёрнутые» карты, если freeCount >= FREE_LIMIT
-        if (!hasFullAccess() && freeCount >= FREE_LIMIT && !flippedIndices.includes(i)) {
+        // Если нет полного доступа — блокируем сразу
+        if (!hasFullAccess()) {
           smallCard.style.pointerEvents = "none";
           smallCard.style.opacity = "0.5";
         }
@@ -1196,43 +1162,13 @@
         smallCard.addEventListener("click", function() {
           if (animationInProgress) return;
 
-          // Если уже full-access, просто открываем оверлей
-          if (hasFullAccess()) {
-            openOverlay(smallCard.dataset.front);
-            return;
-          }
-
-          const currentFlipped = loadFlippedIndices();
-          // Если этот индекс уже перевёрнут:
-          if (currentFlipped.includes(i)) {
-            openOverlay(smallCard.dataset.front);
-            return;
-          }
-
-          // Если достигли лимита бесплатных (5), показываем оплату
-          if (currentFlipped.length >= FREE_LIMIT) {
+          // Если нет полного доступа — показываем окно оплаты
+          if (!hasFullAccess()) {
             document.getElementById('paymentOverlay').classList.add('active');
             return;
           }
 
-          // Иначе переворачиваем:
-          smallCard.style.backgroundImage = `url("${smallCard.dataset.front}")`;
-          smallCard.classList.add("flipped");
-
-          currentFlipped.push(i);
-          saveFlippedIndices(currentFlipped);
-
-          // Если теперь после переворота уже 5, затемняем остальные
-          if (currentFlipped.length >= FREE_LIMIT) {
-            document.querySelectorAll(".cards-grid .small-card").forEach(card => {
-              const idx = parseInt(card.dataset.index, 10);
-              if (!currentFlipped.includes(idx)) {
-                card.style.pointerEvents = "none";
-                card.style.opacity = "0.5";
-              }
-            });
-          }
-
+          // Если есть полный доступ — открываем оверлей, не сохраняя состояние
           openOverlay(smallCard.dataset.front);
         });
 
