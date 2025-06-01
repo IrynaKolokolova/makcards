@@ -960,24 +960,24 @@
   <!-- ========== Аудіо для медитативной музики (placeholder) ========== -->
   <audio id="meditativeAudio" loop src="meditative.mp3"></audio>
   
-  <!-- ========== Модалка «Оплатіть повний доступ» ========== -->
+  <!-- ========== Модалка «Оплатіть повний доступ» -------------------- -->
   <div id="paymentModal">
     <div id="paymentContent">
       <img id="paymentClose" src="https://i.ibb.co/s9NyJrT7/56-1.png" alt="Close" onclick="closePaymentModal()">
       <h2>Отримайте повний доступ<br>до колоди</h2>
       <p>
-        Ви вже відчинили карти 3 рази. Для доступу до всіх 76 карт колоди необхідно оплатити повний доступ – <strong>1200 грн</strong>. 
+        Ви вже відчинили карти 5 разів. Для доступу до всіх 76 карт колоди необхідно оплатити повний доступ – <strong>1200 грн</strong>. 
         Після цього ви зможете відкривати та користуватися усіма картами без обмежень.
       </p>
-      <!-- Ссылка на телеграм-бота: замените makcards_unlock_bot на username вашего бота -->
-      <a class="btn pay-btn" href="https://t.me/makcards_unlock_bot" target="_blank">Сплатити</a>
+      <!-- Ссылка на телеграм-бота: вместо старого, теперь указываем ваш бота с параметром start -->
+      <a class="btn pay-btn" href="https://t.me/irynakolokolovamak_bot?start=pay" target="_blank">Сплатити</a>
     </div>
   </div>
 
   <script>
     // -------------------- Переменные состояния --------------------
     let selectedCount = 0;      // сколько раз юзер перевернул карту
-    const MAX_OPENS = 3;        // после 3-х открытий блокируем доступ
+    const MAX_OPENS = 5;        // после 5-ти открытий блокируем доступ
     let animationInProgress = false;
 
     // Список пожеланий и карт (тот же, что и раньше)...
@@ -1026,12 +1026,6 @@
       "https://i.ibb.co/cSqh0Y4b/photo-2025-05-26-17-55-34.jpg.webp",
       "https://i.ibb.co/d4ZCvq9Q/photo-2025-05-26-17-55-35-3.jpg.webp",
       "https://i.ibb.co/ksxT3vR2/photo-2025-05-26-17-55-35-2.jpg.webp",
-      "https://i.ibb.co/6JVD9jgJ/photo-2025-05-26-17-55-35.jpg.webp",
-      "https://i.ibb.co/4Rv7DBsR/photo-2025-05-26-17-55-36-2.jpg.webp",
-      "https://i.ibb.co/svP2KcgG/photo-2025-05-28-23-30-39.jpg.webp",
-      "https://i.ibb.co/BKt25h6Q/photo-2025-05-26-17-55-36.jpg.webp",
-      "https://i.ibb.co/21H3TC2K/photo-2025-05-26-17-55-37-2.jpg.webp",
-      "https://i.ibb.co/Kx4Jq4Pq/photo-2025-05-26-17-55-37.jpg.webp",
       "https://i.ibb-co/4nsRBhPr/photo-2025-05-26-17-55-38-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
       "https://i.ibb-co/zWfj7pS8/photo-2025-05-26-17-55-38.jpg.webp".replace("i.ibb-co","i.ibb.co"),
       "https://i.ibb-co/whXpDsKv/photo-2025-05-26-17-55-39-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
@@ -1113,8 +1107,8 @@
         [shuffledImages[i], shuffledImages[j]] = [shuffledImages[j], shuffledImages[i]];
       }
 
-      // Если пользователь ещё не дошёл до 3-х открытий, можно отображать карты,
-      // но ограничиваем их переворачивание после 3-х раз:
+      // Если пользователь ещё не дошёл до 5-ти открытий, можно отображать карты,
+      // но ограничиваем их переворачивание после 5-ти раз:
       _createGrid(count, shuffledImages);
       setTimeout(enableInteractions, 1000);
     }
@@ -1123,7 +1117,7 @@
     function _createGrid(count, imagesArray) {
       const grid = document.querySelector(".cards-grid");
       grid.innerHTML = "";
-      // Если уже было 3 открытий и не оплачен ‒ просто рисуем «рубашки», но клики не реагируют:
+      // Если уже было 5 открытий и не оплачен ‒ просто рисуем «рубашки», но клики не реагируют:
       const isPaid = localStorage.getItem('paid') === 'true';
 
       for (let i = 0; i < count; i++) {
@@ -1149,7 +1143,7 @@
             revealCard(this);
             return;
           }
-          // Если не оплачено, но открытий уже >=3 – блокируем
+          // Если не оплачено, но открытий уже >=5 – блокируем
           if (selectedCount >= MAX_OPENS) {
             // показываем модалку с оплатой
             openPaymentModal();
