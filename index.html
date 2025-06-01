@@ -216,13 +216,6 @@
       width: 100%;
       padding: 10px;
     }
-    .nav-buttons {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width: 100%;
-      padding: 10px;
-    }
     
     /* Изменённый стиль для центрального текста между кнопками */
     .center-text {
@@ -231,7 +224,6 @@
       font-style: italic;
       color: #fff;
       text-shadow: 2px 2px 4px rgba(0,0,0,1);
-      /* уберите здесь margin:0 10px; — он теперь не нужен */
       display: inline-flex;
       align-items: center;
       white-space: nowrap;
@@ -757,6 +749,50 @@
     .social-right {
       display: none !important;
     }
+
+    /* Модальное окно покупки */
+    #purchaseModal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.85);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 10000;
+    }
+    .purchase-modal-content {
+      background: #1b1b2d;
+      padding: 20px;
+      border-radius: 12px;
+      max-width: 90%;
+      text-align: center;
+      box-shadow: 0 0 10px rgba(64,224,208,0.6);
+    }
+    .purchase-modal-content p {
+      font-size: 1.4rem;
+      color: #fff;
+      margin-bottom: 20px;
+    }
+    .purchase-modal-button {
+      font-family: 'Great Vibes', cursive;
+      font-size: 1.6rem;
+      background: rgba(64,224,208,0.2);
+      border: 1px solid rgba(64,224,208,0.5);
+      border-radius: 6px;
+      padding: 10px 20px;
+      color: #fff;
+      cursor: pointer;
+      box-shadow: 0 0 4px rgba(64,224,208,0.5);
+      text-decoration: none;
+      display: inline-block;
+    }
+    .purchase-modal-button:hover {
+      background: rgba(64,224,208,0.4);
+      box-shadow: 0 0 6px rgba(64,224,208,0.6);
+    }
   </style>
 </head>
 <body>
@@ -931,6 +967,14 @@
       </div>
     </div>
   </div>
+
+  <!-- Модальное окно покупки -->
+  <div id="purchaseModal">
+    <div class="purchase-modal-content">
+      <p>Безкоштовна версія завершена. Для подальшого використання придбайте повну версію.</p>
+      <a href="https://t.me/irynakolokolovamak_bot" target="_blank" class="purchase-modal-button">Отримати</a>
+    </div>
+  </div>
   
   <!-- Огни (fireflies) -->
   <div class="fireflies"></div>
@@ -950,6 +994,17 @@
     });
 
     let selectedCount = 0;
+    let animationInProgress = false;
+    const freeUsedKey = 'freeUsed';
+
+    // Проверяем, исчерпала ли пользователь бесплатные 5 карт
+    function isFreeUsed() {
+      return localStorage.getItem(freeUsedKey) === 'true';
+    }
+    function setFreeUsed() {
+      localStorage.setItem(freeUsedKey, 'true');
+    }
+
     function hidePreloader() {
       const preloader = document.getElementById('preloader');
       preloader.style.opacity = '0';
@@ -976,9 +1031,16 @@
         container.appendChild(firefly);
       }
     }
-    
-    let animationInProgress = false;
-    
+
+    function blockRemainingCards() {
+      document.querySelectorAll(".cards-grid .small-card").forEach(card => {
+        if (!card.classList.contains("flipped")) {
+          card.style.pointerEvents = "none";
+          card.style.opacity = "0.5";
+        }
+      });
+    }
+
     const dailyWishes = [
       "Нехай цей день принесе тобі світло, тепло та нові можливості для здійснення мрій.",
       "Бажаю, щоб кожна мить сьогодні була наповнена радістю, любов’ю та гармонією в душі.",
@@ -1016,13 +1078,13 @@
     const bigImages = [
       "https://i.ibb.co/N6Qz35Sh/photo-2025-05-26-17-55-31-2.jpg.webp",
       "https://i.ibb.co/0yQHT7jC/photo-2025-05-26-17-55-31-3.jpg.webp",
-      "https://i.ibb.co/5XwCHmm9/photo-2025-05-26-17-55-31.jpg.webp",
-      "https://i.ibb.co/nqxJW0Jz/photo-2025-05-27-23-54-14-3.jpg.webp",
-      "https://i.ibb.co/4ZcMXG42/photo-2025-05-26-17-55-32-2.jpg.webp",
-      "https://i.ibb.co/xSsY24T2/photo-2025-05-26-17-55-33-2.jpg.webp",
-      "https://i.ibb.co/vCfXdgk7/photo-2025-05-27-23-54-14-2.jpg.webp",
-      "https://i.ibb.co/9kWZFRwB/photo-2025-05-26-17-55-34-2.jpg.webp",
-      "https://i.ibb.co/cSqh0Y4b/photo-2025-05-26-17-55-34.jpg.webp",
+      "https://i.ibb-co/5XwCHmm9/photo-2025-05-26-17-55-31.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/nqxJW0Jz/photo-2025-05-27-23-54-14-3.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/4ZcMXG42/photo-2025-05-26-17-55-32-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/xSsY24T2/photo-2025-05-26-17-55-33-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/vCfXdgk7/photo-2025-05-27-23-54-14-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/9kWZFRwB/photo-2025-05-26-17-55-34-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/cSqh0Y4b/photo-2025-05-26-17-55-34.jpg.webp".replace("i.ibb-co","i.ibb.co"),
       "https://i.ibb-co/d4ZCvq9Q/photo-2025-05-26-17-55-35-3.jpg.webp".replace("i.ibb-co","i.ibb.co"),
       "https://i.ibb-co/ksxT3vR2/photo-2025-05-26-17-55-35-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
       "https://i.ibb-co/6JVD9jgJ/photo-2025-05-26-17-55-35.jpg.webp".replace("i.ibb-co","i.ibb.co"),
@@ -1091,10 +1153,10 @@
       "https://i.ibb-co/TBzZjQ0w/photo-2025-05-27-23-54-13-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
       "https://i.ibb-co/BK5sxgw8/photo-2025-05-28-23-30-40.jpg.webp".replace("i.ibb-co","i.ibb.co")
     ];
-    
+
     function createSmallCards(count) {
+      const freeUsed = isFreeUsed();
       disableInteractions();
-      // Сделаем копию массива bigImages и случайно перемешаем её
       const shuffledImages = bigImages.slice();
       for (let i = shuffledImages.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -1117,35 +1179,31 @@
         // создаём одну small-card
         const smallCard = document.createElement("div");
         smallCard.classList.add("small-card");
-        // запоминаем лицевую сторону из перемешанного массива и ставим рубашку
         smallCard.dataset.front = shuffledImages[i];
         smallCard.style.backgroundImage =
           'url("https://i.ibb.co/wcWxxGp/IMG-8462.webp")';
 
-        // клик: переворот, оверлей и ограничение трёх выборов,
-        // плюс возможность повторного открытия для уже перевёрнутых
         smallCard.addEventListener("click", function() {
           if (animationInProgress) return;
-
+          if (isFreeUsed()) {
+            showPurchaseModal();
+            return;
+          }
           if (!smallCard.classList.contains("flipped")) {
-            if (selectedCount >= 3) return;
-            // Показываем лицевую сторону карты
+            if (selectedCount >= 5) {
+              setFreeUsed();
+              blockRemainingCards();
+              showPurchaseModal();
+              return;
+            }
             smallCard.style.backgroundImage = `url("${smallCard.dataset.front}")`;
-            smallCard.classList.add("flipped"); // Переворачиваем карту
+            smallCard.classList.add("flipped");
             selectedCount++;
-
-            // После 3 выборов — блокируем остальные
-            if (selectedCount === 3) {
-              document.querySelectorAll(".cards-grid .small-card")
-                .forEach(card => {
-                  if (!card.classList.contains("flipped")) {
-                    card.style.pointerEvents = "none";
-                    card.style.opacity = "0.5";
-                  }
-                });
+            if (selectedCount === 5) {
+              setFreeUsed();
+              blockRemainingCards();
             }
           }
-          // Открытие оверлея для нового и уже перевёрнутого
           openOverlay(smallCard.dataset.front);
         });
 
@@ -1157,6 +1215,11 @@
           container.classList.add("fade-in");
           container.style.transform = "";
         }, 50);
+      }
+
+      // Если уже исчерпаны бесплатные 5 карт, блокируем сразу все
+      if (isFreeUsed()) {
+        blockRemainingCards();
       }
 
       // вернуть кликабельность после анимации
@@ -1348,23 +1411,6 @@
       setTimeout(enableInteractions, 2000);
     }
     
-    const soundBtn = document.getElementById('soundBtn');
-    const meditativeAudio = document.getElementById('meditativeAudio');
-    let isPlaying = false;
-    if (soundBtn) {
-      soundBtn.addEventListener('click', function(e) {
-        if (!isPlaying) {
-          meditativeAudio.play();
-          soundBtn.classList.remove('muted');
-          isPlaying = true;
-        } else {
-          meditativeAudio.pause();
-          soundBtn.classList.add('muted');
-          isPlaying = false;
-        }
-      });
-    }
-    
     /* Функции для модального окна нотаток */
     function openNotes() {
       const dateInput = document.getElementById('notesDate');
@@ -1398,6 +1444,19 @@
     document.getElementById('notesOverlay').addEventListener("click", function(e) {
       if(e.target.id === "notesOverlay") {
         closeNotesModal();
+      }
+    });
+
+    /* Функции для модального окна покупки */
+    function showPurchaseModal() {
+      document.getElementById("purchaseModal").style.display = "flex";
+    }
+    function hidePurchaseModal() {
+      document.getElementById("purchaseModal").style.display = "none";
+    }
+    document.getElementById("purchaseModal").addEventListener("click", function(e) {
+      if (e.target.id === "purchaseModal") {
+        hidePurchaseModal();
       }
     });
   </script>
