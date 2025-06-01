@@ -754,12 +754,12 @@
     <a href="#" target="_blank"><img src="https://i.ibb.co/GfqnLvSv/6-1.png" alt="Site Icon"></a>
   </div>
   
-  <!-- ========== Preloader ========== -->
+  <!-- ========== Preloader ================= -->
   <div id="preloader">
     <div class="spinner"></div>
   </div>
   
-  <!-- ========== Главное меню ========== -->
+  <!-- ========== Главное меню ================= -->
   <div id="mainMenu" class="menu fade-in">
     <div class="greeting">
       <h1 class="glowing-title">Дзеркало душі</h1>
@@ -775,7 +775,7 @@
     </footer>
   </div>
   
-  <!-- ========== Секция "Як це працює?" с расширенным описанием ========== -->
+  <!-- ========== Секция "Як це працює?" ================= -->
   <div id="sectionDiary" class="section">
     <button class="btn back-btn" onclick="backToMenu()">
       <img src="https://i.ibb.co/s9NyJrT7/56-1.png" alt="Back">
@@ -824,7 +824,7 @@
     </div>
   </div>
   
-  <!-- ========== Секция "Розгорнути колоду" ========== -->
+  <!-- ========== Секция "Розгорнути колоду" ================= -->
   <div id="sectionDeckInfo" class="section">
     <div class="nav-buttons">
       <button class="btn back-btn" onclick="backToMenu()">
@@ -845,7 +845,7 @@
     </div>
   </div>
   
-  <!-- ========== Секция "Мак-карти" ========== -->
+  <!-- ========== Секция "Мак-карти" ================= -->
   <div id="sectionMakKarti" class="section">
     <div class="nav-buttons">
       <!-- Кнопка "Назад" -->
@@ -869,7 +869,7 @@
     </div>
   </div>
   
-  <!-- ========== Секция "72 карт" ========== -->
+  <!-- ========== Секция "72 карт" ================= -->
   <div id="section72Cards" class="section">
     <div class="nav-buttons">
       <button class="btn back-btn" onclick="backToMakKartiFrom72()">
@@ -881,7 +881,7 @@
     </div>
   </div>
   
-  <!-- ========== Глобальный оверлей для карточки ========== -->
+  <!-- ========== Глобальный оверлей для карточки ================= -->
   <div class="overlay" id="overlay">
     <div class="overlay-card-container">
       <div class="big-card" id="bigCard">
@@ -897,7 +897,7 @@
     </div>
   </div>
   
-  <!-- ========== Глобальный оверлей для нотаток ========== -->
+  <!-- ========== Глобальный оверлей для нотаток ================= -->
   <div class="overlay" id="notesOverlay">
     <div class="overlay-notes-container">
       <div class="notes-card" id="notesCard">
@@ -916,13 +916,13 @@
     </div>
   </div>
   
-  <!-- ========== Огни (fireflies) ========== -->
+  <!-- ========== Огни (fireflies) ================= -->
   <div class="fireflies"></div>
   
-  <!-- ========== Аудіо для медитативной музики (placeholder) ========== -->
+  <!-- ========== Аудіо для медитативной музики (placeholder) ================= -->
   <audio id="meditativeAudio" loop src="meditative.mp3"></audio>
   
-  <!-- ========== Модалка «Оплатіть повний доступ» -------------------- -->
+  <!-- ========== Модалка «Оплатіть повний доступ» ================= -->
   <div id="paymentModal">
     <div id="paymentContent">
       <h2>Оплатіть повний доступ</h2>
@@ -975,7 +975,7 @@
     ];
 
     let bigImages = [
-      "https://i.ibb.co/N6Qz35Sh/photo-2025-05-26-17-55-31-2.jpg.webp",
+     "https://i.ibb.co/N6Qz35Sh/photo-2025-05-26-17-55-31-2.jpg.webp",
       "https://i.ibb.co/0yQHT7jC/photo-2025-05-26-17-55-31-3.jpg.webp",
       "https://i.ibb.co/5XwCHmm9/photo-2025-05-26-17-55-31.jpg.webp",
       "https://i.ibb.co/nqxJW0Jz/photo-2025-05-27-23-54-14-3.jpg.webp",
@@ -1052,7 +1052,7 @@
       "https://i.ibb.co/TBzZjQ0w/photo-2025-05-27-23-54-13-2.jpg.webp",
       "https://i.ibb.co/BK5sxgw8/photo-2025-05-28-23-30-40.jpg.webp"
     ];
-    // Исправляем все некорректные домены
+    // Исправляем все некорректные домены ("i.ibb-co" → "i.ibb.co")
     bigImages = bigImages.map(url => url.replace(/i\.ibb-co/g, "i.ibb.co"));
 
     // -------------------- Состояние --------------------
@@ -1062,18 +1062,27 @@
 
     // -------------------- Инициализация --------------------
     function initializeDeck() {
-      // Если уже есть сохранённый порядок и перевёрнутые индексы, загружаем их
-      const savedOrder = localStorage.getItem('deckOrder');
-      const savedFlipped = localStorage.getItem('flippedCards');
-      const savedPaid = localStorage.getItem('paidFlag');
+      // Проверяем, есть ли параметр ?paid=true в URL → сразу устанавливаем флаг
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('paid') === 'true') {
+        localStorage.setItem('paidFlag', 'true');
+        paidFlag = true;
+      }
 
+      // Загружаем из localStorage уже сохранённый флаг оплаты 
+      const savedPaid = localStorage.getItem('paidFlag');
       if (savedPaid === 'true') {
         paidFlag = true;
       }
+
+      // Загружаем порядок (deckOrder) и перевёрнутые (flippedCards) из localStorage
+      const savedOrder = localStorage.getItem('deckOrder');
+      const savedFlipped = localStorage.getItem('flippedCards');
+
       if (savedOrder) {
         shuffledOrder = JSON.parse(savedOrder);
       } else {
-        // создаём новый порядок
+        // создаём новый перемешанный порядок
         shuffledOrder = Array.from(bigImages.keys());
         for (let i = shuffledOrder.length - 1; i > 0; i--) {
           const j = Math.floor(Math.random() * (i + 1));
@@ -1081,6 +1090,7 @@
         }
         localStorage.setItem('deckOrder', JSON.stringify(shuffledOrder));
       }
+
       if (savedFlipped) {
         flippedIndices = JSON.parse(savedFlipped);
       } else {
@@ -1108,12 +1118,14 @@
 
         const smallCard = document.createElement("div");
         smallCard.classList.add("small-card");
-        smallCard.dataset.index = i; // наш индекс внутри deck
-        // если этот индекс уже в flippedIndices или paidFlag, показываем front:
+        smallCard.dataset.index = i; // индекс внутри deck
+
+        // Если пользователь полностью оплатил → сразу показываем front (лицо)
         if (paidFlag || flippedIndices.includes(i)) {
           smallCard.style.backgroundImage = `url("${bigImages[shuffledOrder[i]]}")`;
           smallCard.classList.add("flipped", "front-shown");
         } else {
+          // Иначе показываем рубашку
           smallCard.style.backgroundImage = 'url("https://i.ibb.co/wcWxxGp/IMG-8462.webp")';
         }
 
@@ -1122,25 +1134,29 @@
 
           const idx = parseInt(this.dataset.index);
           if (paidFlag) {
+            // Уже оплачен → всегда показываем Overlay с большой картой
             revealFront(this, idx);
             return;
           }
+
+          // Если карта уже открыта (номер в flippedIndices) → показываем Overlay
           if (flippedIndices.includes(idx)) {
-            // повторный клик по уже открытому – показываем Overlay
             revealFront(this, idx);
             return;
           }
-          // если не оплачено и ещё не открыто, но достигли лимита:
+
+          // Если дошёл до лимита в 5 открытий → показываем окно оплаты
           if (flippedIndices.length >= MAX_OPENS) {
             openPaymentModal();
             return;
           }
-          // иначе – переворачиваем карту
+
+          // Иначе – это очередное открытие из первых 5, переворачиваем, сохраняем
           revealFront(this, idx);
           flippedIndices.push(idx);
           localStorage.setItem('flippedCards', JSON.stringify(flippedIndices));
           if (flippedIndices.length >= MAX_OPENS) {
-            // больше не кликабельны незаполненные
+            // Когда лимит достигнут, «затемнённые» карты перестают реагировать
             disableAllNonFlipped();
           }
         });
@@ -1209,7 +1225,7 @@
 
     // -------------------- Функция перемешивания карт --------------------
     function shuffleCards() {
-      // при полной оплате просто заново рендерим без ограничения
+      // если уже платный режим – просто перерисуем полный набор без ограничений
       if (paidFlag) {
         initializeDeck();
         localStorage.removeItem('flippedCards');
@@ -1217,7 +1233,7 @@
         createSmallCards(76);
         return;
       }
-      // иначе очищаем текущее состояние, создаём новую колоду
+      // иначе – сбрасываем данные и создаём заново
       initializeDeck();
       flippedIndices = [];
       localStorage.setItem('flippedCards', JSON.stringify(flippedIndices));
