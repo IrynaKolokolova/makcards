@@ -19,7 +19,7 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      -webkit-user-select: none; /* Запрет выделения текста */
+      -webkit-user-select: none; /* Запрет на выделение текста */
       -moz-user-select: none;
       -ms-user-select: none;
       user-select: none;
@@ -844,7 +844,7 @@
   </style>
 </head>
 <body>
-  <!-- Оверлей, который показывается при попытке PrintScreen -->
+  <!-- Оверлей, который показывается при попытке PrintScreen или переключении контекста -->
   <div id="screenshotBlocker"></div>
   
   <!-- Социальные иконки -->
@@ -994,7 +994,6 @@
         </div>
         <div class="big-card-face big-card-back" id="bigCardBack">
           <p class="daily-wish"></p>
-          <!-- Кнопка «Отримати консультацію» при большом каруселе оставили без изменений -->
           <a class="consult-button" href="https://t.me/irynakolokolovamak_bot" target="_blank" onclick="event.stopPropagation();">Отримати консультацію</a>
         </div>
       </div>
@@ -1024,8 +1023,8 @@
   <div id="purchaseModal">
     <div class="purchase-modal-content">
       <p>Безкоштовна версія завершена. Для подальшого використання придбайте повну версію.</p>
-      <!-- Ссылка изменилась: теперь открыт бот с параметром ?start=pay -->
-      <a href="https://t.me/irynakolokolovamak_bot?start=pay" target="_blank" class="purchase-modal-button">Отримати</a>
+      <!-- Заменили <a> на <button> и добавили id="purchaseButton" -->
+      <button id="purchaseButton" class="purchase-modal-button">Отримати</button>
     </div>
   </div>
   
@@ -1036,7 +1035,6 @@
   <audio id="meditativeAudio" loop src="meditative.mp3"></audio>
   
   <script>
-    // При загрузке страницы: скрываем прелоадер, отображаем главное меню, создаём fireflies.
     document.addEventListener('DOMContentLoaded', function() {
       // Если URL содержит ?paid=true, сохраняем в localStorage «paid»
       const params = new URLSearchParams(window.location.search);
@@ -1049,6 +1047,32 @@
         let selectedDate = this.value;
         let savedNotes = localStorage.getItem('userNotes_' + selectedDate);
         document.getElementById('notesTextArea').value = savedNotes || "";
+      });
+
+      // Обработчик кнопки «Отримати» (покупка) — сначала открывает бот, потом закрывает мини-приложение
+      const purchaseBtn = document.getElementById('purchaseButton');
+      purchaseBtn.addEventListener('click', function() {
+        // Открываем ссылку в Telegram (deep link на бота)
+        if (window.Telegram && Telegram.WebApp) {
+          Telegram.WebApp.openLink('https://t.me/irynakolokolovamak_bot?start=pay');
+          // После открытия закрываем мини-приложение, чтобы пользователь увидел чат с ботом
+          Telegram.WebApp.close();
+        } else {
+          // Если WebApp API недоступен, просто переходим по ссылке
+          window.location.href = 'https://t.me/irynakolokolovamak_bot?start=pay';
+        }
+      });
+
+      // Слушаем изменение видимости страницы (моб. браузеры не сообщают о скриншоте напрямую,
+      // но можем попытаться перехватить переключение контекста)
+      document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+          const blocker = document.getElementById('screenshotBlocker');
+          blocker.style.display = 'block';
+        } else {
+          const blocker = document.getElementById('screenshotBlocker');
+          blocker.style.display = 'none';
+        }
       });
     });
 
@@ -1551,7 +1575,7 @@
       }
     });
 
-    /* Блокировка скриншота: при нажатии PrintScreen показываем чёрный экран на 1 сек */
+    /* Блокировка скриншота (десктоп) */
     document.addEventListener('keyup', function(e) {
       if (e.key === 'PrintScreen' || e.keyCode === 44) {
         const blocker = document.getElementById('screenshotBlocker');
