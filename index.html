@@ -12,7 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Allura&display=swap" rel="stylesheet">
 
   <style>
-    /* Общие стили */
+    /* ==================== Общие стили ==================== */
     * {
       margin: 0;
       padding: 0;
@@ -35,8 +35,11 @@
       font-size: 1.3rem;
       line-height: 1.3;
     }
+    body, h1, h2, h3, h4, h5, h6, p, li, a, button, .btn, .highlight {
+      text-shadow: 2px 2px 4px rgba(0,0,0,1);
+    }
 
-    /* Общие переходы */
+    /* Плавные переходы для элементов */
     .btn, .content, .deck-icons, .icon-btn {
       transition: opacity 0.5s ease, transform 0.5s ease;
     }
@@ -50,11 +53,7 @@
       transform: translateY(0);
     }
 
-    body, h1, h2, h3, h4, h5, h6, p, li, a, button, .btn, .highlight {
-      text-shadow: 2px 2px 4px rgba(0,0,0,1);
-    }
-
-    /* Preloader */
+    /* ==================== Прелоадер ==================== */
     #preloader {
       position: fixed;
       top: 0;
@@ -109,7 +108,7 @@
       z-index: 3;
     }
 
-    /* Анимированное название */
+    /* ==================== Анимированное название ==================== */
     .glowing-title {
       font-family: 'Great Vibes', cursive;
       font-size: 3rem;
@@ -128,13 +127,12 @@
         text-shadow: 0 0 3px rgba(255,255,255,0.4), 0 0 5px rgba(255,255,255,0.4);
       }
     }
-
     .highlight {
       color: #fff;
       text-shadow: 0 0 6px rgba(255,255,255,0.8);
     }
 
-    /* Главное меню */
+    /* ==================== Главное меню ==================== */
     .menu {
       display: flex;
       flex-direction: column;
@@ -150,7 +148,6 @@
       padding: 100px 10px 80px; /* увеличен отступ сверху и снизу */
       overflow-y: auto; /* добавлен скроллинг */
     }
-
     .greeting p {
       font-family: Georgia, serif;
       font-style: italic;
@@ -161,7 +158,6 @@
       margin-bottom: 10px;
       margin-top: 20px;
     }
-
     .btn {
       font-family: 'Great Vibes', cursive;
       font-style: normal;
@@ -208,7 +204,7 @@
       100% { opacity: 0; }
     }
 
-    /* Кнопки «Назад», «Продовжити», «Звук» */
+    /* ==================== Навигационные кнопки ==================== */
     .btn.back-btn, .btn.continue-btn, .btn.sound-btn {
       padding: 4px 10px;
       min-width: auto;
@@ -244,7 +240,7 @@
       height: 17px;
     }
 
-    /* Контейнер для кнопок навигации («Назад» и «Перетасувати») */
+    /* Контейнер для «Назад» и «Перетасувати» */
     .nav-buttons {
       display: flex;
       justify-content: space-between;
@@ -252,7 +248,6 @@
       width: 100%;
       padding: 10px;
     }
-
     /* Текст между кнопками */
     .center-text {
       font-family: Georgia, serif;
@@ -271,7 +266,7 @@
       margin: 10px 0;
     }
 
-    /* Иконки под карточками */
+    /* ==================== Иконки под карточками ==================== */
     .deck-icons {
       display: flex;
       justify-content: center;
@@ -304,7 +299,7 @@
       filter: brightness(0) invert(1);
     }
 
-    /* Социальные иконки */
+    /* ==================== Социальные иконки ==================== */
     .social-left {
       position: fixed;
       top: 10px;
@@ -324,7 +319,7 @@
       width: auto;
     }
 
-    /* Секции */
+    /* ==================== Секции ==================== */
     .section {
       display: none;
       padding: 10px;
@@ -337,8 +332,8 @@
       opacity: 0;
       transform: translateY(20px);
       transition: opacity 0.5s ease, transform 0.5s ease;
-      overflow-y: auto !important; /* вертикальный скроллинг */
-      -webkit-overflow-scrolling: touch; /* плавный скроллинг на iOS */
+      overflow-y: auto !important; /* вертикальный скролл */
+      -webkit-overflow-scrolling: touch; /* плавный скролл iOS */
     }
     #sectionDiary {
       overflow-y: auto !important;
@@ -378,7 +373,7 @@
       text-shadow: none;
     }
 
-    /* Секция «Розгорнути колоду» */
+    /* ==================== Секция «Розгорнути колоду» ==================== */
     #sectionDeckInfo {
       overflow: hidden;
     }
@@ -402,7 +397,7 @@
       text-align: justify;
     }
 
-    /* Секция «Мак-карти» */
+    /* ==================== Секция «Мак-карти» ==================== */
     #sectionMakKarti {
       overflow: hidden;
     }
@@ -450,6 +445,7 @@
       background-size: cover; /* фон заполнит весь контейнер */
       background-position: center; /* по центру */
       background-repeat: no-repeat;
+      transition: transform 0.2s ease;
     }
     .small-card:hover {
       transform: scale(1.05);
@@ -465,25 +461,12 @@
       width: 100%;
       height: 100%;
     }
-    .small-card {
-      width: 80px;
-      height: 112px;
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      transition: transform 0.2s ease;
-      cursor: pointer;
-      border-radius: 8px;
-      overflow: hidden;
-      position: relative;
-    }
     .small-card.loading {
       background: transparent;
     }
     .small-card.blocked {
       opacity: 0.5;
     }
-
     /* Перевернутая карта */
     .small-card.flipped {
       background-size: cover;
@@ -491,7 +474,7 @@
       background-repeat: no-repeat;
     }
 
-    /* Секция «72 карт» */
+    /* ==================== Секция «72 карт» ==================== */
     #section72Cards {
       overflow-y: auto;
     }
@@ -517,7 +500,7 @@
       position: relative;
     }
 
-    /* Глобальный оверлей для большой карты */
+    /* ==================== Оверлей для большой карты ==================== */
     .overlay {
       position: fixed;
       top: 0;
@@ -669,7 +652,7 @@
       box-shadow: 0 0 6px rgba(64,224,208,0.6);
     }
 
-    /* Огни (fireflies) */
+    /* ==================== Огни (fireflies) ==================== */
     .fireflies {
       position: fixed;
       top: 0;
@@ -695,7 +678,7 @@
       100% { opacity: 0; transform: scale(0.8); }
     }
 
-    /* Футер */
+    /* ==================== Футер ==================== */
     #mainFooter {
       position: absolute;
       bottom: 10px;
@@ -713,7 +696,7 @@
       white-space: nowrap;
     }
 
-    /* Модальное окно Нотатки */
+    /* ==================== Модальное окно Нотатки ==================== */
     .overlay-notes-container {
       position: relative;
       width: 400px;
@@ -778,7 +761,7 @@
       filter: invert(1);
     }
 
-    /* Модальное окно покупки */
+    /* ==================== Модальное окно покупки ==================== */
     #purchaseModal {
       position: fixed;
       top: 0;
@@ -816,13 +799,14 @@
       box-shadow: 0 0 4px rgba(64,224,208,0.5);
       text-decoration: none;
       display: inline-block;
+      white-space: nowrap;
     }
     .purchase-modal-button:hover {
       background: rgba(64,224,208,0.4);
       box-shadow: 0 0 6px rgba(64,224,208,0.6);
     }
 
-    /* Чёрный оверлей для блокировки скриншота */
+    /* ==================== Чёрный оверлей для блокировки скриншота ==================== */
     #screenshotBlocker {
       position: fixed;
       top: 0;
@@ -835,16 +819,16 @@
       pointer-events: none;
     }
 
-    /* Адаптация для очень маленьких экранов (≤ 400px) */
-    @media (max-width: 400px) {
+    /* ==================== Адаптация для очень маленьких экранов (≤ 450px) ==================== */
+    @media (max-width: 450px) {
       /* Основные .btn (кроме навигационных: back-btn, continue-btn, shuffle-btn) */
       .btn:not(.back-btn):not(.continue-btn):not(.shuffle-btn) {
-        min-width: 80% !important;
-        font-size: 1.4rem !important;
+        min-width: 85% !important;
+        font-size: 1.6rem !important;
         white-space: normal;
-        padding: 12px 20px !important;
+        padding: 18px 24px !important;
       }
-      /* Навигационные кнопки снова маленькие */
+      /* Навигационные кнопки остаются компактными */
       .btn.back-btn, .btn.continue-btn, .btn.shuffle-btn {
         padding: 4px 10px;
         font-size: 1rem;
@@ -884,7 +868,7 @@
     </div>
     <button class="btn" onclick="openDeckInfo()">Розгорнути карти</button>
     <button id="proKartBtn" class="btn disabled">Про карти</button>
-    <button class="btn" style="color: #ff69b4;" onclick="openSession()">Сесія підсвідомості</button>
+    <button class="btn" style="color: #ff69b4;" onclick="openSession()">Сесія підсідомості</button>
     <footer id="mainFooter">
       © 2025 Усі права захищені.
       <span class="second-line">Авторська колода «Дзеркало душі» від Ірини Колоколової</span>
@@ -1061,26 +1045,24 @@
 
       hidePreloader();
 
-      // Обработчик изменения даты для загрузки заметок по выбранной дате
+      // Обработчик изменения даты для загрузки заметок
       document.getElementById('notesDate').addEventListener('change', function() {
         let selectedDate = this.value;
         let savedNotes = localStorage.getItem('userNotes_' + selectedDate);
         document.getElementById('notesTextArea').value = savedNotes || "";
       });
 
-      // Усиленная блокировка скриншота:
+      // Усиленная блокировка скриншота
       const blocker = document.getElementById('screenshotBlocker');
       function showBlocker() { blocker.style.display = 'block'; }
       function hideBlocker() { blocker.style.display = 'none'; }
 
-      // При смене видимости документа:
       document.addEventListener('visibilitychange', function() {
         if (document.hidden) { showBlocker(); } else { hideBlocker(); }
       });
       document.addEventListener('webkitvisibilitychange', function() {
         if (document.hidden) { showBlocker(); } else { hideBlocker(); }
       });
-      // При потере фокуса окна (например PrintScreen):
       window.addEventListener('blur', function() { showBlocker(); });
       window.addEventListener('focus', function() { hideBlocker(); });
       document.addEventListener('keyup', function(e) {
@@ -1132,7 +1114,7 @@
       });
     });
 
-    // Функция для кнопки "Сесія підсвідомості"
+    // Функция для кнопки "Сесія підсідомості"
     function openSession() {
       if (window.Telegram && Telegram.WebApp) {
         Telegram.WebApp.openLink('https://t.me/irynakolokolovamak_bot?start=session');
@@ -1530,7 +1512,7 @@
         const front = document.createElement("div");
         front.classList.add("small-card-front");
         if (i < 76) {
-          front.style.backgroundImage = 'url("'+ bigImages[i] +'")';
+          front.style.backgroundImage = 'url("' + bigImages[i] + '")';
         } else {
           front.style.background = "rgba(64,224,208,0.2)";
         }
