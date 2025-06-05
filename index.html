@@ -6,11 +6,9 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
   <title>Дзеркало душі — Односторінковий додаток</title>
 
-  <!-- Подключение шрифта Great Vibes (только для заголовка и кнопок) -->
+  <!-- Шрифты Great Vibes и Allura -->
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
-
-  <!-- Подключение красивого курсивного шрифта (Allura) -->
   <link href="https://fonts.googleapis.com/css2?family=Allura&display=swap" rel="stylesheet">
 
   <style>
@@ -81,7 +79,7 @@
       to { transform: rotate(360deg); }
     }
 
-    /* Спиннеры для карт */
+    /* Спиннер для маленьких карт */
     .spinner-small {
       border: 3px solid rgba(64,224,208,0.2);
       border-top: 3px solid rgba(64,224,208,0.8);
@@ -95,6 +93,7 @@
       transform: translate(-50%, -50%) !important;
       z-index: 2;
     }
+    /* Спиннер для большой карты */
     .spinner-large {
       border: 4px solid rgba(64,224,208,0.2);
       border-top: 4px solid rgba(64,224,208,0.8);
@@ -864,9 +863,7 @@
     <div class="greeting">
       <h1 class="glowing-title">Дзеркало душі</h1>
       <p>
-        Метафоричні асоціативні карти “Дзеркало Душі” – авторська колода з 76 карт, що відкриває глибини підсвідомості та допомагає зрозуміти власні емоції.
-        Кожна карта втілює унікальне поєднання образів і символів, відображаючи наші переживання та підсвідомі імпульси.
-        Відкрийте свою внутрішню силу, збалансуйте емоції та знайдіть нові можливості для розвитку.
+        Метафоричні асоціативні карти “Дзеркало Душі” – авторська колода з 76 карт, що відкриває глибини підсвідомості та допомагає зрозуміти власні емоції. Кожна карта втілює унікальне поєднання образів і символів, відображуючи наші переживання та підсвідомі імпульси. Відкрийте свою внутрішню силу, збалансуйте емоції та знайдіть нові можливості для розвитку.
       </p>
     </div>
     <button class="btn" onclick="openDeckInfo()">Розгорнути карти</button>
@@ -1029,7 +1026,7 @@
   <!-- Огни (fireflies) -->
   <div class="fireflies"></div>
 
-  <!-- Аудіо для медитативної музики (placeholder) -->
+  <!-- Аудіо для медитативної музики (заглушка) -->
   <audio id="meditativeAudio" loop src="meditative.mp3"></audio>
 
   <script>
@@ -1196,13 +1193,13 @@
       "https://i.ibb.co/0yQHT7jC/photo-2025-05-26-17-55-31-3.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
       "https://i.ibb.co/5XwCHmm9/photo-2025-05-26-17-55-31.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
       "https://i.ibb.co/nqxJW0Jz/photo-2025-05-27-23-54-14-3.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb.co/whXpDsKv/photo-2025-05-26-17-55-39-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb.co/5Q6f4xL/photo-2025-05-26-17-55-39-3.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb.co/mr6yk1w9/photo-2025-05-26-17-55-39.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb.co/YT4DND1c/photo-2025-05-26-17-55-40-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb.co/q3q0J3zB/photo-2025-05-26-17-55-40.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb.co/HpXC6N0J/photo-2025-05-26-17-55-41.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb.co/wZL0158h/photo-2025-05-26-17-55-42.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/whXpDsKv/photo-2025-05-26-17-55-39-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/5Q6f4xL/photo-2025-05-26-17-55-39-3.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/mr6yk1w9/photo-2025-05-26-17-55-39.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/YT4DND1c/photo-2025-05-26-17-55-40-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/q3q0J3zB/photo-2025-05-26-17-55-40.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/HpXC6N0J/photo-2025-05-26-17-55-41.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/wZL0158h/photo-2025-05-26-17-55-42.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
       "https://i.ibb-co/0xy7zGD/photo-2025-05-26-17-55-43-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
       "https://i.ibb-co/84BFk01x/photo-2025-05-26-17-55-43.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
       "https://i.ibb-co/dw0zVMqT/photo-2025-05-26-17-55-44-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
