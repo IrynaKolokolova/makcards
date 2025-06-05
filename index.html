@@ -176,6 +176,9 @@
       position: relative;
       overflow: hidden;
       white-space: nowrap;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     .btn:hover {
       background: rgba(64,224,208,0.4);
@@ -186,7 +189,6 @@
     }
     .btn.disabled {
       opacity: 0.6;
-      /* pointer-events: none; — убрано, чтобы кнопка «Про карти» всегда реагировала на клик */
     }
     .btn::before {
       content: "";
@@ -469,7 +471,6 @@
     .small-card.blocked {
       opacity: 0.5;
     }
-    /* Перевернутая карта */
     .small-card.flipped {
       background-size: cover;
       background-position: center;
@@ -631,7 +632,6 @@
       margin: 0;
       text-align: center;
     }
-    /* Заменили <a> на <button> для «Отримати консультацію» */
     .consult-button {
       font-family: 'Great Vibes', cursive;
       font-style: normal;
@@ -648,6 +648,9 @@
       position: relative;
       overflow: hidden;
       margin-top: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     .consult-button:hover {
       background: rgba(64,224,208,0.4);
@@ -802,6 +805,9 @@
       text-decoration: none;
       display: inline-block;
       white-space: nowrap;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     .purchase-modal-button:hover {
       background: rgba(64,224,208,0.4);
@@ -823,14 +829,12 @@
 
     /* ==================== Адаптация для очень маленьких экранов (≤ 450px) ==================== */
     @media (max-width: 450px) {
-      /* Основные .btn (кроме навигационных: back-btn, continue-btn, shuffle-btn) */
       .btn:not(.back-btn):not(.continue-btn):not(.shuffle-btn) {
         min-width: 85% !important;
         font-size: 1.6rem !important;
         white-space: normal;
         padding: 18px 24px !important;
       }
-      /* Навигационные кнопки остаются компактными */
       .btn.back-btn, .btn.continue-btn, .btn.shuffle-btn {
         padding: 4px 10px;
         font-size: 1rem;
@@ -877,7 +881,7 @@
     </footer>
   </div>
 
-  <!-- Секция "Як це працює?" с расширенным описанием -->
+  <!-- Секция "Як це працює?" -->
   <div id="sectionDiary" class="section">
     <button class="btn back-btn" onclick="backToMenu()">
       <img src="https://i.ibb.co/s9NyJrT7/56-1.png" alt="Back">
@@ -1033,32 +1037,26 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // Проверка параметра reset: если reset=true, очищаем localStorage, чтобы при снятии доступа не было кеша paid
       const params = new URLSearchParams(window.location.search);
       if (params.get('reset') === 'true') {
         localStorage.removeItem('paid');
         localStorage.removeItem('freeUsed');
       }
-
-      // Если URL содержит ?paid=true, сохраняем в localStorage «paid»
       if (params.get('paid') === 'true') {
         localStorage.setItem('paid', 'true');
       }
 
       hidePreloader();
 
-      // Обработчик изменения даты для загрузки заметок
       document.getElementById('notesDate').addEventListener('change', function() {
         let selectedDate = this.value;
         let savedNotes = localStorage.getItem('userNotes_' + selectedDate);
         document.getElementById('notesTextArea').value = savedNotes || "";
       });
 
-      // Усиленная блокировка скриншота
       const blocker = document.getElementById('screenshotBlocker');
       function showBlocker() { blocker.style.display = 'block'; }
       function hideBlocker() { blocker.style.display = 'none'; }
-
       document.addEventListener('visibilitychange', function() {
         if (document.hidden) { showBlocker(); } else { hideBlocker(); }
       });
@@ -1074,7 +1072,6 @@
         }
       });
 
-      // Обработчик кнопки «Отримати» (покупка)
       const purchaseBtn = document.getElementById('purchaseButton');
       purchaseBtn.addEventListener('click', function() {
         if (window.Telegram && Telegram.WebApp) {
@@ -1085,7 +1082,6 @@
         }
       });
 
-      // Инициализация состояния кнопки "Про карти"
       const proKartBtn = document.getElementById('proKartBtn');
       function updateProKartBtn() {
         if (isPaidUser()) {
@@ -1103,7 +1099,6 @@
         }
       });
 
-      // Обработчик кнопки «Отримати консультацію» внутри большой карты
       const consultBtn = document.getElementById('consultButton');
       consultBtn.addEventListener('click', function(e) {
         e.stopPropagation();
@@ -1116,7 +1111,6 @@
       });
     });
 
-    // Функция для кнопки "Сесія підсідомості"
     function openSession() {
       if (window.Telegram && Telegram.WebApp) {
         Telegram.WebApp.openLink('https://t.me/irynakolokolovamak_bot?start=session');
@@ -1129,12 +1123,9 @@
     let selectedCount = 0;
     let animationInProgress = false;
     const freeUsedKey = 'freeUsed';
-
-    // Проверяем, исчерпала ли пользователь бесплатные 5 карт
     function isFreeUsed() {
       return localStorage.getItem(freeUsedKey) === 'true';
     }
-    // Проверяем, оплачен ли пользователь
     function isPaidUser() {
       return localStorage.getItem('paid') === 'true';
     }
@@ -1271,13 +1262,11 @@
       for (let i = 0; i < count; i++) {
         const container = document.createElement("div");
         container.classList.add("card-container");
-        // рандомная разброска
         const angle = Math.random() * Math.PI * 2;
         const distance = 50 + Math.random() * 50;
         container.style.transform =
           `scale(0.9) translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px)`;
 
-        // создаём одну small-card
         const smallCard = document.createElement("div");
         smallCard.classList.add("small-card");
         smallCard.dataset.front = shuffledImages[i];
@@ -1286,7 +1275,6 @@
 
         smallCard.addEventListener("click", function() {
           if (animationInProgress) return;
-          // Если пользователь paid — он имеет неограниченный доступ
           if (!paid && isFreeUsed()) {
             showPurchaseModal();
             return;
@@ -1298,7 +1286,6 @@
               showPurchaseModal();
               return;
             }
-            // Показываем спиннер и очищаем фон до загрузки
             smallCard.classList.add("loading");
             smallCard.style.backgroundImage = "none";
             const spinnerElm = document.createElement("div");
@@ -1327,19 +1314,16 @@
         container.appendChild(smallCard);
         grid.appendChild(container);
 
-        // анимация появления
         setTimeout(() => {
           container.classList.add("fade-in");
           container.style.transform = "";
         }, 50);
       }
 
-      // Если уже исчерпаны бесплатные 5 карт, блокируем сразу все (кроме paid)
       if (!paid && isFreeUsed()) {
         blockRemainingCards();
       }
 
-      // вернуть кликабельность после анимации
       setTimeout(enableInteractions, 500);
     }
 
@@ -1359,7 +1343,6 @@
         chosenImg = bigImages[randomIndex];
       }
 
-      // Добавляем спиннер для большой карты
       const bigCardFront = document.getElementById("bigCardFront");
       bigCardFront.style.backgroundImage = "none";
       const spinnerLarge = document.createElement("div");
