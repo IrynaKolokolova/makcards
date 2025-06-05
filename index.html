@@ -293,6 +293,7 @@
     }
     .icon-btn:active {
       transform: scale(0.95);
+      box-shadow: 0 0 12px rgba(64,224,208,0.6);
     }
     .icon-btn img {
       width: 30px;
@@ -1015,7 +1016,7 @@
       <div class="notes-card" id="notesCard">
         <button class="btn back-btn notes-close-btn" onclick="closeNotesModal()">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" viewBox="0 0 16 16">
-            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.0.5.0 0 1.708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 1 1 0-.708z"/>
+            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.0.5.0 0 1.708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 1 1 0-.708L7.293 8 4.646 5.354a.5.5 0 1 1 0-.708z"/>
           </svg>
         </button>
         <h2>Нотатки:</h2>
@@ -1086,7 +1087,12 @@
       const purchaseBtn = document.getElementById('purchaseButton');
       purchaseBtn.addEventListener('click', function() {
         const botLink = 'https://t.me/ikolokolovamak_bot?start=pay';
-        window.open(botLink, '_blank');
+        // Вместо window.open используем Telegram.WebApp.openLink
+        if (window.Telegram && Telegram.WebApp) {
+          Telegram.WebApp.openLink(botLink);
+        } else {
+          window.open(botLink, '_blank');
+        }
       });
 
       // Инициализация состояния кнопки "Про карти"
@@ -1112,14 +1118,24 @@
       consultBtn.addEventListener('click', function(e) {
         e.stopPropagation();
         const botLink = 'https://t.me/ikolokolovamak_bot?start=consult';
-        window.open(botLink, '_blank');
+        // Вместо window.open используем Telegram.WebApp.openLink
+        if (window.Telegram && Telegram.WebApp) {
+          Telegram.WebApp.openLink(botLink);
+        } else {
+          window.open(botLink, '_blank');
+        }
       });
     });
 
     // Функция для кнопки "Сесія підсідомість"
     function openSession() {
       const botLink = 'https://t.me/ikolokolovamak_bot?start=session';
-      window.open(botLink, '_blank');
+      // Вместо window.open используем Telegram.WebApp.openLink
+      if (window.Telegram && Telegram.WebApp) {
+        Telegram.WebApp.openLink(botLink);
+      } else {
+        window.open(botLink, '_blank');
+      }
     }
 
     let selectedCount = 0;
@@ -1193,12 +1209,12 @@
       "https://i.ibb.co/nqxJW0Jz/photo-2025-05-27-23-54-14-3.jpg.webp".replace("i.ibb-co","i.ibb.co"),
       "https://i.ibb.co/4ZcMXG42/photo-2025-05-26-17-55-32-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
       "https://i.ibb.co/xSsY24T2/photo-2025-05-26-17-55-33-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb.co/vCfXdgk7/photo-2025-05-27-23-54-14-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb.co/9kWZFRwB/photo-2025-05-26-17-55-34-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb.co/cSqh0Y4b/photo-2025-05-26-17-55-34.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb.co/d4ZCvq9Q/photo-2025-05-26-17-55-35-3.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb.co/ksxT3vR2/photo-2025-05-26-17-55-35-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb.co/6JVD9jgJ/photo-2025-05-26-17-55-35.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/vCfXdgk7/photo-2025-05-27-23-54-14-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/9kWZFRwB/photo-2025-05-26-17-55-34-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/cSqh0Y4b/photo-2025-05-26-17-55-34.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/d4ZCvq9Q/photo-2025-05-26-17-55-35-3.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/ksxT3vR2/photo-2025-05-26-17-55-35-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/6JVD9jgJ/photo-2025-05-26-17-55-35.jpg.webp".replace("i.ibb-co","i.ibb.co"),
       "https://i.ibb-co/4Rv7DBsR/photo-2025-05-26-17-55-36-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
       "https://i.ibb-co/svP2KcgG/photo-2025-05-28-23-30-39.jpg.webp".replace("i.ibb-co","i.ibb.co"),
       "https://i.ibb-co/BKt25h6Q/photo-2025-05-26-17-55-36.jpg.webp".replace("i.ibb-co","i.ibb.co"),
