@@ -190,7 +190,7 @@
     }
     .btn.disabled {
       opacity: 0.6;
-      pointer-events: none;
+      /* убрано pointer-events:none */
     }
     .btn::before {
       content: "";
@@ -792,6 +792,10 @@
       max-width: 90%;
       text-align: center;
       box-shadow: 0 0 10px rgba(64,224,208,0.6);
+      /* Теперь центрируем всё содержимое: */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
     .purchase-modal-content p {
       font-size: 1.4rem;
@@ -809,11 +813,10 @@
       cursor: pointer;
       box-shadow: 0 0 4px rgba(64,224,208,0.5);
       text-decoration: none;
-      display: inline-block;
-      white-space: nowrap;
-      display: flex;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
+      white-space: nowrap;
     }
     .purchase-modal-button:hover {
       background: rgba(64,224,208,0.4);
@@ -889,8 +892,9 @@
         Метафоричні асоціативні карти “Дзеркало Душі” – авторська колода з 76 карт, що відкриває глибини підсвідомості та допомагає зрозуміти власні емоції. Кожна карта втілює унікальне поєднання образів і символів, відображаючи наші переживання та підсвідомі імпульси. Відкрийте свою внутрішню силу, збалансуйте емоції та знайдіть нові можливості для розвитку.
       </p>
     </div>
-    <button class="btn" onclick="openDeckInfo()">Розгорнути карти</button>
+    <!-- Нажатие даже на «disabled» кнопку теперь вызовет showPurchaseModal() -->
     <button id="proKartBtn" class="btn disabled">Про карти</button>
+    <button class="btn" onclick="openDeckInfo()">Розгорнути карти</button>
     <button class="btn" style="color: #ff69b4;" onclick="openSession()">Сесія підсідомість</button>
     <footer id="mainFooter">
       © 2025 Усі права захищені.
@@ -1116,12 +1120,9 @@
         }
       }
       updateProKartBtn();
+      // Даже если кнопка имеет класс "disabled", на неё всё равно можно кликнуть
       proKartBtn.addEventListener('click', function() {
-        if (!isPaidUser()) {
-          showPurchaseModal();
-        } else {
-          openSection('sectionDiary');
-        }
+        showPurchaseModal();
       });
 
       // Обработчик кнопки «Отримати консультацію» внутри большой карты
@@ -1225,10 +1226,10 @@
       "https://i.ibb.co/ksxT3vR2/photo-2025-05-26-17-55-35-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
       "https://i.ibb.co/6JVD9jgJ/photo-2025-05-26-17-55-35.jpg.webp".replace("i.ibb-co","i.ibb.co"),
       "https://i.ibb.co/4Rv7DBsR/photo-2025-05-26-17-55-36-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb.co/svP2KcgG/photo-2025-05-28-23-30-39.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb.co/BKt25h6Q/photo-2025-05-26-17-55-36.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb.co/21H3TC2K/photo-2025-05-26-17-55-37-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb.co/Kx4Jq4Pq/photo-2025-05-26-17-55-37.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/svP2KcgG/photo-2025-05-28-23-30-39.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/BKt25h6Q/photo-2025-05-26-17-55-36.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/21H3TC2K/photo-2025-05-26-17-55-37-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/Kx4Jq4Pq/photo-2025-05-26-17-55-37.jpg.webp".replace("i.ibb-co","i.ibb.co"),
       "https://i.ibb-co/4nsRBhPr/photo-2025-05-26-17-55-38-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
       "https://i.ibb-co/zWfj7pS8/photo-2025-05-26-17-55-38.jpg.webp".replace("i.ibb-co","i.ibb.co"),
       "https://i.ibb-co/whXpDsKv/photo-2025-05-26-17-55-39-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
