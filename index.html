@@ -1036,39 +1036,6 @@
   <!-- Огни (fireflies) -->
   <div class="fireflies"></div>
 
-  <!-- *** Новые добавленные элементы (меню-кнопки) *** -->
-  <!-- 1) Кнопка-бургер внизу слева, чтобы возвращаться в главное меню -->
-  <button id="burgerMenuBtn"
-          style="position: fixed;
-                 bottom: 20px;
-                 left: 20px;
-                 background: rgba(64,224,208,0.2);
-                 border: 1px solid rgba(64,224,208,0.5);
-                 border-radius: 6px;
-                 padding: 10px;
-                 font-size: 1.5rem;
-                 color: #fff;
-                 z-index: 11000;">
-    ☰
-  </button>
-
-  <!-- 2) Кнопка «ВІДКРИТИ КАРТИ» внизу справа (постоянно синяя) -->
-  <button id="openCardsBtn"
-          style="position: fixed;
-                 bottom: 20px;
-                 right: 20px;
-                 background: #008CFF;
-                 color: #fff;
-                 border: none;
-                 padding: 12px 24px;
-                 border-radius: 6px;
-                 font-family: 'Great Vibes', cursive;
-                 font-size: 1.4rem;
-                 z-index: 11000;">
-    ВІДКРИТИ КАРТИ
-  </button>
-  <!-- *** Конец добавленных кнопок *** -->
-
   <!-- Аудіо для медитативної музики (placeholder) -->
   <audio id="meditativeAudio" loop src="meditative.mp3"></audio>
 
@@ -1155,26 +1122,6 @@
           window.location.href = 'https://t.me/irynakolokolovamak_bot?start=consult';
         }
       });
-
-      // *** Обработчики для новых кнопок: ***
-      // 1) Бургер-меню (возвращение в главное окно)
-      document.getElementById('burgerMenuBtn').addEventListener('click', function() {
-        backToMenu();
-      });
-      // 2) Відкрити карти (сразу открывает раздел с картами)
-      document.getElementById('openCardsBtn').addEventListener('click', function() {
-        // Если пользователь оплатил → сразу открываем все 76 карт
-        if (isPaidUser()) {
-          openSection('sectionMakKarti');
-          createSmallCards(76);
-        } else {
-          // Если не оплатил → открываем раздел с бесплатными и даём возможность выбрать 5 карт
-          openSection('sectionMakKarti');
-          createSmallCards(76);
-        }
-      });
-      // *** Конец обработчиков новых кнопок ***
-
     });
 
     // Функция для кнопки "Сесія підсідомості"
