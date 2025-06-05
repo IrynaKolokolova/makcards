@@ -6,9 +6,11 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
   <title>Дзеркало душі — Односторінковий додаток</title>
 
-  <!-- Шрифты -->
+  <!-- Подключение шрифта Great Vibes (только для заголовка и кнопок) -->
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+
+  <!-- Подключение красивого курсивного шрифта (Allura) -->
   <link href="https://fonts.googleapis.com/css2?family=Allura&display=swap" rel="stylesheet">
 
   <style>
@@ -39,7 +41,7 @@
       text-shadow: 2px 2px 4px rgba(0,0,0,1);
     }
 
-    /* Плавные переходы */
+    /* Плавные переходы для элементов */
     .btn, .content, .deck-icons, .icon-btn {
       transition: opacity 0.5s ease, transform 0.5s ease;
     }
@@ -137,7 +139,7 @@
       display: flex;
       flex-direction: column;
       gap: 20px;
-      justify-content: flex-start; /* прижмёт к верху */
+      justify-content: flex-start; /* прижмёт всё вверх */
       align-items: center;
       height: 100vh;
       text-align: center;
@@ -146,7 +148,7 @@
       max-width: 90%;
       margin: 0 auto;
       padding: 100px 10px 80px; /* увеличен отступ сверху и снизу */
-      overflow-y: auto;
+      overflow-y: auto; /* добавлен скроллинг */
     }
     .greeting p {
       font-family: Georgia, serif;
@@ -162,9 +164,8 @@
       font-family: 'Great Vibes', cursive;
       font-style: normal;
       min-width: 250px;
-      /* УВЕЛИЧИЛИ вертикальный padding и font-size, чтобы кнопки были крупнее */
-      padding: 25px 30px; /* было 20px 30px */
-      font-size: 2.2rem;  /* было 2rem */
+      padding: 15px 30px;
+      font-size: 1.8rem;
       background: rgba(64,224,208,0.2);
       border: 1px solid rgba(64,224,208,0.5);
       border-radius: 6px;
@@ -185,7 +186,7 @@
     }
     .btn.disabled {
       opacity: 0.6;
-      /* pointer-events: none; убрано, чтобы кнопка «Про карти» всегда реагировала */
+      /* pointer-events: none; — убрано, чтобы кнопка «Про карти» всегда реагировала на клик */
     }
     .btn::before {
       content: "";
@@ -210,6 +211,8 @@
       padding: 4px 10px;
       min-width: auto;
       min-height: auto;
+      width: auto;
+      height: auto;
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -235,10 +238,11 @@
     }
     .btn.shuffle-btn img {
       filter: brightness(0) invert(1);
-      width: 17px;
+      width: 17px; /* чуть больше */
       height: 17px;
     }
 
+    /* Контейнер для «Назад» и «Перетасувати» */
     .nav-buttons {
       display: flex;
       justify-content: space-between;
@@ -246,6 +250,7 @@
       width: 100%;
       padding: 10px;
     }
+    /* Текст между кнопками */
     .center-text {
       font-family: Georgia, serif;
       font-size: 1rem;
@@ -329,10 +334,12 @@
       opacity: 0;
       transform: translateY(20px);
       transition: opacity 0.5s ease, transform 0.5s ease;
-      overflow-y: auto !important;
-      -webkit-overflow-scrolling: touch;
+      overflow-y: auto !important; /* вертикальный скролл */
+      -webkit-overflow-scrolling: touch; /* плавный скролл iOS */
     }
-    #sectionDiary { overflow-y: auto !important; }
+    #sectionDiary {
+      overflow-y: auto !important;
+    }
     .section.active {
       display: block;
       opacity: 1;
@@ -349,6 +356,7 @@
       padding: 0 20px;
       transition: opacity 0.5s ease, transform 0.5s ease;
     }
+    /* Расширение описания в секции «Як це працює?» */
     #sectionDiary .content {
       max-width: 100%;
       padding: 20px;
@@ -368,7 +376,9 @@
     }
 
     /* ==================== Секция «Розгорнути колоду» ==================== */
-    #sectionDeckInfo { overflow: hidden; }
+    #sectionDeckInfo {
+      overflow: hidden;
+    }
     #sectionDeckInfo .content {
       max-width: 90%;
       margin: 40px auto 0 auto;
@@ -390,7 +400,9 @@
     }
 
     /* ==================== Секция «Мак-карти» ==================== */
-    #sectionMakKarti { overflow: hidden; }
+    #sectionMakKarti {
+      overflow: hidden;
+    }
     #sectionMakKarti .content {
       max-width: 90%;
       margin: -5px auto 0 auto;
@@ -432,8 +444,8 @@
       cursor: pointer;
       border: 1px solid rgba(64,224,208,0.6);
       box-shadow: 0 0 10px rgba(64,224,208,0.3);
-      background-size: cover;
-      background-position: center;
+      background-size: cover; /* фон заполнит весь контейнер */
+      background-position: center; /* по центру */
       background-repeat: no-repeat;
       transition: transform 0.2s ease;
     }
@@ -457,6 +469,7 @@
     .small-card.blocked {
       opacity: 0.5;
     }
+    /* Перевернутая карта */
     .small-card.flipped {
       background-size: cover;
       background-position: center;
@@ -464,7 +477,9 @@
     }
 
     /* ==================== Секция «72 карт» ==================== */
-    #section72Cards { overflow-y: auto; }
+    #section72Cards {
+      overflow-y: auto;
+    }
     #section72Cards .content {
       padding: 10px;
       margin-top: -5px;
@@ -507,14 +522,8 @@
       opacity: 1;
     }
     @keyframes zoomIn {
-      0% {
-        opacity: 0;
-        transform: translateY(20px) scale(0.8);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
+      0% { opacity: 0; transform: translateY(20px) scale(0.8); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
     }
     .overlay-card-container {
       position: relative;
@@ -622,7 +631,7 @@
       margin: 0;
       text-align: center;
     }
-    /* Кнопка «Отримати консультацію» */
+    /* Заменили <a> на <button> для «Отримати консультацію» */
     .consult-button {
       font-family: 'Great Vibes', cursive;
       font-style: normal;
@@ -689,7 +698,7 @@
       white-space: nowrap;
     }
 
-    /* ==================== Нотатки (модалка) ==================== */
+    /* ==================== Модальное окно Нотатки ==================== */
     .overlay-notes-container {
       position: relative;
       width: 400px;
@@ -734,6 +743,7 @@
       );
       box-sizing: border-box;
     }
+    /* Стили для date-picker */
     .date-picker {
       font-family: Georgia, serif;
       font-size: 1.2rem;
@@ -753,7 +763,7 @@
       filter: invert(1);
     }
 
-    /* ==================== Модалка покупки ==================== */
+    /* ==================== Модальное окно покупки ==================== */
     #purchaseModal {
       position: fixed;
       top: 0;
@@ -798,7 +808,7 @@
       box-shadow: 0 0 6px rgba(64,224,208,0.6);
     }
 
-    /* ==================== Оверлей для блокировки скриншота ==================== */
+    /* ==================== Чёрный оверлей для блокировки скриншота ==================== */
     #screenshotBlocker {
       position: fixed;
       top: 0;
@@ -811,14 +821,16 @@
       pointer-events: none;
     }
 
-    /* ==================== Адаптация для маленьких экранов ==================== */
+    /* ==================== Адаптация для очень маленьких экранов (≤ 450px) ==================== */
     @media (max-width: 450px) {
+      /* Основные .btn (кроме навигационных: back-btn, continue-btn, shuffle-btn) */
       .btn:not(.back-btn):not(.continue-btn):not(.shuffle-btn) {
         min-width: 85% !important;
         font-size: 1.6rem !important;
         white-space: normal;
         padding: 18px 24px !important;
       }
+      /* Навигационные кнопки остаются компактными */
       .btn.back-btn, .btn.continue-btn, .btn.shuffle-btn {
         padding: 4px 10px;
         font-size: 1rem;
@@ -865,7 +877,7 @@
     </footer>
   </div>
 
-  <!-- Секция "Як це працює?" -->
+  <!-- Секция "Як це працює?" с расширенным описанием -->
   <div id="sectionDiary" class="section">
     <button class="btn back-btn" onclick="backToMenu()">
       <img src="https://i.ibb.co/s9NyJrT7/56-1.png" alt="Back">
@@ -981,6 +993,7 @@
         </div>
         <div class="big-card-face big-card-back" id="bigCardBack">
           <p class="daily-wish"></p>
+          <!-- Заменили <a> на <button> и слушатель в JS -->
           <button class="consult-button" id="consultButton">Отримати консультацію</button>
         </div>
       </div>
@@ -993,10 +1006,11 @@
       <div class="notes-card" id="notesCard">
         <button class="btn back-btn notes-close-btn" onclick="closeNotesModal()">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" viewBox="0 0 16 16">
-            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1               .708.708L8.707 8l2.647 2.646a.5.5               a 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5               0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1              .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5              0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
           </svg>
         </button>
         <h2>Нотатки:</h2>
+        <!-- Поле выбора даты с placeholder и украинским языком -->
         <input type="date" class="date-picker" id="notesDate" lang="uk" placeholder="Дата">
         <textarea id="notesTextArea" placeholder="Запишіть тут свої нотатки..."></textarea>
       </div>
@@ -1014,24 +1028,26 @@
   <!-- Огни (fireflies) -->
   <div class="fireflies"></div>
 
-  <!-- Аудио для медитативной музыки (placeholder) -->
+  <!-- Аудіо для медитативної музики (placeholder) -->
   <audio id="meditativeAudio" loop src="meditative.mp3"></audio>
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // Обработка ?reset=true и ?paid=true из URL
+      // Проверка параметра reset: если reset=true, очищаем localStorage, чтобы при снятии доступа не было кеша paid
       const params = new URLSearchParams(window.location.search);
       if (params.get('reset') === 'true') {
         localStorage.removeItem('paid');
         localStorage.removeItem('freeUsed');
       }
+
+      // Если URL содержит ?paid=true, сохраняем в localStorage «paid»
       if (params.get('paid') === 'true') {
         localStorage.setItem('paid', 'true');
       }
 
       hidePreloader();
 
-      // При выборе даты для заметок – загружаем сохранённые
+      // Обработчик изменения даты для загрузки заметок
       document.getElementById('notesDate').addEventListener('change', function() {
         let selectedDate = this.value;
         let savedNotes = localStorage.getItem('userNotes_' + selectedDate);
@@ -1042,6 +1058,7 @@
       const blocker = document.getElementById('screenshotBlocker');
       function showBlocker() { blocker.style.display = 'block'; }
       function hideBlocker() { blocker.style.display = 'none'; }
+
       document.addEventListener('visibilitychange', function() {
         if (document.hidden) { showBlocker(); } else { hideBlocker(); }
       });
@@ -1057,7 +1074,7 @@
         }
       });
 
-      // Кнопка «Отримати» в модалке покупки
+      // Обработчик кнопки «Отримати» (покупка)
       const purchaseBtn = document.getElementById('purchaseButton');
       purchaseBtn.addEventListener('click', function() {
         if (window.Telegram && Telegram.WebApp) {
@@ -1086,7 +1103,7 @@
         }
       });
 
-      // Кнопка «Отримати консультацію» внутри большой карты
+      // Обработчик кнопки «Отримати консультацію» внутри большой карты
       const consultBtn = document.getElementById('consultButton');
       consultBtn.addEventListener('click', function(e) {
         e.stopPropagation();
@@ -1099,7 +1116,7 @@
       });
     });
 
-    // Кнопка «Сесія підсідомості» на главном экране
+    // Функция для кнопки "Сесія підсідомості"
     function openSession() {
       if (window.Telegram && Telegram.WebApp) {
         Telegram.WebApp.openLink('https://t.me/irynakolokolovamak_bot?start=session');
@@ -1113,9 +1130,11 @@
     let animationInProgress = false;
     const freeUsedKey = 'freeUsed';
 
+    // Проверяем, исчерпала ли пользователь бесплатные 5 карт
     function isFreeUsed() {
       return localStorage.getItem(freeUsedKey) === 'true';
     }
+    // Проверяем, оплачен ли пользователь
     function isPaidUser() {
       return localStorage.getItem('paid') === 'true';
     }
@@ -1175,7 +1194,7 @@
       "https://i.ibb.co/N6Qz35Sh/photo-2025-05-26-17-55-31-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
       "https://i.ibb.co/0yQHT7jC/photo-2025-05-26-17-55-31-3.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
       "https://i.ibb.co/5XwCHmm9/photo-2025-05-26-17-55-31.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb-co/nqxJW0Jz/photo-2025-05-27-23-54-14-3.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb.co/nqxJW0Jz/photo-2025-05-27-23-54-14-3.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
       "https://i.ibb-co/whXpDsKv/photo-2025-05-26-17-55-39-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
       "https://i.ibb-co/5Q6f4xL/photo-2025-05-26-17-55-39-3.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
       "https://i.ibb-co/mr6yk1w9/photo-2025-05-26-17-55-39.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
@@ -1183,56 +1202,56 @@
       "https://i.ibb-co/q3q0J3zB/photo-2025-05-26-17-55-40.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
       "https://i.ibb-co/HpXC6N0J/photo-2025-05-26-17-55-41.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
       "https://i.ibb-co/wZL0158h/photo-2025-05-26-17-55-42.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibbco/0xy7zGD/photo-2025-05-26-17-55-43-2.jpg.webp".replace("i.ibbco", "i.ibb.co"),
-      "https://i.ibbco/84BFk01x/photo-2025-05-26-17-55-43.jpg.webp".replace("i.ibbco", "i.ibb.co"),
-      "https://i.ibbco/dw0zVMqT/photo-2025-05-26-17-55-44-2.jpg.webp".replace("i.ibbco", "i.ibb.co"),
-      "https://i.ibbco/TxjHy32L/photo-2025-05-26-17-55-44-3.jpg.webp".replace("i.ibbco", "i.ibb.co"),
-      "https://i.ibbco/Rkvdv27Z/photo-2025-05-26-17-55-44.jpg.webp".replace("i.ibbco", "i.ibb.co"),
-      "https://i.ibbco/Q4cLfFn/photo-2025-05-26-17-55-45.jpg.webp".replace("i.ibbco", "i.ibb.co"),
-      "https://i.ibbco/FqBkJQ4P/photo-2025-05-26-17-55-46-2.jpg.webp".replace("i.ibbco", "i.ibb.co"),
-      "https://i.ibbco/Csm4t2dh/photo-2025-05-26-17-55-46.jpg.webp".replace("i.ibbco", "i.ibb.co"),
-      "https://i.ibbco/vCB2SF2Z/photo-2025-05-26-17-55-47-2.jpg.webp".replace("i.ibbco", "i.ibb.co"),
-      "https://i.ibbco/6cbbnGZb/photo-2025-05-26-17-55-47.jpg.webp".replace("i.ibbco", "i.ibb.co"),
-      "https://i.ibbco/DDGp9PHD/photo-2025-05-26-17-55-48.jpg.webp".replace("i.ibbco", "i.ibb.co"),
-      "https://i.ibbco/pBXP5Qnj/photo-2025-05-26-17-55-49.jpg.webp".replace("i.ibbco", "i.ibb.co"),
-      "https://i.ibbco/KxwKFY5x/photo-2025-05-26-17-55-50.jpg.webp".replace("i.ibbco", "i.ibb.co"),
-      "https://i.ibbco/zTDCq9Vs/photo-2025-05-26-20-48-28-2.jpg.webp".replace("i.ibbco", "i.ibb.co"),
-      "https://i.ibbco/RkJdZNVN/photo-2025-05-26-20-48-28.jpg.webp".replace("i.ibbco", "i.ibb.co"),
-      "https://i.ibbco/1J7Xpb8X/photo-2025-05-26-20-48-29.jpg.webp".replace("i.ibbco", "i.ibb.co"),
-      "https://i.ibbco/yckRk6Dj/photo-2025-05-26-20-48-30-2.jpg.webp".replace("i.ibbco", "i.ibb.co"),
-      "https://i.ibbco/CszjZVJy/photo-2025-05-26-20-48-30-3.jpg.webp".replace("i.ibbco", "i.ibb.co"),
-      "https://i.ibbco/nshy7dLG/photo-2025-05-26-20-48-30.jpg.webp".replace("i.ibbco", "i.ibb.co"),
-      "https://i.ibbco/7NxHK7t9/photo-2025-05-26-20-48-31-2.jpg.webp".replace("i.ibbco", "i.ibb.co"),
-      "https://i.ibbco/bghM15x4/photo-2025-05-26-20-48-31-3.jpg.webp".replace("i.ibbco", "i.ibb.co"),
-      "https://i.ibbco/QvKCTnsZ/photo-2025-05-26-20-48-31.jpg.webp".replace("i.ibbco", "i.ibb.co"),
-      "https://i.ibbco/p6NKKgDS/photo-2025-05-26-20-48-32-2.jpg.webp".replace("i.ibbco", "i.ibb.co"),
-      "https://i.ibbco/5WD1HQck/photo-2025-05-26-20-48-32.jpg.webp".replace("i.ibbco", "i.ibb.co"),
-      "https://i.ibbco/F4H1nXCP/photo-2025-05-26-20-48-33-2.jpg.webp".replace("i.ibbco", "i.ibb.co"),
-      "https://i.ibbco/VYxs6XYF/photo-2025-05-26-20-48-33.jpg.webp".replace("i.ibbco", "i.ibb.co"),
-      "https://i.ibbco/Vc2bGZrR/photo-2025-05-26-21-36-20-2.jpg.webp".replace("i.ibbco", "i.ibb.co"),
-      "https://i.ibbco/xKb5m45Z/photo-2025-05-26-21-36-20-3.jpg.webp".replace("i.ibbco", "i.ibb.co"),
-      "https://i.ibbco/PvQtpRch/photo-2025-05-26-21-36-20.jpg.webp".replace("i.ibbco", "i.ibb.co"),
-      "https://i.ibbco/xK33Pmmr/photo-2025-05-27-00-20-36.jpg.webp".replace("i.ibbco", "i.ibb.co"),
-      "https://i.ibbco/YBLNVbYv/photo-2025-05-27-00-20-36-3.jpg.webp".replace("i.ibbco", "i.ibb.co"),
-      "https://i.ibbco/h1HK9Svq/photo-2025-05-27-00-20-31-2.jpg.webp".replace("i.ibbco", "i.ibb.co"),
-      "https://i.ibbco/MDcJ5DL8/photo-2025-05-27-00-20-31-3.jpg.webp".replace("i.ibbco", "i.ibb.co"),
-      "https://i.ibbco/9HCytM77/photo-2025-05-27-00-20-31.jpg.webp".replace("i.ibbco", "i.ibb.co"),
-      "https://i.ibbco/0yyMVWBZ/photo-2025-05-27-00-20-32-2.jpg.webp".replace("i.ibbco", "i.ibb.co"),
-      "https://i.ibbco/svvKH579/photo-2025-05-27-00-20-32.jpg.webp".replace("i.ibbco", "i.ibb.co"),
-      "https://i.ibbco/tTf80LqY/photo-2025-05-27-00-20-33-2.jpg.webp".replace("i.ibbco", "i.ibb.co"),
-      "https://i.ibbco/20L1rPX2/photo-2025-05-27-00-20-33-3.jpg.webp".replace("i.ibbco", "i.ibb.co"),
-      "https://i.ibbco/twp0F2m5/photo-2025-05-27-00-20-33.jpg.webp".replace("i.ibbco", "i.ibb.co"),
-      "https://i.ibbco/Y4mHjmsX/photo-2025-05-27-00-20-34-2.jpg.webp".replace("i.ibbco", "i.ibb.co"),
-      "https://i.ibbco/Rp8KxrVk/photo-2025-05-27-00-20-34-3.jpg.webp".replace("i.ibbco", "i.ibb.co"),
-      "https://i.ibbco/9kw57Wyp/photo-2025-05-27-00-20-34.jpg.webp".replace("i.ibbco", "i.ibb.co"),
-      "https://i.ibbco/gZZNWsXr/photo-2025-05-27-00-20-35-2.jpg.webp".replace("i.ibbco", "i.ibb.co"),
-      "https://i.ibbco/tMv1tytj/photo-2025-05-27-00-20-35.jpg.webp".replace("i.ibbco", "i.ibb.co"),
-      "https://i.ibbco/MmjkZ07/photo-2025-05-27-00-20-36-2.jpg.webp".replace("i.ibbco", "i.ibb.co"),
-      "https://i.ibbco/wrFTdFsQ/photo-2025-05-27-00-36-27.jpg.webp".replace("i.ibbco", "i.ibb.co"),
-      "https://i.ibbco/s9VCNHWn/photo-2025-05-27-23-54-13.jpg.webp".replace("i.ibbco", "i.ibb.co"),
-      "https://i.ibbco/93ffP582/photo-2025-05-27-23-54-12.jpg.webp".replace("i.ibbco", "i.ibb.co"),
-      "https://i.ibbco/TBzZjQ0w/photo-2025-05-27-23-54-13-2.jpg.webp".replace("i.ibbco", "i.ibb.co"),
-      "https://i.ibbco/BK5sxgw8/photo-2025-05-28-23-30-40.jpg.webp".replace("i.ibbco", "i.ibb.co")
+      "https://i.ibb-co/0xy7zGD/photo-2025-05-26-17-55-43-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/84BFk01x/photo-2025-05-26-17-55-43.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/dw0zVMqT/photo-2025-05-26-17-55-44-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/TxjHy32L/photo-2025-05-26-17-55-44-3.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/Rkvdv27Z/photo-2025-05-26-17-55-44.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/Q4cLfFn/photo-2025-05-26-17-55-45.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/FqBkJQ4P/photo-2025-05-26-17-55-46-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/Csm4t2dh/photo-2025-05-26-17-55-46.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/vCB2SF2Z/photo-2025-05-26-17-55-47-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/6cbbnGZb/photo-2025-05-26-17-55-47.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/DDGp9PHD/photo-2025-05-26-17-55-48.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/pBXP5Qnj/photo-2025-05-26-17-55-49.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/KxwKFY5x/photo-2025-05-26-17-55-50.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/zTDCq9Vs/photo-2025-05-26-20-48-28-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/RkJdZNVN/photo-2025-05-26-20-48-28.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/1J7Xpb8X/photo-2025-05-26-20-48-29.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/yckRk6Dj/photo-2025-05-26-20-48-30-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/CszjZVJy/photo-2025-05-26-20-48-30-3.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/nshy7dLG/photo-2025-05-26-20-48-30.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/7NxHK7t9/photo-2025-05-26-20-48-31-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/bghM15x4/photo-2025-05-26-20-48-31-3.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/QvKCTnsZ/photo-2025-05-26-20-48-31.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/p6NKKgDS/photo-2025-05-26-20-48-32-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/5WD1HQck/photo-2025-05-26-20-48-32.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/F4H1nXCP/photo-2025-05-26-20-48-33-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/VYxs6XYF/photo-2025-05-26-20-48-33.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/Vc2bGZrR/photo-2025-05-26-21-36-20-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/xKb5m45Z/photo-2025-05-26-21-36-20-3.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/PvQtpRch/photo-2025-05-26-21-36-20.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/xK33Pmmr/photo-2025-05-27-00-20-36.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/YBLNVbYv/photo-2025-05-27-00-20-36-3.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/h1HK9Svq/photo-2025-05-27-00-20-31-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/MDcJ5DL8/photo-2025-05-27-00-20-31-3.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/9HCytM77/photo-2025-05-27-00-20-31.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/0yyMVWBZ/photo-2025-05-27-00-20-32-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/svvKH579/photo-2025-05-27-00-20-32.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/tTf80LqY/photo-2025-05-27-00-20-33-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/20L1rPX2/photo-2025-05-27-00-20-33-3.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/twp0F2m5/photo-2025-05-27-00-20-33.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/Y4mHjmsX/photo-2025-05-27-00-20-34-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/Rp8KxrVk/photo-2025-05-27-00-20-34-3.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/9kw57Wyp/photo-2025-05-27-00-20-34.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/gZZNWsXr/photo-2025-05-27-00-20-35-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/tMv1tytj/photo-2025-05-27-00-20-35.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/MmjkZ07/photo-2025-05-27-00-20-36-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/wrFTdFsQ/photo-2025-05-27-00-36-27.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/s9VCNHWn/photo-2025-05-27-23-54-13.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/93ffP582/photo-2025-05-27-23-54-12.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/TBzZjQ0w/photo-2025-05-27-23-54-13-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
+      "https://i.ibb-co/BK5sxgw8/photo-2025-05-28-23-30-40.jpg.webp".replace("i.ibb-co", "i.ibb.co")
     ];
 
     function createSmallCards(count) {
@@ -1258,6 +1277,7 @@
         container.style.transform =
           `scale(0.9) translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px)`;
 
+        // создаём одну small-card
         const smallCard = document.createElement("div");
         smallCard.classList.add("small-card");
         smallCard.dataset.front = shuffledImages[i];
@@ -1266,7 +1286,7 @@
 
         smallCard.addEventListener("click", function() {
           if (animationInProgress) return;
-          // Если user paid → безлимит
+          // Если пользователь paid — он имеет неограниченный доступ
           if (!paid && isFreeUsed()) {
             showPurchaseModal();
             return;
@@ -1278,6 +1298,7 @@
               showPurchaseModal();
               return;
             }
+            // Показываем спиннер и очищаем фон до загрузки
             smallCard.classList.add("loading");
             smallCard.style.backgroundImage = "none";
             const spinnerElm = document.createElement("div");
@@ -1306,16 +1327,19 @@
         container.appendChild(smallCard);
         grid.appendChild(container);
 
+        // анимация появления
         setTimeout(() => {
           container.classList.add("fade-in");
           container.style.transform = "";
         }, 50);
       }
 
+      // Если уже исчерпаны бесплатные 5 карт, блокируем сразу все (кроме paid)
       if (!paid && isFreeUsed()) {
         blockRemainingCards();
       }
 
+      // вернуть кликабельность после анимации
       setTimeout(enableInteractions, 500);
     }
 
@@ -1335,7 +1359,7 @@
         chosenImg = bigImages[randomIndex];
       }
 
-      // Спиннер для большой карты
+      // Добавляем спиннер для большой карты
       const bigCardFront = document.getElementById("bigCardFront");
       bigCardFront.style.backgroundImage = "none";
       const spinnerLarge = document.createElement("div");
@@ -1513,7 +1537,7 @@
       setTimeout(enableInteractions, 500);
     }
 
-    /* Нотатки */
+    /* Функции для модального окна нотаток */
     function openNotes() {
       const dateInput = document.getElementById('notesDate');
       if (!dateInput.value) {
@@ -1549,7 +1573,7 @@
       }
     });
 
-    /* Модалка покупки */
+    /* Функции для модального окна покупки */
     function showPurchaseModal() {
       document.getElementById("purchaseModal").style.display = "flex";
     }
@@ -1562,7 +1586,7 @@
       }
     });
 
-    /* Блокировка PrintScreen (десктоп) */
+    /* Блокировка скриншота (десктоп) */
     document.addEventListener('keyup', function(e) {
       if (e.key === 'PrintScreen' || e.keyCode === 44) {
         const blocker = document.getElementById('screenshotBlocker');
