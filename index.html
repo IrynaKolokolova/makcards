@@ -139,7 +139,7 @@
       display: flex;
       flex-direction: column;
       gap: 20px;
-      justify-content: flex-start; /* прижмет к верху */
+      justify-content: flex-start; /* прижмёт всё вверх */
       align-items: center;
       height: 100vh;
       text-align: center;
@@ -147,8 +147,8 @@
       z-index: 2;
       max-width: 90%;
       margin: 0 auto;
-      padding: 100px 10px 80px; /* отступы */
-      overflow-y: auto; /* вертикальный скролл */
+      padding: 100px 10px 80px; /* увеличен отступ сверху и снизу */
+      overflow-y: auto; /* добавлен скроллинг */
     }
     .greeting p {
       font-family: Georgia, serif;
@@ -164,7 +164,6 @@
       font-family: 'Great Vibes', cursive;
       font-style: normal;
       min-width: 250px;
-      /* увеличили padding и font-size, чтобы кнопки были чуть крупнее */
       padding: 20px 30px;
       font-size: 2rem;
       background: rgba(64,224,208,0.2);
@@ -187,7 +186,6 @@
     }
     .btn.disabled {
       opacity: 0.6;
-      /* pointer-events: none; убрано, чтобы кнопка «Про карти» всегда реагировала */
     }
     .btn::before {
       content: "";
@@ -212,6 +210,8 @@
       padding: 4px 10px;
       min-width: auto;
       min-height: auto;
+      width: auto;
+      height: auto;
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -241,6 +241,7 @@
       height: 17px;
     }
 
+    /* Контейнер для «Назад» и «Перетасувати» */
     .nav-buttons {
       display: flex;
       justify-content: space-between;
@@ -248,6 +249,7 @@
       width: 100%;
       padding: 10px;
     }
+    /* Текст между кнопками */
     .center-text {
       font-family: Georgia, serif;
       font-size: 1rem;
@@ -1009,7 +1011,7 @@
           </svg>
         </button>
         <h2>Нотатки:</h2>
-        <!-- Поле выбора даты -->
+        <!-- Поле выбора даты с placeholder и украинским языком -->
         <input type="date" class="date-picker" id="notesDate" lang="uk" placeholder="Дата">
         <textarea id="notesTextArea" placeholder="Запишіть тут свої нотатки..."></textarea>
       </div>
@@ -1032,21 +1034,21 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // Обработка ?reset=true (сбрасываем доступ)
+      // Проверка параметра reset: если reset=true, очищаем localStorage, чтобы при снятии доступа не было кеша paid
       const params = new URLSearchParams(window.location.search);
       if (params.get('reset') === 'true') {
         localStorage.removeItem('paid');
         localStorage.removeItem('freeUsed');
       }
 
-      // Обработка ?paid=true (пользователь оплатил)
+      // Если URL содержит ?paid=true, сохраняем в localStorage «paid»
       if (params.get('paid') === 'true') {
         localStorage.setItem('paid', 'true');
       }
 
       hidePreloader();
 
-      // При изменении даты для заметок – загружаем сохраненные
+      // Обработчик изменения даты для загрузки заметок
       document.getElementById('notesDate').addEventListener('change', function() {
         let selectedDate = this.value;
         let savedNotes = localStorage.getItem('userNotes_' + selectedDate);
@@ -1073,7 +1075,7 @@
         }
       });
 
-      // Кнопка «Отримати» в модалке покупки
+      // Обработчик кнопки «Отримати» (покупка)
       const purchaseBtn = document.getElementById('purchaseButton');
       purchaseBtn.addEventListener('click', function() {
         if (window.Telegram && Telegram.WebApp) {
@@ -1102,7 +1104,7 @@
         }
       });
 
-      // Кнопка «Отримати консультацію» внутри большой карты
+      // Обработчик кнопки «Отримати консультацію» внутри большой карты
       const consultBtn = document.getElementById('consultButton');
       consultBtn.addEventListener('click', function(e) {
         e.stopPropagation();
@@ -1115,15 +1117,7 @@
       });
     });
 
-    // Функция для кнопки "Сесія підсідомості" на главном экране
-    function openSession() {
-      if (window.Telegram && Telegram.WebApp) {
-        Telegram.WebApp.openLink('https://t.me/irynakolokolovamak_bot?start=session');
-        Telegram.WebApp.close();
-      } else {
-        window.location.href = 'https://t.me/irynakolokolovamak_bot?start=session';
-      }
-    }
+    // Функция для кнопки "Сесія підсідомості"     function openSession() {       if (window.Telegram && Telegram.WebApp) {         Telegram.WebApp.openLink('https://t.me/irynakolokolovamak_bot?start=session');         Telegram.WebApp.close();       } else {         window.location.href = 'https://t.me/irynakolokolovamak_bot?start=session';       }     }
 
     let selectedCount = 0;
     let animationInProgress = false;
@@ -1282,7 +1276,7 @@
 
         smallCard.addEventListener("click", function() {
           if (animationInProgress) return;
-          // Если user paid → безлимит
+          // Если пользователь paid — он имеет неограниченный доступ
           if (!paid && isFreeUsed()) {
             showPurchaseModal();
             return;
@@ -1294,6 +1288,7 @@
               showPurchaseModal();
               return;
             }
+            // Показываем спиннер и очищаем фон до загрузки
             smallCard.classList.add("loading");
             smallCard.style.backgroundImage = "none";
             const spinnerElm = document.createElement("div");
@@ -1351,7 +1346,7 @@
         chosenImg = bigImages[randomIndex];
       }
 
-      // Спиннер для большой карты
+      // Добавляем спиннер для большой карты
       const bigCardFront = document.getElementById("bigCardFront");
       bigCardFront.style.backgroundImage = "none";
       const spinnerLarge = document.createElement("div");
@@ -1578,7 +1573,7 @@
       }
     });
 
-    /* Блокировка PrintScreen (десктоп) */
+    /* Блокировка скриншота (десктоп) */
     document.addEventListener('keyup', function(e) {
       if (e.key === 'PrintScreen' || e.keyCode === 44) {
         const blocker = document.getElementById('screenshotBlocker');
