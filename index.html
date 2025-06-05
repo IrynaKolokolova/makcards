@@ -522,8 +522,14 @@
       opacity: 1;
     }
     @keyframes zoomIn {
-      0% { opacity: 0; transform: translateY(20px) scale(0.8); }
-      100% { opacity: 1; transform: translateY(0) scale(1); }
+      0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0.8);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
     }
     .overlay-card-container {
       position: relative;
@@ -865,7 +871,7 @@
     <div class="greeting">
       <h1 class="glowing-title">Дзеркало душі</h1>
       <p>
-        Метафоричні асоціативні карти “Дзеркало Душі” – авторська колода з 76 карт, що відкриває глибини підсвідомості та допомагає зрозуміти власні емоції. Кожна карта втілює унікальне поєднання образів і символів, відображуючи наші переживання та підсвідомі імпульси. Відкрийте свою внутрішню силу, збалансуйте емоції та знайдіть нові можливості для розвитку.
+        Метафоричні асоціативні карти “Дзеркало Душі” – авторська колода з 76 карт, що відкриває глибини підсвідомості та допомагає зрозуміти власні емоції. Кожна карта втілює унікальне поєднання образів і символів, відображаючи наші переживання та підсвідомі імпульси. Відкрийте свою внутрішню силу, збалансуйте емоції та знайдіть нові можливості для розвитку.
       </p>
     </div>
     <button class="btn" onclick="openDeckInfo()">Розгорнути карти</button>
@@ -1006,7 +1012,9 @@
       <div class="notes-card" id="notesCard">
         <button class="btn back-btn notes-close-btn" onclick="closeNotesModal()">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" viewBox="0 0 16 16">
-            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1              .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5              0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1
+              .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5
+              0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
           </svg>
         </button>
         <h2>Нотатки:</h2>
@@ -1027,6 +1035,39 @@
 
   <!-- Огни (fireflies) -->
   <div class="fireflies"></div>
+
+  <!-- *** Новые добавленные элементы (меню-кнопки) *** -->
+  <!-- 1) Кнопка-бургер внизу слева, чтобы возвращаться в главное меню -->
+  <button id="burgerMenuBtn"
+          style="position: fixed;
+                 bottom: 20px;
+                 left: 20px;
+                 background: rgba(64,224,208,0.2);
+                 border: 1px solid rgba(64,224,208,0.5);
+                 border-radius: 6px;
+                 padding: 10px;
+                 font-size: 1.5rem;
+                 color: #fff;
+                 z-index: 11000;">
+    ☰
+  </button>
+
+  <!-- 2) Кнопка «ВІДКРИТИ КАРТИ» внизу справа (постоянно синяя) -->
+  <button id="openCardsBtn"
+          style="position: fixed;
+                 bottom: 20px;
+                 right: 20px;
+                 background: #008CFF;
+                 color: #fff;
+                 border: none;
+                 padding: 12px 24px;
+                 border-radius: 6px;
+                 font-family: 'Great Vibes', cursive;
+                 font-size: 1.4rem;
+                 z-index: 11000;">
+    ВІДКРИТИ КАРТИ
+  </button>
+  <!-- *** Конец добавленных кнопок *** -->
 
   <!-- Аудіо для медитативної музики (placeholder) -->
   <audio id="meditativeAudio" loop src="meditative.mp3"></audio>
@@ -1114,6 +1155,26 @@
           window.location.href = 'https://t.me/irynakolokolovamak_bot?start=consult';
         }
       });
+
+      // *** Обработчики для новых кнопок: ***
+      // 1) Бургер-меню (возвращение в главное окно)
+      document.getElementById('burgerMenuBtn').addEventListener('click', function() {
+        backToMenu();
+      });
+      // 2) Відкрити карти (сразу открывает раздел с картами)
+      document.getElementById('openCardsBtn').addEventListener('click', function() {
+        // Если пользователь оплатил → сразу открываем все 76 карт
+        if (isPaidUser()) {
+          openSection('sectionMakKarti');
+          createSmallCards(76);
+        } else {
+          // Если не оплатил → открываем раздел с бесплатными и даём возможность выбрать 5 карт
+          openSection('sectionMakKarti');
+          createSmallCards(76);
+        }
+      });
+      // *** Конец обработчиков новых кнопок ***
+
     });
 
     // Функция для кнопки "Сесія підсідомості"
