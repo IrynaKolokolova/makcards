@@ -892,11 +892,11 @@
         Метафоричні асоціативні карти “Дзеркало Душі” – авторська колода з 76 карт, що відкриває глибини підсвідомості та допомагає зрозуміти власні емоції. Кожна карта втілює унікальне поєднання образів і символів, відображаючи наші переживання та підсвідомі імпульси. Відкрийте свою внутрішню силу, збалансуйте емоції та знайдіть нові можливості для розвитку.
       </p>
     </div>
-    <!-- Теперь «Розгорнути карти» стоит первой -->
+    <!-- «Розгорнути карти» первой -->
     <button class="btn" onclick="openDeckInfo()">Розгорнути карти</button>
-    <!-- Затем «Про карти» -->
+    <!-- «Про карти» второй -->
     <button id="proKartBtn" class="btn disabled">Про карти</button>
-    <!-- Затем «Сесія підсідомість» -->
+    <!-- «Сесія підсідомість» третий -->
     <button class="btn" style="color: #ff69b4;" onclick="openSession()">Сесія підсідомість</button>
     <footer id="mainFooter">
       © 2025 Усі права захищені.
@@ -974,14 +974,14 @@
     </div>
   </div>
 
-  <!-- Секция "Мак-карти" -->
+  <!-- Секция "Мак-карти" (76 карт) -->
   <div id="sectionMakKarti" class="section">
     <div class="nav-buttons">
       <!-- Кнопка «Назад» -->
       <button class="btn back-btn" onclick="backToDeckInfo()">
         <img src="https://i.ibb.co/s9NyJrT7/56-1.png" alt="Back">
       </button>
-      <!-- Кнопка «Перетасувати» -->
+      <!-- Кнопка «Перетасувати» (shuffle) -->
       <button id="shuffleIconBtn" class="btn shuffle-btn" onclick="shuffleCards()">
         <img src="https://i.ibb.co/jP8HZYJr/7-1.png" alt="Shuffle">
       </button>
@@ -1142,6 +1142,12 @@
         } else {
           window.open(botLink, '_blank');
         }
+      });
+
+      // Обработчик кнопки «Перетасувати» (shuffle)
+      document.getElementById("shuffleIconBtn").addEventListener("click", function() {
+        if (animationInProgress) return;
+        shuffleCards();
       });
     });
 
@@ -1326,7 +1332,7 @@
         smallCard.classList.add("small-card");
         smallCard.dataset.front = shuffledImages[i];
         smallCard.style.backgroundImage =
-          'url("https://i.ibb.co/wcWxxGp/IMG-8462.webp")';
+          'url("https://i.ibb.co/wcWxxGp/IMG-8462.webp")';  // фон-заглушка
         smallCard.addEventListener("click", function() {
           if (animationInProgress) return;
           // Если пользователь paid — он имеет неограниченный доступ
@@ -1442,11 +1448,6 @@
         const shuffleIcon = document.getElementById("shuffleIconBtn");
         if (shuffleIcon) shuffleIcon.style.pointerEvents = "auto";
       }
-    });
-
-    document.getElementById("shuffleIconBtn").addEventListener("click", function() {
-      if (animationInProgress) return;
-      shuffleCards();
     });
 
     function flipCard(event) {
