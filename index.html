@@ -1015,7 +1015,7 @@
       <div class="notes-card" id="notesCard">
         <button class="btn back-btn notes-close-btn" onclick="closeNotesModal()">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" viewBox="0 0 16 16">
-            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1              .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5              0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.0.5.0 0 1.708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 1 1 0-.708z"/>
           </svg>
         </button>
         <h2>Нотатки:</h2>
@@ -1085,12 +1085,8 @@
       // Обработчик кнопки «Отримати» (покупка полного доступа)
       const purchaseBtn = document.getElementById('purchaseButton');
       purchaseBtn.addEventListener('click', function() {
-        if (window.Telegram && Telegram.WebApp) {
-          Telegram.WebApp.openLink('https://t.me/ikolokolovamak_bot?start=pay');
-          Telegram.WebApp.close();
-        } else {
-          window.location.href = 'https://t.me/ikolokolovamak_bot?start=pay';
-        }
+        const botLink = 'https://t.me/ikolokolovamak_bot?start=pay';
+        window.open(botLink, '_blank');
       });
 
       // Инициализация состояния кнопки "Про карти"
@@ -1115,23 +1111,15 @@
       const consultBtn = document.getElementById('consultButton');
       consultBtn.addEventListener('click', function(e) {
         e.stopPropagation();
-        if (window.Telegram && Telegram.WebApp) {
-          Telegram.WebApp.openLink('https://t.me/ikolokolovamak_bot?start=consult');
-          Telegram.WebApp.close();
-        } else {
-          window.location.href = 'https://t.me/ikolokolovamak_bot?start=consult';
-        }
+        const botLink = 'https://t.me/ikolokolovamak_bot?start=consult';
+        window.open(botLink, '_blank');
       });
     });
 
     // Функция для кнопки "Сесія підсідомість"
     function openSession() {
-      if (window.Telegram && Telegram.WebApp) {
-        Telegram.WebApp.openLink('https://t.me/ikolokolovamak_bot?start=session');
-        Telegram.WebApp.close();
-      } else {
-        window.location.href = 'https://t.me/ikolokolovamak_bot?start=session';
-      }
+      const botLink = 'https://t.me/ikolokolovamak_bot?start=session';
+      window.open(botLink, '_blank');
     }
 
     let selectedCount = 0;
