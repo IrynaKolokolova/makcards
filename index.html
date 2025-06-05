@@ -916,7 +916,7 @@
         <ul>
           <li><strong>Саморефлексія:</strong> Глибоке занурення в особисті переживання та емоції.</li>
           <li><strong>Емоційне розвантаження:</strong> Вираження і аналіз почуттів, що допомагає звільнитися від емоційного напруження.</li>
-          <li><strong>Розвиток інтуїції:</strong> Підвищення чутливості до власних внутрішніх сигналів і підсвідомих імпульсів.</li>
+          <li><strong>Розвиток інтуїції:</strong> Підвищення чутливості до власних внутрішніх сигналів і підсідомих імпульсів.</li>
           <li><strong>Творчість та натхнення:</strong> Стимулювання нових ідей і перспектив через символічні образи.</li>
           <li><strong>Поглиблення зв’язку з собою:</strong> Розуміння власних мотивів, переконань та життєвих шляхів.</li>
         </ul>
@@ -982,7 +982,7 @@
         <img src="https://i.ibb.co/s9NyJrT7/56-1.png" alt="Back">
       </button>
       <!-- Кнопка «Перетасувати» (shuffle) -->
-      <button id="shuffleIconBtn" class="btn shuffle-btn" onclick="shuffleCards()">
+      <button id="shuffleIconBtn" class="btn shuffle-btn">
         <img src="https://i.ibb.co/jP8HZYJr/7-1.png" alt="Shuffle">
       </button>
     </div>
@@ -1335,7 +1335,7 @@
           'url("https://i.ibb.co/wcWxxGp/IMG-8462.webp")';  // фон-заглушка
         smallCard.addEventListener("click", function() {
           if (animationInProgress) return;
-          // Если пользователь paid — он имеет неограниченный доступ
+          // Если пользователь paid — он имеет неограничений доступ
           if (!paid && isFreeUsed()) {
             showPurchaseModal();
             return;
@@ -1390,6 +1390,11 @@
 
       // вернуть кликабельность после анимации
       setTimeout(enableInteractions, 500);
+    }
+
+    // Функция перемешивания
+    function shuffleCards() {
+      createSmallCards(76);
     }
 
     function openOverlay(imgUrl) {
