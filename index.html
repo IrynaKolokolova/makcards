@@ -37,7 +37,7 @@
       font-size: 1.3rem;
       line-height: 1.3;
     }
-     
+    
     .btn, .content, .deck-icons, .icon-btn {
       transition: opacity 0.5s ease, transform 0.5s ease;
     }
@@ -50,11 +50,11 @@
       opacity: 1;
       transform: translateY(0);
     }
-     
+    
     body, h1, h2, h3, h4, h5, h6, p, li, a, button, .btn, .highlight {
       text-shadow: 2px 2px 4px rgba(0,0,0,1);
     }
-     
+    
     /* Preloader */
     #preloader {
       position: fixed;
@@ -80,7 +80,7 @@
     @keyframes spin {
       to { transform: rotate(360deg); }
     }
-     
+
     /* Спиннер для маленьких карт */
     .spinner-small {
       border: 3px solid rgba(64,224,208,0.2);
@@ -109,7 +109,7 @@
       transform: translate(-50%, -50%);
       z-index: 3;
     }
-     
+    
     /* Анимированное название */
     .glowing-title {
       font-family: 'Great Vibes', cursive;
@@ -129,12 +129,12 @@
         text-shadow: 0 0 3px rgba(255,255,255,0.4), 0 0 5px rgba(255,255,255,0.4);
       }
     }
-     
+    
     .highlight {
       color: #fff;
       text-shadow: 0 0 6px rgba(255,255,255,0.8);
     }
-     
+
     /* Главное меню */
     .menu {
       display: flex;
@@ -151,7 +151,7 @@
       padding: 100px 10px 80px; /* увеличен отступ сверху и снизу */
       overflow-y: auto; /* добавлен скроллинг */
     }
-     
+    
     .greeting p {
       font-family: Georgia, serif;
       font-style: italic;
@@ -162,7 +162,7 @@
       margin-bottom: 10px;
       margin-top: 20px;
     }
-     
+    
     .btn {
       font-family: 'Great Vibes', cursive;
       font-style: normal;
@@ -178,6 +178,7 @@
       box-shadow: 0 0 4px rgba(64,224,208,0.5);
       position: relative;
       overflow: hidden;
+      white-space: nowrap;
     }
     .btn:hover {
       background: rgba(64,224,208,0.4);
@@ -188,7 +189,7 @@
     }
     .btn.disabled {
       opacity: 0.6;
-      pointer-events: none;
+      /* pointer-events: none; — удалено, чтобы клик по кнопке всегда срабатывал */
     }
     .btn::before {
       content: "";
@@ -207,7 +208,7 @@
       50% { opacity: 0.5; }
       100% { opacity: 0; }
     }
-     
+
     /* Кнопки "Назад", "Продовжити" и кнопка звука */
     .btn.back-btn, .btn.continue-btn, .btn.sound-btn {
       padding: 4px 10px;
@@ -243,7 +244,7 @@
       width: 17px;   /* чуть больше */
       height: 17px;
     }
-     
+
     /* 2) Оформляем контейнер для двух кнопок */
     .nav-buttons {
       display: flex;
@@ -252,7 +253,7 @@
       width: 100%;
       padding: 10px;
     }
-     
+
     /* Изменённый стиль для центрального текста между кнопками */
     .center-text {
       font-family: Georgia, serif;
@@ -264,7 +265,7 @@
       align-items: center;
       white-space: nowrap;
     }
-     
+
     /* вот это вставьте сразу ниже */
     #sectionMakKarti .center-text {
       display: block !important;
@@ -272,7 +273,7 @@
       text-align: center;
       margin: 10px 0;
     }
-     
+
     /* Иконки под карточками */
     .deck-icons {
       display: flex;
@@ -305,7 +306,7 @@
       height: 30px;
       filter: brightness(0) invert(1);
     }
-     
+
     /* Социальные иконки */
     .social-left {
       position: fixed;
@@ -326,7 +327,7 @@
       height: 20px;
       width: auto;
     }
-     
+
     /* Секции */
     .section {
       display: none;
@@ -343,7 +344,7 @@
       overflow-y: auto !important;  /* разрешаем вертикальный скролл */
       -webkit-overflow-scrolling: touch; /* плавный скролл на iOS */
     }
-     
+
     /* Для секции "Як це працює?" возвращаем скроллинг */
     #sectionDiary {
       overflow-y: auto !important;
@@ -353,7 +354,7 @@
       opacity: 1;
       transform: translateY(0);
     }
-     
+
     .content {
       max-width: 90%;
       margin: 30px auto 0 auto;
@@ -369,13 +370,13 @@
       max-width: 100%;
       padding: 20px;
     }
-     
+
     .how-it-works-text p,
     .how-it-works-text ul,
     .how-it-works-text ol {
       margin-bottom: 15px;
     }
-     
+
     /* Секция "Як це працює?" с расширенным описанием */
     .how-it-works-text {
       padding: 15px;
@@ -385,7 +386,7 @@
       font-style: italic;
       text-shadow: none;
     }
-     
+
     /* Секция "Розгорнути колоду" */
     #sectionDeckInfo {
       overflow: hidden;
@@ -409,7 +410,7 @@
       text-shadow: none;
       text-align: justify;
     }
-     
+
     /* Секция "Мак-карти" */
     #sectionMakKarti {
       overflow: hidden;
@@ -455,8 +456,7 @@
       cursor: pointer;
       border: 1px solid rgba(64,224,208,0.6);
       box-shadow: 0 0 10px rgba(64,224,208,0.3);
-      background-size: cover;
-      /* фон покроет весь контейнер */
+      background-size: cover;  /* фон покроет весь контейнер */
       background-position: center;  /* будет по центру */
       background-repeat: no-repeat; /* без повторения */
     }
@@ -492,14 +492,14 @@
     .small-card.blocked {
       opacity: 0.5;
     }
-     
+
     /* Перевернутая карта */
     .small-card.flipped {
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
     }
-     
+
     /* Секция "72 карт" */
     #section72Cards {
       overflow-y: auto;
@@ -525,7 +525,7 @@
       perspective: 1000px;
       position: relative;
     }
-     
+
     /* Глобальный оверлей для большой карты */
     .overlay {
       position: fixed;
@@ -672,7 +672,7 @@
       background: rgba(64,224,208,0.4);
       box-shadow: 0 0 6px rgba(64,224,208,0.6);
     }
-     
+
     .fireflies {
       position: fixed;
       top: 0;
@@ -697,7 +697,7 @@
       75% { opacity: 1; transform: scale(1); filter: drop-shadow(0 0 16px #fff); }
       100% { opacity: 0; transform: scale(0.8); }
     }
-     
+
     /* Футер */
     #mainFooter {
       position: absolute;
@@ -715,7 +715,7 @@
       margin-top: 3px;
       white-space: nowrap;
     }
-     
+
     /* Модальное окно Нотатки */
     .overlay-notes-container {
       position: relative;
@@ -781,7 +781,7 @@
     .date-picker::-webkit-calendar-picker-indicator {
       filter: invert(1);
     }
-     
+
     /* Модальное окно покупки */
     #purchaseModal {
       position: fixed;
@@ -825,7 +825,7 @@
       background: rgba(64,224,208,0.4);
       box-shadow: 0 0 6px rgba(64,224,208,0.6);
     }
-     
+
     /* Чёрный оверлей для блокировки скриншота */
     #screenshotBlocker {
       position: fixed;
@@ -837,6 +837,16 @@
       z-index: 20000;
       display: none;
       pointer-events: none;
+    }
+
+    /* Медиазапись для очень маленьких экранов */
+    @media (max-width: 400px) {
+      .btn {
+        min-width: 80% !important;
+        font-size: 1.4rem !important;
+        white-space: normal;
+        padding: 12px 20px !important;
+      }
     }
   </style>
 </head>
@@ -861,10 +871,11 @@
     <div class="greeting">
       <h1 class="glowing-title">Дзеркало душі</h1>
       <p>
-        Метафоричні асоціативні карти “Дзеркало Душі” – авторська колода з 76 карт, що відкриває глибини підсвідомості та допомагає зрозуміти власні емоції. Кожна карта втілює унікальне поєднання образів і символів, відображаючи наші переживання та підсвідомі імпульси. Відкрийте свою внутрішню силу, збалансуйте емоції та знайдіть нові можливості для розвитку.
+        Метафоричні асоціативні карти “Дзеркало Душі” – авторська колода з 76 карт, що відкриває глибини підсвідомості та допомагає зрозуміти власні емоції. Кожна карта втілює унікальне поєднання образів і символів, відображуючи наші переживання та підсвідомі імпульси. Відкрийте свою внутрішню силу, збалансуйте емоції та знайдіть нові можливості для розвитку.
       </p>
     </div>
     <button class="btn" onclick="openDeckInfo()">Розгорнути карти</button>
+    <!-- Кнопка "Про карти" всегда активна, но класс disabled меняет лишь прозрачность -->
     <button id="proKartBtn" class="btn disabled">Про карти</button>
     <button class="btn" style="color: #ff69b4;" onclick="openSession()">Сесія підсвідомості</button>
     <footer id="mainFooter">
@@ -955,12 +966,12 @@
         <img src="https://i.ibb.co/jP8HZYJr/7-1.png" alt="Shuffle">
       </button>
     </div>
-    
+
     <!-- Подпись под кнопками -->
     <div class="center-text">
       Прислухайся до себе та обери свою карту:
     </div>
-    
+
     <!-- Сетка карт -->
     <div class="content" style="margin-top: 10px;">
       <div class="cards-grid"></div>
@@ -1035,22 +1046,22 @@
         localStorage.removeItem('paid');
         localStorage.removeItem('freeUsed');
       }
-      
+
       // Если URL содержит ?paid=true, сохраняем в localStorage «paid» и активируем кнопку "Про карти"
       if (params.get('paid') === 'true') {
         localStorage.setItem('paid', 'true');
       }
-      
+
       hidePreloader();
-      
+
       // Обработчик изменения даты для загрузки заметок по выбранной дате
       document.getElementById('notesDate').addEventListener('change', function() {
         let selectedDate = this.value;
         let savedNotes = localStorage.getItem('userNotes_' + selectedDate);
         document.getElementById('notesTextArea').value = savedNotes || "";
       });
-      
-      // Усиленная блокировка скриншота: 
+
+      // Усиленная блокировка скриншота:  
       const blocker = document.getElementById('screenshotBlocker');
       function showBlocker() {
         blocker.style.display = 'block';
@@ -1058,7 +1069,7 @@
       function hideBlocker() {
         blocker.style.display = 'none';
       }
-      
+
       // При смене видимости документа (например, попытка переключиться или клонирование экрана в некоторых WebView):
       document.addEventListener('visibilitychange', function() {
         if (document.hidden) {
