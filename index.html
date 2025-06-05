@@ -190,7 +190,7 @@
     }
     .btn.disabled {
       opacity: 0.6;
-      /* убрано pointer-events:none */
+      /* pointer-events убран специально, чтобы кнопка реагировала на клик */
     }
     .btn::before {
       content: "";
@@ -792,7 +792,7 @@
       max-width: 90%;
       text-align: center;
       box-shadow: 0 0 10px rgba(64,224,208,0.6);
-      /* Теперь центрируем всё содержимое: */
+      /* Центрирование содержимого */
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -892,9 +892,11 @@
         Метафоричні асоціативні карти “Дзеркало Душі” – авторська колода з 76 карт, що відкриває глибини підсвідомості та допомагає зрозуміти власні емоції. Кожна карта втілює унікальне поєднання образів і символів, відображаючи наші переживання та підсвідомі імпульси. Відкрийте свою внутрішню силу, збалансуйте емоції та знайдіть нові можливості для розвитку.
       </p>
     </div>
-    <!-- Нажатие даже на «disabled» кнопку теперь вызовет showPurchaseModal() -->
-    <button id="proKartBtn" class="btn disabled">Про карти</button>
+    <!-- Теперь «Розгорнути карти» стоит первой -->
     <button class="btn" onclick="openDeckInfo()">Розгорнути карти</button>
+    <!-- Затем «Про карти» -->
+    <button id="proKartBtn" class="btn disabled">Про карти</button>
+    <!-- Затем «Сесія підсідомість» -->
     <button class="btn" style="color: #ff69b4;" onclick="openSession()">Сесія підсідомість</button>
     <footer id="mainFooter">
       © 2025 Усі права захищені.
@@ -1120,9 +1122,14 @@
         }
       }
       updateProKartBtn();
-      // Даже если кнопка имеет класс "disabled", на неё всё равно можно кликнуть
       proKartBtn.addEventListener('click', function() {
-        showPurchaseModal();
+        // Если не оплачен → показываем модалку оплаты
+        if (!isPaidUser()) {
+          showPurchaseModal();
+        } else {
+          // Если оплачен → открываем секцию с картами (Diary)
+          openSection('sectionDiary');
+        }
       });
 
       // Обработчик кнопки «Отримати консультацію» внутри большой карты
@@ -1224,8 +1231,8 @@
       "https://i.ibb.co/cSqh0Y4b/photo-2025-05-26-17-55-34.jpg.webp".replace("i.ibb-co","i.ibb.co"),
       "https://i.ibb.co/d4ZCvq9Q/photo-2025-05-26-17-55-35-3.jpg.webp".replace("i.ibb-co","i.ibb.co"),
       "https://i.ibb.co/ksxT3vR2/photo-2025-05-26-17-55-35-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb.co/6JVD9jgJ/photo-2025-05-26-17-55-35.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb.co/4Rv7DBsR/photo-2025-05-26-17-55-36-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/6JVD9jgJ/photo-2025-05-26-17-55-35.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/4Rv7DBsR/photo-2025-05-26-17-55-36-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
       "https://i.ibb-co/svP2KcgG/photo-2025-05-28-23-30-39.jpg.webp".replace("i.ibb-co","i.ibb.co"),
       "https://i.ibb-co/BKt25h6Q/photo-2025-05-26-17-55-36.jpg.webp".replace("i.ibb-co","i.ibb.co"),
       "https://i.ibb-co/21H3TC2K/photo-2025-05-26-17-55-37-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
