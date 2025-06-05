@@ -185,6 +185,10 @@
     .btn:active {
       transform: scale(0.95);
     }
+    .btn.disabled {
+      opacity: 0.6;
+      pointer-events: none;
+    }
     .btn::before {
       content: "";
       position: absolute;
@@ -873,6 +877,7 @@
       </p>
     </div>
     <button class="btn" onclick="openDeckInfo()">Розгорнути карти</button>
+    <button id="proKartBtn" class="btn disabled">Про карти</button>
     <button class="btn" style="color: #ff69b4;" onclick="openSession()">Сесія підсвідомості</button>
     <button class="btn" onclick="openSection('sectionDiary')">Про карти</button>
     <footer id="mainFooter">
@@ -1044,7 +1049,7 @@
         localStorage.removeItem('freeUsed');
       }
       
-      // Если URL содержит ?paid=true, сохраняем в localStorage «paid»
+      // Если URL содержит ?paid=true, сохраняем в localStorage «paid» и активируем кнопку "Про карти"
       if (params.get('paid') === 'true') {
         localStorage.setItem('paid', 'true');
       }
@@ -1108,6 +1113,24 @@
         } else {
           // Если WebApp API недоступен, просто переходим по ссылке
           window.location.href = 'https://t.me/irynakolokolovamak_bot?start=pay';
+        }
+      });
+
+      // Инициализация состояния кнопки "Про карти"
+      const proKartBtn = document.getElementById('proKartBtn');
+      function updateProKartBtn() {
+        if (isPaidUser()) {
+          proKartBtn.classList.remove('disabled');
+        } else {
+          proKartBtn.classList.add('disabled');
+        }
+      }
+      updateProKartBtn();
+      proKartBtn.addEventListener('click', function() {
+        if (!isPaidUser()) {
+          showPurchaseModal();
+        } else {
+          openSection('sectionDiary');
         }
       });
     });
