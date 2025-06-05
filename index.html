@@ -5,16 +5,16 @@
   <!-- Запрещаем масштабирование -->
   <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
   <title>Дзеркало душі — Односторінковий додаток</title>
-
+  
   <!-- Подключение шрифта Great Vibes (только для заголовка и кнопок) -->
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
-
+  
   <!-- Подключение красивого курсивного шрифта (Allura) -->
   <link href="https://fonts.googleapis.com/css2?family=Allura&display=swap" rel="stylesheet">
 
   <style>
-    /* ==================== Общие стили ==================== */
+    /* Общие стили */
     * {
       margin: 0;
       padding: 0;
@@ -37,11 +37,7 @@
       font-size: 1.3rem;
       line-height: 1.3;
     }
-    body, h1, h2, h3, h4, h5, h6, p, li, a, button, .btn, .highlight {
-      text-shadow: 2px 2px 4px rgba(0,0,0,1);
-    }
-
-    /* Плавные переходы для элементов */
+    
     .btn, .content, .deck-icons, .icon-btn {
       transition: opacity 0.5s ease, transform 0.5s ease;
     }
@@ -54,8 +50,12 @@
       opacity: 1;
       transform: translateY(0);
     }
-
-    /* ==================== Прелоадер ==================== */
+    
+    body, h1, h2, h3, h4, h5, h6, p, li, a, button, .btn, .highlight {
+      text-shadow: 2px 2px 4px rgba(0,0,0,1);
+    }
+    
+    /* Preloader */
     #preloader {
       position: fixed;
       top: 0;
@@ -80,7 +80,7 @@
     @keyframes spin {
       to { transform: rotate(360deg); }
     }
-
+    
     /* Спиннер для маленьких карт */
     .spinner-small {
       border: 3px solid rgba(64,224,208,0.2);
@@ -90,9 +90,9 @@
       height: 20px;
       animation: spin 1s linear infinite;
       position: absolute;
-      top: 50% !important;
-      left: 50% !important;
-      transform: translate(-50%, -50%) !important;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       z-index: 2;
     }
     /* Спиннер для большой карты */
@@ -109,8 +109,8 @@
       transform: translate(-50%, -50%);
       z-index: 3;
     }
-
-    /* ==================== Анимированное название ==================== */
+    
+    /* Анимированное название */
     .glowing-title {
       font-family: 'Great Vibes', cursive;
       font-size: 3rem;
@@ -129,12 +129,13 @@
         text-shadow: 0 0 3px rgba(255,255,255,0.4), 0 0 5px rgba(255,255,255,0.4);
       }
     }
+    
     .highlight {
       color: #fff;
       text-shadow: 0 0 6px rgba(255,255,255,0.8);
     }
-
-    /* ==================== Главное меню ==================== */
+    
+    /* Главное меню */
     .menu {
       display: flex;
       flex-direction: column;
@@ -147,9 +148,9 @@
       z-index: 2;
       max-width: 90%;
       margin: 0 auto;
-      padding: 100px 10px 80px; /* увеличен отступ сверху и снизу */
-      overflow-y: auto; /* добавлен скроллинг */
+      padding: 60px 10px 10px;
     }
+    
     .greeting p {
       font-family: Georgia, serif;
       font-style: italic;
@@ -160,6 +161,7 @@
       margin-bottom: 10px;
       margin-top: 20px;
     }
+    
     .btn {
       font-family: 'Great Vibes', cursive;
       font-style: normal;
@@ -175,7 +177,6 @@
       box-shadow: 0 0 4px rgba(64,224,208,0.5);
       position: relative;
       overflow: hidden;
-      white-space: nowrap;
     }
     .btn:hover {
       background: rgba(64,224,208,0.4);
@@ -183,9 +184,6 @@
     }
     .btn:active {
       transform: scale(0.95);
-    }
-    .btn.disabled {
-      opacity: 0.6;
     }
     .btn::before {
       content: "";
@@ -204,8 +202,8 @@
       50% { opacity: 0.5; }
       100% { opacity: 0; }
     }
-
-    /* ==================== Навигационные кнопки ==================== */
+    
+    /* Кнопки "Назад", "Продовжити" и кнопка звука */
     .btn.back-btn, .btn.continue-btn, .btn.sound-btn {
       padding: 4px 10px;
       min-width: auto;
@@ -227,7 +225,7 @@
     .btn.continue-btn img {
       transform: scaleY(-1);
     }
-    /* Shuffle-кнопка */
+    /* 1) Делаем shuffle-кнопку таким же размером, как back-btn */
     .btn.shuffle-btn {
       padding: 4px 10px;
       min-width: auto;
@@ -236,12 +234,12 @@
       justify-content: center;
     }
     .btn.shuffle-btn img {
-      filter: brightness(0) invert(1);
-      width: 17px; /* чуть больше */
+      filter: brightness(0) invert(1); /* белые */
+      width: 17px;    /* чуть больше */
       height: 17px;
     }
 
-    /* Контейнер для «Назад» и «Перетасувати» */
+    /* 2) Оформляем контейнер для двух кнопок */
     .nav-buttons {
       display: flex;
       justify-content: space-between;
@@ -249,7 +247,8 @@
       width: 100%;
       padding: 10px;
     }
-    /* Текст между кнопками */
+    
+    /* Изменённый стиль для центрального текста между кнопками */
     .center-text {
       font-family: Georgia, serif;
       font-size: 1rem;
@@ -260,6 +259,8 @@
       align-items: center;
       white-space: nowrap;
     }
+
+    /* вот это вставьте сразу ниже */
     #sectionMakKarti .center-text {
       display: block !important;
       width: 100%;
@@ -267,7 +268,7 @@
       margin: 10px 0;
     }
 
-    /* ==================== Иконки под карточками ==================== */
+    /* Иконки под карточками */
     .deck-icons {
       display: flex;
       justify-content: center;
@@ -293,15 +294,14 @@
     }
     .icon-btn:active {
       transform: scale(0.95);
-      box-shadow: 0 0 12px rgba(64,224,208,0.6);
     }
     .icon-btn img {
       width: 30px;
       height: 30px;
       filter: brightness(0) invert(1);
     }
-
-    /* ==================== Социальные иконки ==================== */
+    
+    /* Социальные иконки */
     .social-left {
       position: fixed;
       top: 10px;
@@ -310,18 +310,24 @@
       gap: 15px;
       z-index: 11000;
     }
-    .social-left a {
+    .social-right {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      z-index: 11000;
+    }
+    .social-left a, .social-right a {
       outline: none;
       border: none;
       background: none;
     }
-    .social-left img {
+    .social-left img, .social-right img {
+      width: 20px;
+      height: 20px; 
       filter: brightness(0) invert(1);
-      height: 20px;
-      width: auto;
     }
-
-    /* ==================== Секции ==================== */
+    
+    /* Секции */
     .section {
       display: none;
       padding: 10px;
@@ -334,9 +340,11 @@
       opacity: 0;
       transform: translateY(20px);
       transition: opacity 0.5s ease, transform 0.5s ease;
-      overflow-y: auto !important; /* вертикальный скролл */
-      -webkit-overflow-scrolling: touch; /* плавный скролл iOS */
+      overflow-y: auto !important;  /* разрешаем вертикальный скролл */
+      -webkit-overflow-scrolling: touch; /* плавный скролл на iOS */
     }
+    
+    /* Для секции "Як це працює?" возвращаем скроллинг */
     #sectionDiary {
       overflow-y: auto !important;
     }
@@ -345,7 +353,7 @@
       opacity: 1;
       transform: translateY(0);
     }
-
+    
     .content {
       max-width: 90%;
       margin: 30px auto 0 auto;
@@ -356,16 +364,19 @@
       padding: 0 20px;
       transition: opacity 0.5s ease, transform 0.5s ease;
     }
-    /* Расширение описания в секции «Як це працює?» */
+    /* Расширение описания в секции "Як це працює?" */
     #sectionDiary .content {
       max-width: 100%;
       padding: 20px;
     }
+    
     .how-it-works-text p,
     .how-it-works-text ul,
     .how-it-works-text ol {
       margin-bottom: 15px;
     }
+    
+    /* Секция "Як це працює?" с расширенным описанием */
     .how-it-works-text {
       padding: 15px;
       text-align: justify;
@@ -374,8 +385,8 @@
       font-style: italic;
       text-shadow: none;
     }
-
-    /* ==================== Секция «Розгорнути колоду» ==================== */
+    
+    /* Секция "Розгорнути колоду" */
     #sectionDeckInfo {
       overflow: hidden;
     }
@@ -398,8 +409,8 @@
       text-shadow: none;
       text-align: justify;
     }
-
-    /* ==================== Секция «Мак-карти» ==================== */
+    
+    /* Секция "Мак-карти" */
     #sectionMakKarti {
       overflow: hidden;
     }
@@ -444,10 +455,9 @@
       cursor: pointer;
       border: 1px solid rgba(64,224,208,0.6);
       box-shadow: 0 0 10px rgba(64,224,208,0.3);
-      background-size: cover; /* фон заполнит весь контейнер */
-      background-position: center; /* по центру */
-      background-repeat: no-repeat;
-      transition: transform 0.2s ease;
+      background-size: cover;       /* фон покроет весь контейнер */
+      background-position: center;  /* будет по центру */
+      background-repeat: no-repeat; /* без повторения */
     }
     .small-card:hover {
       transform: scale(1.05);
@@ -463,20 +473,33 @@
       width: 100%;
       height: 100%;
     }
+    .small-card {
+      width: 80px;
+      height: 112px;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      transition: transform 0.2s ease;
+      cursor: pointer;
+      border-radius: 8px;
+      overflow: hidden;
+      position: relative;
+    }
     .small-card.loading {
       background: transparent;
     }
     .small-card.blocked {
       opacity: 0.5;
     }
+
     /* Перевернутая карта */
     .small-card.flipped {
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
     }
-
-    /* ==================== Секция «72 карт» ==================== */
+    
+    /* Секция "72 карт" */
     #section72Cards {
       overflow-y: auto;
     }
@@ -501,8 +524,8 @@
       perspective: 1000px;
       position: relative;
     }
-
-    /* ==================== Оверлей для большой карты ==================== */
+    
+    /* Глобальный оверлей для большой карты */
     .overlay {
       position: fixed;
       top: 0;
@@ -552,24 +575,19 @@
       pointer-events: none;
       z-index: 2;
       border: 2px solid rgba(64,224,208,0.5);
-      box-shadow:
-        0 0 10px rgba(64,224,208,0.6),
-        0 0 20px rgba(64,224,208,0.4),
-        0 0 30px rgba(64,224,208,0.2);
+      box-shadow: 0 0 10px rgba(64,224,208,0.6), 0 0 20px rgba(64,224,208,0.4), 0 0 30px rgba(64,224,208,0.2);
       animation: borderGlow 3s infinite alternate;
     }
     @keyframes borderGlow {
       0% {
-        box-shadow:
-          0 0 10px rgba(64,224,208,0.6),
-          0 0 20px rgba(64,224,208,0.4),
-          0 0 30px rgba(64,224,208,0.2);
+        box-shadow: 0 0 10px rgba(64,224,208,0.6),
+                    0 0 20px rgba(64,224,208,0.4),
+                    0 0 30px rgba(64,224,208,0.2);
       }
       100% {
-        box-shadow:
-          0 0 20px rgba(64,224,208,0.8),
-          0 0 40px rgba(64,224,208,0.6),
-          0 0 60px rgba(64,224,208,0.4);
+        box-shadow: 0 0 20px rgba(64,224,208,0.8),
+                    0 0 40px rgba(64,224,208,0.6),
+                    0 0 60px rgba(64,224,208,0.4);
       }
     }
     .big-card.is-flipped {
@@ -615,7 +633,7 @@
       color: #fff;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: center; 
       align-items: center;
       padding: 15px;
       text-align: center;
@@ -631,7 +649,6 @@
       margin: 0;
       text-align: center;
     }
-    /* Кнопка «Отримати консультацію» */
     .consult-button {
       font-family: 'Great Vibes', cursive;
       font-style: normal;
@@ -648,14 +665,13 @@
       position: relative;
       overflow: hidden;
       margin-top: 20px;
-      white-space: nowrap;
+      text-decoration: none;
     }
     .consult-button:hover {
       background: rgba(64,224,208,0.4);
       box-shadow: 0 0 6px rgba(64,224,208,0.6);
     }
-
-    /* ==================== Огни (fireflies) ==================== */
+    
     .fireflies {
       position: fixed;
       top: 0;
@@ -680,8 +696,8 @@
       75% { opacity: 1; transform: scale(1); filter: drop-shadow(0 0 16px #fff); }
       100% { opacity: 0; transform: scale(0.8); }
     }
-
-    /* ==================== Футер ==================== */
+    
+    /* Футер */
     #mainFooter {
       position: absolute;
       bottom: 10px;
@@ -698,8 +714,8 @@
       margin-top: 3px;
       white-space: nowrap;
     }
-
-    /* ==================== Модальное окно Нотатки ==================== */
+    
+    /* Модальное окно Нотатки */
     .overlay-notes-container {
       position: relative;
       width: 400px;
@@ -717,6 +733,7 @@
       padding: 20px;
       box-shadow: 0 0 10px rgba(64,224,208,0.6), 0 0 20px rgba(64,224,208,0.4);
     }
+    /* Кнопка закрытия (крестик) как стиль back-btn */
     .notes-close-btn {
       position: absolute;
       top: 10px;
@@ -763,8 +780,13 @@
     .date-picker::-webkit-calendar-picker-indicator {
       filter: invert(1);
     }
+    /* Скрываем соц. иконки без удаления HTML */
+    .social-left,
+    .social-right {
+      display: none !important;
+    }
 
-    /* ==================== Модальное окно покупки ==================== */
+    /* Модальное окно покупки */
     #purchaseModal {
       position: fixed;
       top: 0;
@@ -802,14 +824,13 @@
       box-shadow: 0 0 4px rgba(64,224,208,0.5);
       text-decoration: none;
       display: inline-block;
-      white-space: nowrap;
     }
     .purchase-modal-button:hover {
       background: rgba(64,224,208,0.4);
       box-shadow: 0 0 6px rgba(64,224,208,0.6);
     }
-
-    /* ==================== Чёрный оверлей для блокировки скриншота ==================== */
+    
+    /* Чёрный оверлей для блокировки скриншота */
     #screenshotBlocker {
       position: fixed;
       top: 0;
@@ -821,55 +842,27 @@
       display: none;
       pointer-events: none;
     }
-
-    /* ==================== Адаптация для очень маленьких экранов (≤ 450px) ==================== */
-    @media (max-width: 450px) {
-      /* Основные .btn (кроме навигационных: back-btn, continue-btn, shuffle-btn) */
-      .btn:not(.back-btn):not(.continue-btn):not(.shuffle-btn) {
-        min-width: 85% !important;
-        font-size: 1.6rem !important;
-        white-space: normal;
-        padding: 18px 24px !important;
-      }
-      /* Навигационные кнопки остаются компактными */
-      .btn.back-btn, .btn.continue-btn, .btn.shuffle-btn {
-        padding: 4px 10px;
-        font-size: 1rem;
-      }
-    }
-
-    /* ==================== Адаптация для планшетов (≤ 768px) ==================== */
-    @media (max-width: 768px) {
-      .btn:not(.back-btn):not(.continue-btn):not(.shuffle-btn) {
-        min-width: 80%;
-        font-size: 1.8rem;
-        padding: 20px 28px;
-      }
-    }
   </style>
 </head>
 <body>
-  <!-- Overlay для блокировки PrintScreen -->
+  <!-- Оверлей, который показывается при попытке PrintScreen или переключении контекста -->
   <div id="screenshotBlocker"></div>
-
+  
   <!-- Социальные иконки -->
   <div class="social-left">
-    <a href="https://t.me/ikmakcards_bot" target="_blank">
-      <img src="https://i.ibb.co/67Mpr94h/4-1.png" alt="Telegram">
-    </a>
-    <a href="#" target="_blank">
-      <img src="https://i.ibb.co/ZR1fnmF8/3-1.png" alt="Instagram">
-    </a>
-    <a href="https://www.youtube.com/@IrynaKolokolova" target="_blank">
-      <img src="https://i.ibb.co/4g4LFv1V/2025-06-05-133157.png" alt="YouTube">
-    </a>
+    <a href="#" target="_blank"><img src="https://i.ibb.co/3mvz2MS8/5-1.png" alt="Tiktok"></a>
+    <a href="#" target="_blank"><img src="https://i.ibb.co/67Mpr94h/4-1.png" alt="Telegram"></a>
+    <a href="#" target="_blank"><img src="https://i.ibb.co/ZR1fnmF8/3-1.png" alt="Instagram"></a>
   </div>
-
+  <div class="social-right">
+    <a href="#" target="_blank"><img src="https://i.ibb.co/GfqnLvSv/6-1.png" alt="Site Icon"></a>
+  </div>
+  
   <!-- Preloader -->
   <div id="preloader">
     <div class="spinner"></div>
   </div>
-
+  
   <!-- Главное меню -->
   <div id="mainMenu" class="menu fade-in">
     <div class="greeting">
@@ -879,14 +872,13 @@
       </p>
     </div>
     <button class="btn" onclick="openDeckInfo()">Розгорнути карти</button>
-    <button id="proKartBtn" class="btn disabled">Про карти</button>
-    <button class="btn" style="color: #ff69b4;" onclick="openSession()">Сесія підсідомість</button>
+    <button class="btn" onclick="openSection('sectionDiary')">Про карти</button>
     <footer id="mainFooter">
       © 2025 Усі права захищені.
       <span class="second-line">Авторська колода «Дзеркало душі» від Ірини Колоколової</span>
     </footer>
   </div>
-
+  
   <!-- Секция "Як це працює?" с расширенным описанием -->
   <div id="sectionDiary" class="section">
     <button class="btn back-btn" onclick="backToMenu()">
@@ -935,7 +927,7 @@
       </div>
     </div>
   </div>
-
+  
   <!-- Секция "Розгорнути колоду" -->
   <div id="sectionDeckInfo" class="section">
     <div class="nav-buttons">
@@ -956,21 +948,21 @@
       </ol>
     </div>
   </div>
-
+  
   <!-- Секция "Мак-карти" -->
   <div id="sectionMakKarti" class="section">
     <div class="nav-buttons">
-      <!-- Кнопка «Назад» -->
+      <!-- Кнопка "Назад" -->
       <button class="btn back-btn" onclick="backToDeckInfo()">
         <img src="https://i.ibb.co/s9NyJrT7/56-1.png" alt="Back">
       </button>
-      <!-- Кнопка «Перетасувати» -->
+      <!-- Кнопка "Перетасувати" -->
       <button id="shuffleIconBtn" class="btn shuffle-btn" onclick="shuffleCards()">
         <img src="https://i.ibb.co/jP8HZYJr/7-1.png" alt="Shuffle">
       </button>
     </div>
 
-    <!-- Текст между кнопками -->
+    <!-- Подпись под кнопками -->
     <div class="center-text">
       Прислухайся до себе та обери свою карту:
     </div>
@@ -980,7 +972,7 @@
       <div class="cards-grid"></div>
     </div>
   </div>
-
+  
   <!-- Секция "72 карт" -->
   <div id="section72Cards" class="section">
     <div class="nav-buttons">
@@ -992,8 +984,8 @@
       <div class="cards-grid-72"></div>
     </div>
   </div>
-
-  <!-- Оверлей для большой карты -->
+  
+  <!-- Глобальный оверлей для карточки -->
   <div class="overlay" id="overlay">
     <div class="overlay-card-container">
       <div class="big-card" id="bigCard">
@@ -1003,20 +995,21 @@
         </div>
         <div class="big-card-face big-card-back" id="bigCardBack">
           <p class="daily-wish"></p>
-          <!-- Кнопка «Отримати консультацію» -->
-          <button class="consult-button" id="consultButton">Отримати консультацію</button>
+          <a class="consult-button" href="https://t.me/irynakolokolovamak_bot" target="_blank" onclick="event.stopPropagation();">Отримати консультацію</a>
         </div>
       </div>
     </div>
   </div>
-
-  <!-- Оверлей для нотаток -->
+  
+  <!-- Глобальный оверлей для нотаток -->
   <div class="overlay" id="notesOverlay">
     <div class="overlay-notes-container">
       <div class="notes-card" id="notesCard">
         <button class="btn back-btn notes-close-btn" onclick="closeNotesModal()">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" viewBox="0 0 16 16">
-            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.0.5.0 0 1.708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 1 1 0-.708L7.293 8 4.646 5.354a.5.5 0 1 1 0-.708z"/>
+            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 
+            .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 
+            0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
           </svg>
         </button>
         <h2>Нотатки:</h2>
@@ -1030,116 +1023,93 @@
   <!-- Модальное окно покупки -->
   <div id="purchaseModal">
     <div class="purchase-modal-content">
-      <p>Придбайте повну версію для розблокування всієї колоди з 76 карт.</p>
+      <p>Безкоштовна версія завершена. Для подальшого використання придбайте повну версію.</p>
+      <!-- Заменили <a> на <button> и добавили id="purchaseButton" -->
       <button id="purchaseButton" class="purchase-modal-button">Отримати</button>
     </div>
   </div>
-
+  
   <!-- Огни (fireflies) -->
   <div class="fireflies"></div>
-
-  <!-- Аудіо для медитативної музики (placeholder) -->
+  
+  <!-- Аудіо для медитативной музики (placeholder) -->
   <audio id="meditativeAudio" loop src="meditative.mp3"></audio>
-
+  
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // Проверка параметра reset: если reset=true, очищаем localStorage
+      // Если URL содержит ?paid=true, сохраняем в localStorage «paid»
       const params = new URLSearchParams(window.location.search);
-      if (params.get('reset') === 'true') {
-        localStorage.removeItem('paid');
-        localStorage.removeItem('freeUsed');
-      }
-
-      // Если URL содержит ?paid=true, сохраняем «paid»
       if (params.get('paid') === 'true') {
         localStorage.setItem('paid', 'true');
       }
-
       hidePreloader();
-
-      // Обработчик изменения даты (нотатки)
+      // Обработчик изменения даты для загрузки заметок по выбранной дате
       document.getElementById('notesDate').addEventListener('change', function() {
         let selectedDate = this.value;
         let savedNotes = localStorage.getItem('userNotes_' + selectedDate);
         document.getElementById('notesTextArea').value = savedNotes || "";
       });
 
-      // Усиленная блокировка скриншота
+      // Обработчик кнопки «Отримати» (покупка) — сначала открывает бот, потом закрывает мини-приложение
+      const purchaseBtn = document.getElementById('purchaseButton');
+      purchaseBtn.addEventListener('click', function() {
+        // Открываем ссылку в Telegram (deep link на бота)
+        if (window.Telegram && Telegram.WebApp) {
+          Telegram.WebApp.openLink('https://t.me/irynakolokolovamak_bot?start=pay');
+          // После открытия закрываем мини-приложение, чтобы пользователь увидел чат с ботом
+          Telegram.WebApp.close();
+        } else {
+          // Если WebApp API недоступен, просто переходим по ссылке
+          window.location.href = 'https://t.me/irynakolokolovamak_bot?start=pay';
+        }
+      });
+
+      // Усиленная блокировка скриншота:
       const blocker = document.getElementById('screenshotBlocker');
-      function showBlocker() { blocker.style.display = 'block'; }
-      function hideBlocker() { blocker.style.display = 'none'; }
+      function showBlocker() {
+        blocker.style.display = 'block';
+      }
+      function hideBlocker() {
+        blocker.style.display = 'none';
+      }
+
+      // При смене видимости документа (например, попытка переключиться или клонирование экрана в некоторых WebView):
       document.addEventListener('visibilitychange', function() {
-        if (document.hidden) { showBlocker(); } else { hideBlocker(); }
+        if (document.hidden) {
+          showBlocker();
+        } else {
+          hideBlocker();
+        }
       });
+      // Для WebKit на мобильных:
       document.addEventListener('webkitvisibilitychange', function() {
-        if (document.hidden) { showBlocker(); } else { hideBlocker(); }
+        if (document.hidden) {
+          showBlocker();
+        } else {
+          hideBlocker();
+        }
       });
-      window.addEventListener('blur', function() { showBlocker(); });
-      window.addEventListener('focus', function() { hideBlocker(); });
+      // При потере фокуса окна (blur) — обычно вызывается при PrintScreen и некоторых действиях:
+      window.addEventListener('blur', function() {
+        showBlocker();
+      });
+      window.addEventListener('focus', function() {
+        hideBlocker();
+      });
+      // На десктопе для клавиши PrintScreen:
       document.addEventListener('keyup', function(e) {
         if (e.key === 'PrintScreen' || e.keyCode === 44) {
           showBlocker();
           setTimeout(hideBlocker, 1000);
         }
       });
-
-      // Обработчик кнопки «Отримати» (покупка полного доступа)
-      const purchaseBtn = document.getElementById('purchaseButton');
-      purchaseBtn.addEventListener('click', function() {
-        const botLink = 'https://t.me/ikmakcards_bot?start=pay';
-        if (window.Telegram && Telegram.WebApp) {
-          Telegram.WebApp.openLink(botLink);
-        } else {
-          window.open(botLink, '_blank');
-        }
-      });
-
-      // Инициализация состояния кнопки "Про карти"
-      const proKartBtn = document.getElementById('proKartBtn');
-      function updateProKartBtn() {
-        if (isPaidUser()) {
-          proKartBtn.classList.remove('disabled');
-        } else {
-          proKartBtn.classList.add('disabled');
-        }
-      }
-      updateProKartBtn();
-      proKartBtn.addEventListener('click', function() {
-        if (!isPaidUser()) {
-          showPurchaseModal();
-        } else {
-          openSection('sectionDiary');
-        }
-      });
-
-      // Обработчик кнопки «Отримати консультацію» внутри большой карты
-      const consultBtn = document.getElementById('consultButton');
-      consultBtn.addEventListener('click', function(e) {
-        e.stopPropagation();
-        const botLink = 'https://t.me/ikmakcards_bot?start=consult';
-        if (window.Telegram && Telegram.WebApp) {
-          Telegram.WebApp.openLink(botLink);
-        } else {
-          window.open(botLink, '_blank');
-        }
-      });
     });
-
-    // Функция для кнопки "Сесія підсідомість"
-    function openSession() {
-      const botLink = 'https://t.me/ikmakcards_bot?start=session';
-      if (window.Telegram && Telegram.WebApp) {
-        Telegram.WebApp.openLink(botLink);
-      } else {
-        window.open(botLink, '_blank');
-      }
-    }
 
     let selectedCount = 0;
     let animationInProgress = false;
     const freeUsedKey = 'freeUsed';
 
-    // Проверяем, исчерпала ли пользователь бесплатные 5 карт
+    // Проверяем, исчерпала ли пользователь бесплатные 5 карт (только если не paid)
     function isFreeUsed() {
       return localStorage.getItem(freeUsedKey) === 'true';
     }
@@ -1161,7 +1131,7 @@
         createFireflies(25);
       }, 500);
     }
-
+    
     function createFireflies(count) {
       const container = document.querySelector(".fireflies");
       for (let i = 0; i < count; i++) {
@@ -1196,9 +1166,30 @@
       "Нехай кожна хвилина цього дня дарує тобі віру, сили та впевненість у власних силах.",
       "Бажаю, щоб у кожній миті ти знаходив натхнення, тепло та підтримку близьких.",
       "Нехай сьогоднішній день стане для тебе джерелом нових ідей, відкриттів та радості.",
-      "Бажаю, щоб кожна зустріч і кожне слово надх​оплювали тебе на великі звершення."
+      "Бажаю, щоб кожна зустріч і кожне слово надихали тебе на великі звершення.",
+      "Нехай твій день буде наповнений світлими моментами, любов’ю та гармонією всередині себе.",
+      "Бажаю, щоб кожна мрія набувала форми, а кожна думка перетворювалася на реальність.",
+      "Нехай кожен промінчик сонця приносить тобі тепло, енергію та натхнення для нових починань.",
+      "Бажаю, щоб сьогоднішній день був сповнений добрих емоцій, креативності та внутрішньої сили.",
+      "Нехай кожна мить цього дня відкриває перед тобою нові можливості та приносить щастя.",
+      "Бажаю, щоб кожен крок на твоєму шляху був освітлений світлом надії та впевненості.",
+      "Нехай сьогоднішній день принесе тобі безліч приємних сюрпризів і незабутніх моментів.",
+      "Бажаю, щоб кожна зустріч надихала тебе, а кожне слово дарувало тепло і підтримку.",
+      "Нехай твій день буде сповнений творчості, радості та сміливих рішень.",
+      "Бажаю, щоб сьогоднішній день став початком нових перемог і великих звершень.",
+      "Нехай твоє серце наповниться оптимізмом, а думки ведуть до нових ідей та рішень.",
+      "Бажаю, щоб кожна хвилина цього дня була сповнена гармонією, любов’ю та внутрішнім спокоєм.",
+      "Нехай кожен промінчик світла надихає тебе на великі справи і відкриття.",
+      "Бажаю, щоб сьогоднішній день приніс тобі радість, нові ідеї та життєву енергію.",
+      "Нехай твій день буде наповнений яскравими фарбами, теплими зустрічами та позитивом.",
+      "Бажаю, щоб кожна мить дарувала тобі натхнення, сили та віру в краще майбутнє.",
+      "Нехай сьогоднішній день стане для тебе джерелом радості, творчості та нових можливостей.",
+      "Бажаю, щоб кожен момент цього дня приносив тобі посмішку, тепло та гармонію.",
+      "Нехай твій день буде сповнений любов’ю, підтримкою та безмежним натхненням.",
+      "Бажаю, щоб цей день відкрив перед тобою нові горизонти, даруючи тепло і радість.",
+      "Нехай у твоєму серці панує радість, а в душі — мир і впевненість у завтрашньому дні."
     ];
-
+    
     const bigImages = [
       "https://i.ibb.co/N6Qz35Sh/photo-2025-05-26-17-55-31-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
       "https://i.ibb.co/0yQHT7jC/photo-2025-05-26-17-55-31-3.jpg.webp".replace("i.ibb-co","i.ibb.co"),
@@ -1206,17 +1197,17 @@
       "https://i.ibb.co/nqxJW0Jz/photo-2025-05-27-23-54-14-3.jpg.webp".replace("i.ibb-co","i.ibb.co"),
       "https://i.ibb.co/4ZcMXG42/photo-2025-05-26-17-55-32-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
       "https://i.ibb.co/xSsY24T2/photo-2025-05-26-17-55-33-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/vCfXdgk7/photo-2025-05-27-23-54-14-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/9kWZFRwB/photo-2025-05-26-17-55-34-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/cSqh0Y4b/photo-2025-05-26-17-55-34.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/d4ZCvq9Q/photo-2025-05-26-17-55-35-3.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/ksxT3vR2/photo-2025-05-26-17-55-35-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/6JVD9jgJ/photo-2025-05-26-17-55-35.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/4Rv7DBsR/photo-2025-05-26-17-55-36-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/svP2KcgG/photo-2025-05-28-23-30-39.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/BKt25h6Q/photo-2025-05-26-17-55-36.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/21H3TC2K/photo-2025-05-26-17-55-37-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/Kx4Jq4Pq/photo-2025-05-26-17-55-37.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb.co/vCfXdgk7/photo-2025-05-27-23-54-14-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb.co/9kWZFRwB/photo-2025-05-26-17-55-34-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb.co/cSqh0Y4b/photo-2025-05-26-17-55-34.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb.co/d4ZCvq9Q/photo-2025-05-26-17-55-35-3.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb.co/ksxT3vR2/photo-2025-05-26-17-55-35-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb.co/6JVD9jgJ/photo-2025-05-26-17-55-35.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb.co/4Rv7DBsR/photo-2025-05-26-17-55-36-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb.co/svP2KcgG/photo-2025-05-28-23-30-39.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb.co/BKt25h6Q/photo-2025-05-26-17-55-36.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb.co/21H3TC2K/photo-2025-05-26-17-55-37-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb.co/Kx4Jq4Pq/photo-2025-05-26-17-55-37.jpg.webp".replace("i.ibb-co","i.ibb.co"),
       "https://i.ibb-co/4nsRBhPr/photo-2025-05-26-17-55-38-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
       "https://i.ibb-co/zWfj7pS8/photo-2025-05-26-17-55-38.jpg.webp".replace("i.ibb-co","i.ibb.co"),
       "https://i.ibb-co/whXpDsKv/photo-2025-05-26-17-55-39-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
@@ -1279,8 +1270,8 @@
     ];
 
     function createSmallCards(count) {
-      const paid = isPaidUser();
       const freeUsed = isFreeUsed();
+      const paid = isPaidUser();
       disableInteractions();
       const shuffledImages = bigImages.slice();
       for (let i = shuffledImages.length - 1; i > 0; i--) {
@@ -1366,7 +1357,7 @@
       // вернуть кликабельность после анимации
       setTimeout(enableInteractions, 500);
     }
-
+    
     function openOverlay(imgUrl) {
       if (animationInProgress) return;
       animationInProgress = true;
@@ -1374,17 +1365,18 @@
       overlay.classList.add("active");
       const shuffleIcon = document.getElementById("shuffleIconBtn");
       if (shuffleIcon) shuffleIcon.style.pointerEvents = "none";
-
+      
       let chosenImg;
       if (imgUrl && imgUrl !== "" && imgUrl !== "none") {
-        chosenImg = imgUrl.replace(/^url\(["']?/, "").replace(/["']?\)$/, "");
+         chosenImg = imgUrl.replace(/^url\(["']?/, "").replace(/["']?\)$/, "");
       } else {
-        const randomIndex = Math.floor(Math.random() * bigImages.length);
-        chosenImg = bigImages[randomIndex];
+         const randomIndex = Math.floor(Math.random() * bigImages.length);
+         chosenImg = bigImages[randomIndex];
       }
 
       // Добавляем спиннер для большой карты
       const bigCardFront = document.getElementById("bigCardFront");
+      // Очистим фон и добавим спиннер
       bigCardFront.style.backgroundImage = "none";
       const spinnerLarge = document.createElement("div");
       spinnerLarge.classList.add("spinner-large");
@@ -1396,41 +1388,41 @@
         bigCardFront.style.backgroundImage = `url("${chosenImg}")`;
         spinnerLarge.remove();
       };
-
+      
       const randomWishIndex = Math.floor(Math.random() * dailyWishes.length);
       const wish = dailyWishes[randomWishIndex];
-
+      
       const bigCardBack = document.getElementById("bigCardBack");
       bigCardBack.querySelector(".daily-wish").textContent = wish;
-
+      
       const bigCard = document.getElementById("bigCard");
       bigCard.classList.remove("is-flipped");
-
+      
       setTimeout(() => {
-        animationInProgress = false;
-        if (shuffleIcon) shuffleIcon.style.pointerEvents = "auto";
+         animationInProgress = false;
+         if (shuffleIcon) shuffleIcon.style.pointerEvents = "auto";
       }, 500);
     }
-
+    
     document.getElementById("bigCard").addEventListener("click", function(e) {
       if (animationInProgress) return;
       this.classList.toggle("is-flipped");
     });
-
+    
     document.getElementById("overlay").addEventListener("click", function(e) {
       if (animationInProgress) return;
-      if (e.target.id === "overlay") {
+      if(e.target.id === "overlay") {
         this.classList.remove("active");
         const shuffleIcon = document.getElementById("shuffleIconBtn");
         if (shuffleIcon) shuffleIcon.style.pointerEvents = "auto";
       }
     });
-
+    
     document.getElementById("shuffleIconBtn").addEventListener("click", function() {
       if (animationInProgress) return;
       shuffleCards();
     });
-
+    
     function shuffleCards() {
       disableInteractions();
       const grid = document.querySelector(".cards-grid");
@@ -1445,13 +1437,13 @@
         createSmallCards(76);
       }, 500);
     }
-
+    
     function flipCard(event) {
       event.stopPropagation();
       if (animationInProgress) return;
       document.getElementById("bigCard").classList.toggle("is-flipped");
     }
-
+    
     function disableInteractions() {
       animationInProgress = true;
       const grid20 = document.querySelector(".cards-grid");
@@ -1470,14 +1462,16 @@
       const shuffleIcon = document.getElementById("shuffleIconBtn");
       if (shuffleIcon) shuffleIcon.style.pointerEvents = "auto";
     }
-
+    
     function showMainIcons() {
       document.querySelector('.social-left').style.display = 'flex';
+      document.querySelector('.social-right').style.display = 'flex';
     }
     function hideMainIcons() {
       document.querySelector('.social-left').style.display = 'none';
+      document.querySelector('.social-right').style.display = 'none';
     }
-
+    
     function openSection(sectionId) {
       document.getElementById('mainMenu').style.display = 'none';
       document.getElementById('mainFooter').style.display = 'none';
@@ -1513,7 +1507,7 @@
       document.getElementById('sectionMakKarti').classList.remove('active');
       document.getElementById('sectionDeckInfo').classList.add('active');
     }
-
+    
     function open72Cards() {
       document.getElementById('sectionMakKarti').classList.remove('active');
       document.getElementById('section72Cards').classList.add('active');
@@ -1531,10 +1525,10 @@
         const container = document.createElement("div");
         container.classList.add("card-container");
         container.style.opacity = "0";
-
+        
         const smallCard = document.createElement("div");
         smallCard.classList.add("small-card");
-
+        
         const front = document.createElement("div");
         front.classList.add("small-card-front");
         if (i < 76) {
@@ -1542,16 +1536,16 @@
         } else {
           front.style.background = "rgba(64,224,208,0.2)";
         }
-
+        
         smallCard.appendChild(front);
         container.appendChild(smallCard);
         grid.appendChild(container);
-
+        
         setTimeout(() => {
           container.classList.add("fade-in");
           container.style.opacity = "1";
         }, 50);
-
+        
         smallCard.addEventListener("click", function(e) {
           if (animationInProgress) return;
           let bg = front.style.backgroundImage;
@@ -1560,7 +1554,7 @@
       }
       setTimeout(enableInteractions, 500);
     }
-
+    
     /* Функции для модального окна нотаток */
     function openNotes() {
       const dateInput = document.getElementById('notesDate');
@@ -1576,7 +1570,7 @@
       document.getElementById('notesTextArea').value = savedNotes || "";
       document.getElementById('notesOverlay').classList.add('active');
     }
-
+    
     function closeNotesModal() {
       let notes = document.getElementById('notesTextArea').value;
       let notesDate = document.getElementById('notesDate').value;
@@ -1590,9 +1584,9 @@
       localStorage.setItem('userNotes_' + notesDate, notes);
       document.getElementById('notesOverlay').classList.remove('active');
     }
-
+    
     document.getElementById('notesOverlay').addEventListener("click", function(e) {
-      if (e.target.id === "notesOverlay") {
+      if(e.target.id === "notesOverlay") {
         closeNotesModal();
       }
     });
