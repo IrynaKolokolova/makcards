@@ -41,7 +41,7 @@
       text-shadow: 2px 2px 4px rgba(0,0,0,1);
     }
 
-    /* Плавные переходы для элементов */
+    /* Плавные переходы */
     .btn, .content, .deck-icons, .icon-btn {
       transition: opacity 0.5s ease, transform 0.5s ease;
     }
@@ -176,7 +176,9 @@
       position: relative;
       overflow: hidden;
       white-space: nowrap;
-      /* Гарантируем, что кнопки не слишком растягиваются на больших экранах */
+      display: flex;
+      align-items: center;
+      justify-content: center;
       max-width: 90%;
     }
     .btn:hover {
@@ -418,7 +420,7 @@
     }
     .cards-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+      grid-template-columns: repeat(4, 80px);
       grid-auto-rows: 112px;
       gap: 10px;
       justify-content: center;
@@ -443,7 +445,7 @@
       height: 100%;
       border-radius: 8px;
       overflow: hidden;
-      position: relative; /* чтобы центрировать спиннер */
+      position: relative; /* для центра спиннера */
       cursor: pointer;
       border: 1px solid rgba(64,224,208,0.6);
       box-shadow: 0 0 10px rgba(64,224,208,0.3);
@@ -489,7 +491,7 @@
     }
     .cards-grid-72 {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+      grid-template-columns: repeat(4, 60px);
       grid-auto-rows: 95px;
       gap: 30px;
       justify-content: center;
@@ -652,6 +654,9 @@
       overflow: hidden;
       margin-top: 20px;
       white-space: nowrap;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     .consult-button:hover {
       background: rgba(64,224,208,0.4);
@@ -806,6 +811,9 @@
       text-decoration: none;
       display: inline-block;
       white-space: nowrap;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     .purchase-modal-button:hover {
       background: rgba(64,224,208,0.4);
@@ -1221,12 +1229,12 @@
       "https://i.ibb.co/BKt25h6Q/photo-2025-05-26-17-55-36.jpg.webp".replace("i.ibb-co","i.ibb.co"),
       "https://i.ibb.co/21H3TC2K/photo-2025-05-26-17-55-37-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
       "https://i.ibb.co/Kx4Jq4Pq/photo-2025-05-26-17-55-37.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb.co/4nsRBhPr/photo-2025-05-26-17-55-38-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb.co/zWfj7pS8/photo-2025-05-26-17-55-38.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb.co/whXpDsKv/photo-2025-05-26-17-55-39-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb.co/5Q6f4xL/photo-2025-05-26-17-55-39-3.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb.co/mr6yk1w9/photo-2025-05-26-17-55-39.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb.co/YT4DND1c/photo-2025-05-26-17-55-40-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/4nsRBhPr/photo-2025-05-26-17-55-38-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/zWfj7pS8/photo-2025-05-26-17-55-38.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/whXpDsKv/photo-2025-05-26-17-55-39-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/5Q6f4xL/photo-2025-05-26-17-55-39-3.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/mr6yk1w9/photo-2025-05-26-17-55-39.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb-co/YT4DND1c/photo-2025-05-26-17-55-40-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
       "https://i.ibb-co/q3q0J3zB/photo-2025-05-26-17-55-40.jpg.webp".replace("i.ibb-co","i.ibb.co"),
       "https://i.ibb-co/HpXC6N0J/photo-2025-05-26-17-55-41.jpg.webp".replace("i.ibb-co","i.ibb.co"),
       "https://i.ibb-co/wZL0158h/photo-2025-05-26-17-55-42.jpg.webp".replace("i.ibb-co","i.ibb.co"),
