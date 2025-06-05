@@ -90,9 +90,9 @@
       height: 20px;
       animation: spin 1s linear infinite;
       position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      top: 50% !important;
+      left: 50% !important;
+      transform: translate(-50%, -50%) !important;
       z-index: 2;
     }
     /* Спиннер для большой карты */
@@ -873,6 +873,7 @@
       </p>
     </div>
     <button class="btn" onclick="openDeckInfo()">Розгорнути карти</button>
+    <button class="btn" style="color: #ff69b4;" onclick="openSession()">Сесія підсвідомості</button>
     <button class="btn" onclick="openSection('sectionDiary')">Про карти</button>
     <footer id="mainFooter">
       © 2025 Усі права захищені.
@@ -996,7 +997,7 @@
         </div>
         <div class="big-card-face big-card-back" id="bigCardBack">
           <p class="daily-wish"></p>
-          <a class="consult-button" href="https://t.me/irynakolokolovamak_bot" target="_blank" onclick="event.stopPropagation();">Отримати консультацію</a>
+          <a class="consult-button" href="https://t.me/irynakolokolovamak_bot?start=consult" target="_blank" onclick="event.stopPropagation();">Отримати консультацію</a>
         </div>
       </div>
     </div>
@@ -1111,6 +1112,16 @@
       });
     });
 
+    // Функция для кнопки "Сесія підсвідомості"
+    function openSession() {
+      if (window.Telegram && Telegram.WebApp) {
+        Telegram.WebApp.openLink('https://t.me/irynakolokolovamak_bot?start=session');
+        Telegram.WebApp.close();
+      } else {
+        window.location.href = 'https://t.me/irynakolokolovamak_bot?start=session';
+      }
+    }
+
     let selectedCount = 0;
     let animationInProgress = false;
     const freeUsedKey = 'freeUsed';
@@ -1204,18 +1215,6 @@
       "https://i.ibb.co/4ZcMXG42/photo-2025-05-26-17-55-32-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
       "https://i.ibb.co/xSsY24T2/photo-2025-05-26-17-55-33-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
       "https://i.ibb.co/vCfXdgk7/photo-2025-05-27-23-54-14-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb.co/9kWZFRwB/photo-2025-05-26-17-55-34-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb.co/cSqh0Y4b/photo-2025-05-26-17-55-34.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb.co/d4ZCvq9Q/photo-2025-05-26-17-55-35-3.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb.co/ksxT3vR2/photo-2025-05-26-17-55-35-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb.co/6JVD9jgJ/photo-2025-05-26-17-55-35.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb.co/4Rv7DBsR/photo-2025-05-26-17-55-36-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb.co/svP2KcgG/photo-2025-05-28-23-30-39.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb.co/BKt25h6Q/photo-2025-05-26-17-55-36.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb.co/21H3TC2K/photo-2025-05-26-17-55-37-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb.co/Kx4Jq4Pq/photo-2025-05-26-17-55-37.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb.co/4nsRBhPr/photo-2025-05-26-17-55-38-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
-      "https://i.ibb.co/zWfj7pS8/photo-2025-05-26-17-55-38.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
       "https://i.ibb-co/whXpDsKv/photo-2025-05-26-17-55-39-2.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
       "https://i.ibb-co/5Q6f4xL/photo-2025-05-26-17-55-39-3.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
       "https://i.ibb-co/mr6yk1w9/photo-2025-05-26-17-55-39.jpg.webp".replace("i.ibb-co", "i.ibb.co"),
