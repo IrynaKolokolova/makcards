@@ -90,9 +90,9 @@
       height: 20px;
       animation: spin 1s linear infinite;
       position: absolute;
-      top: 50% !important;
-      left: 50% !important;
-      transform: translate(-50%, -50%) !important;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       z-index: 2;
     }
     /* Спиннер для большой карты */
@@ -164,7 +164,7 @@
       font-family: 'Great Vibes', cursive;
       font-style: normal;
       min-width: 250px;
-      padding: 20px 30px;           /* Увеличили высоту кнопок */
+      padding: 18px 30px; /* увеличена высота кнопок */
       font-size: 1.8rem;
       background: rgba(64,224,208,0.2);
       border: 1px solid rgba(64,224,208,0.5);
@@ -176,6 +176,8 @@
       position: relative;
       overflow: hidden;
       white-space: nowrap;
+      /* Гарантируем, что кнопки не слишком растягиваются на больших экранах */
+      max-width: 90%;
     }
     .btn:hover {
       background: rgba(64,224,208,0.4);
@@ -186,6 +188,7 @@
     }
     .btn.disabled {
       opacity: 0.6;
+      pointer-events: none;
     }
     .btn::before {
       content: "";
@@ -207,7 +210,7 @@
 
     /* ==================== Навигационные кнопки ==================== */
     .btn.back-btn, .btn.continue-btn, .btn.sound-btn {
-      padding: 4px 10px;
+      padding: 6px 12px; /* чуть больше, чтобы было удобно нажимать */
       min-width: auto;
       min-height: auto;
       width: auto;
@@ -229,7 +232,7 @@
     }
     /* Shuffle-кнопка */
     .btn.shuffle-btn {
-      padding: 4px 10px;
+      padding: 6px 12px;
       min-width: auto;
       display: inline-flex;
       align-items: center;
@@ -237,8 +240,8 @@
     }
     .btn.shuffle-btn img {
       filter: brightness(0) invert(1);
-      width: 17px; /* чуть больше */
-      height: 17px;
+      width: 18px; /* чуть больше */
+      height: 18px;
     }
 
     /* Контейнер для «Назад» и «Перетасувати» */
@@ -415,7 +418,7 @@
     }
     .cards-grid {
       display: grid;
-      grid-template-columns: repeat(4, 80px);
+      grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
       grid-auto-rows: 112px;
       gap: 10px;
       justify-content: center;
@@ -440,7 +443,7 @@
       height: 100%;
       border-radius: 8px;
       overflow: hidden;
-      position: relative;
+      position: relative; /* чтобы центрировать спиннер */
       cursor: pointer;
       border: 1px solid rgba(64,224,208,0.6);
       box-shadow: 0 0 10px rgba(64,224,208,0.3);
@@ -486,12 +489,12 @@
     }
     .cards-grid-72 {
       display: grid;
-      grid-template-columns: repeat(4, 60px) !important;
+      grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
       grid-auto-rows: 95px;
       gap: 30px;
       justify-content: center;
       align-items: start;
-      max-width: calc(60px * 5 + 10px * 4) !important;
+      max-width: calc(60px * 5 + 10px * 4);
       margin: 0 auto;
       margin-left: -2px;
     }
@@ -636,7 +639,7 @@
       font-family: 'Great Vibes', cursive;
       font-style: normal;
       min-width: 180px;
-      padding: 10px 20px;
+      padding: 12px 24px;
       font-size: 1.4rem;
       background: rgba(64,224,208,0.2);
       border: 1px solid rgba(64,224,208,0.5);
@@ -796,7 +799,7 @@
       background: rgba(64,224,208,0.2);
       border: 1px solid rgba(64,224,208,0.5);
       border-radius: 6px;
-      padding: 10px 20px;
+      padding: 12px 24px;
       color: #fff;
       cursor: pointer;
       box-shadow: 0 0 4px rgba(64,224,208,0.5);
@@ -829,7 +832,7 @@
         min-width: 85% !important;
         font-size: 1.6rem !important;
         white-space: normal;
-        padding: 22px 24px !important;  /* чуть увеличили под мобайл */
+        padding: 20px 24px !important; /* чуть больше по высоте */
       }
       /* Навигационные кнопки остаются компактными */
       .btn.back-btn, .btn.continue-btn, .btn.shuffle-btn {
@@ -843,7 +846,7 @@
       .btn:not(.back-btn):not(.continue-btn):not(.shuffle-btn) {
         min-width: 80%;
         font-size: 1.8rem;
-        padding: 22px 28px;  /* тоже чуть увеличили */
+        padding: 22px 28px; /* чуть больше по высоте */
       }
     }
   </style>
@@ -925,13 +928,13 @@
             </ul>
           </li>
           <li><strong class="highlight">Поглиблений аналіз:</strong><br>
-            Вивчіть власні реакції та асоціації. Ведіть щоденник, у якому фіксуються ваші думки та емоції після роботи з картами – це допоможе виявити повторювані теми та сигнали вашої підсвідомості.
+            Вивчіть власні реакції та асоціації. Ведіть щоденник, у якому фіксуються ваші думки та емоції після роботи з картами – це допоможе виявити повторювані теми та сигнали вашої підсідомості.
           </li>
           <li><strong class="highlight">Консультація:</strong><br>
             За потреби зверніться до психолога або коуча, який спеціалізується на роботі з асоціативними картами. Професійна підтримка допоможе глибше зрозуміти зміст образів і використати їх для особистісного зростання.
           </li>
         </ol>
-        <p>Таким чином, метафоричні асоціативні карти стають містком між свідомістю та підсвідомістю, відкриваючи нові шляхи для самопізнання та внутрішнього розвитку. Вони сприяють не лише розумінню себе, але й стимулюють творчий процес, допомагаючи знайти відповіді на важливі життєві питання.</p>
+        <p>Таким чином, метафоричні асоціативні карти стають містком між свідомістю та підсідомністю, відкриваючи нові шляхи для самопізнання та внутрішнього розвитку. Вони сприяють не лише розумінню себе, але й стимулюють творчий процес, допомагаючи знайти відповіді на важливі життєві питання.</p>
       </div>
     </div>
   </div>
@@ -1068,6 +1071,7 @@
       const blocker = document.getElementById('screenshotBlocker');
       function showBlocker() { blocker.style.display = 'block'; }
       function hideBlocker() { blocker.style.display = 'none'; }
+
       document.addEventListener('visibilitychange', function() {
         if (document.hidden) { showBlocker(); } else { hideBlocker(); }
       });
@@ -1204,25 +1208,25 @@
       "https://i.ibb.co/0yQHT7jC/photo-2025-05-26-17-55-31-3.jpg.webp".replace("i.ibb-co","i.ibb.co"),
       "https://i.ibb.co/5XwCHmm9/photo-2025-05-26-17-55-31.jpg.webp".replace("i.ibb-co","i.ibb.co"),
       "https://i.ibb.co/nqxJW0Jz/photo-2025-05-27-23-54-14-3.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/4ZcMXG42/photo-2025-05-26-17-55-32-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/xSsY24T2/photo-2025-05-26-17-55-33-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/vCfXdgk7/photo-2025-05-27-23-54-14-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/9kWZFRwB/photo-2025-05-26-17-55-34-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/cSqh0Y4b/photo-2025-05-26-17-55-34.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/d4ZCvq9Q/photo-2025-05-26-17-55-35-3.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/ksxT3vR2/photo-2025-05-26-17-55-35-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/6JVD9jgJ/photo-2025-05-26-17-55-35.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/4Rv7DBsR/photo-2025-05-26-17-55-36-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/svP2KcgG/photo-2025-05-28-23-30-39.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/BKt25h6Q/photo-2025-05-26-17-55-36.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/21H3TC2K/photo-2025-05-26-17-55-37-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/Kx4Jq4Pq/photo-2025-05-26-17-55-37.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/4nsRBhPr/photo-2025-05-26-17-55-38-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/zWfj7pS8/photo-2025-05-26-17-55-38.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/whXpDsKv/photo-2025-05-26-17-55-39-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/5Q6f4xL/photo-2025-05-26-17-55-39-3.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/mr6yk1w9/photo-2025-05-26-17-55-39.jpg.webp".replace("i.ibb-co","i.ibb.co"),
-      "https://i.ibb-co/YT4DND1c/photo-2025-05-26-17-55-40-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb.co/4ZcMXG42/photo-2025-05-26-17-55-32-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb.co/xSsY24T2/photo-2025-05-26-17-55-33-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb.co/vCfXdgk7/photo-2025-05-27-23-54-14-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb.co/9kWZFRwB/photo-2025-05-26-17-55-34-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb.co/cSqh0Y4b/photo-2025-05-26-17-55-34.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb.co/d4ZCvq9Q/photo-2025-05-26-17-55-35-3.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb.co/ksxT3vR2/photo-2025-05-26-17-55-35-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb.co/6JVD9jgJ/photo-2025-05-26-17-55-35.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb.co/4Rv7DBsR/photo-2025-05-26-17-55-36-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb.co/svP2KcgG/photo-2025-05-28-23-30-39.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb.co/BKt25h6Q/photo-2025-05-26-17-55-36.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb.co/21H3TC2K/photo-2025-05-26-17-55-37-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb.co/Kx4Jq4Pq/photo-2025-05-26-17-55-37.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb.co/4nsRBhPr/photo-2025-05-26-17-55-38-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb.co/zWfj7pS8/photo-2025-05-26-17-55-38.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb.co/whXpDsKv/photo-2025-05-26-17-55-39-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb.co/5Q6f4xL/photo-2025-05-26-17-55-39-3.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb.co/mr6yk1w9/photo-2025-05-26-17-55-39.jpg.webp".replace("i.ibb-co","i.ibb.co"),
+      "https://i.ibb.co/YT4DND1c/photo-2025-05-26-17-55-40-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
       "https://i.ibb-co/q3q0J3zB/photo-2025-05-26-17-55-40.jpg.webp".replace("i.ibb-co","i.ibb.co"),
       "https://i.ibb-co/HpXC6N0J/photo-2025-05-26-17-55-41.jpg.webp".replace("i.ibb-co","i.ibb.co"),
       "https://i.ibb-co/wZL0158h/photo-2025-05-26-17-55-42.jpg.webp".replace("i.ibb-co","i.ibb.co"),
@@ -1307,7 +1311,6 @@
         smallCard.dataset.front = shuffledImages[i];
         smallCard.style.backgroundImage =
           'url("https://i.ibb.co/wcWxxGp/IMG-8462.webp")';
-
         smallCard.addEventListener("click", function() {
           if (animationInProgress) return;
           // Если пользователь paid — он имеет неограниченный доступ
@@ -1399,7 +1402,6 @@
 
       const randomWishIndex = Math.floor(Math.random() * dailyWishes.length);
       const wish = dailyWishes[randomWishIndex];
-
       const bigCardBack = document.getElementById("bigCardBack");
       bigCardBack.querySelector(".daily-wish").textContent = wish;
 
@@ -1430,21 +1432,6 @@
       if (animationInProgress) return;
       shuffleCards();
     });
-
-    function shuffleCards() {
-      disableInteractions();
-      const grid = document.querySelector(".cards-grid");
-      const cards = grid.querySelectorAll(".card-container");
-      cards.forEach(card => {
-        const angle = Math.random() * Math.PI * 2;
-        const distance = 50 + Math.random() * 50;
-        card.style.transform = `scale(0.9) translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px)`;
-        card.style.opacity = "0";
-      });
-      setTimeout(() => {
-        createSmallCards(76);
-      }, 500);
-    }
 
     function flipCard(event) {
       event.stopPropagation();
