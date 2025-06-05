@@ -1082,7 +1082,7 @@
         }
       });
 
-      // Обработчик кнопки «Отримати» (покупка)
+      // Обработчик кнопки «Отримати» (покупка полного доступа)
       const purchaseBtn = document.getElementById('purchaseButton');
       purchaseBtn.addEventListener('click', function() {
         if (window.Telegram && Telegram.WebApp) {
@@ -1130,7 +1130,7 @@
         Telegram.WebApp.openLink('https://t.me/ikolokolovamak_bot?start=session');
         Telegram.WebApp.close();
       } else {
-        window.location.href = 'https://t.me/ikolоколovamak_bot?start=session';
+        window.location.href = 'https://t.me/ikolokolovamak_bot?start=session';
       }
     }
 
