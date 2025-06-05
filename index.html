@@ -648,6 +648,7 @@
       position: relative;
       overflow: hidden;
       margin-top: 20px;
+      white-space: nowrap;
     }
     .consult-button:hover {
       background: rgba(64,224,208,0.4);
@@ -836,6 +837,15 @@
         font-size: 1rem;
       }
     }
+
+    /* ==================== Адаптация для планшетов (≤ 768px) ==================== */
+    @media (max-width: 768px) {
+      .btn:not(.back-btn):not(.continue-btn):not(.shuffle-btn) {
+        min-width: 80%;
+        font-size: 1.8rem;
+        padding: 20px 28px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -844,7 +854,7 @@
 
   <!-- Социальные иконки -->
   <div class="social-left">
-    <a href="https://t.me/irynakolokolovamak_bot" target="_blank">
+    <a href="https://t.me/ikolokolovamak_bot" target="_blank">
       <img src="https://i.ibb.co/67Mpr94h/4-1.png" alt="Telegram">
     </a>
     <a href="#" target="_blank">
@@ -993,7 +1003,7 @@
         </div>
         <div class="big-card-face big-card-back" id="bigCardBack">
           <p class="daily-wish"></p>
-          <!-- Заменили <a> на <button> и слушатель в JS -->
+          <!-- Кнопка «Отримати консультацію» -->
           <button class="consult-button" id="consultButton">Отримати консультацію</button>
         </div>
       </div>
@@ -1033,21 +1043,21 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // Проверка параметра reset: если reset=true, очищаем localStorage, чтобы при снятии доступа не было кеша paid
+      // Проверка параметра reset: если reset=true, очищаем localStorage
       const params = new URLSearchParams(window.location.search);
       if (params.get('reset') === 'true') {
         localStorage.removeItem('paid');
         localStorage.removeItem('freeUsed');
       }
 
-      // Если URL содержит ?paid=true, сохраняем в localStorage «paid»
+      // Если URL содержит ?paid=true, сохраняем «paid»
       if (params.get('paid') === 'true') {
         localStorage.setItem('paid', 'true');
       }
 
       hidePreloader();
 
-      // Обработчик изменения даты для загрузки заметок
+      // Обработчик изменения даты (нотатки)
       document.getElementById('notesDate').addEventListener('change', function() {
         let selectedDate = this.value;
         let savedNotes = localStorage.getItem('userNotes_' + selectedDate);
@@ -1058,7 +1068,6 @@
       const blocker = document.getElementById('screenshotBlocker');
       function showBlocker() { blocker.style.display = 'block'; }
       function hideBlocker() { blocker.style.display = 'none'; }
-
       document.addEventListener('visibilitychange', function() {
         if (document.hidden) { showBlocker(); } else { hideBlocker(); }
       });
@@ -1078,10 +1087,10 @@
       const purchaseBtn = document.getElementById('purchaseButton');
       purchaseBtn.addEventListener('click', function() {
         if (window.Telegram && Telegram.WebApp) {
-          Telegram.WebApp.openLink('https://t.me/irynakolokolovamak_bot?start=pay');
+          Telegram.WebApp.openLink('https://t.me/ikolokolovamak_bot?start=pay');
           Telegram.WebApp.close();
         } else {
-          window.location.href = 'https://t.me/irynakolokolovamak_bot?start=pay';
+          window.location.href = 'https://t.me/ikolokolovamak_bot?start=pay';
         }
       });
 
@@ -1108,21 +1117,21 @@
       consultBtn.addEventListener('click', function(e) {
         e.stopPropagation();
         if (window.Telegram && Telegram.WebApp) {
-          Telegram.WebApp.openLink('https://t.me/irynakolokolovamak_bot?start=consult');
+          Telegram.WebApp.openLink('https://t.me/ikolokolovamak_bot?start=consult');
           Telegram.WebApp.close();
         } else {
-          window.location.href = 'https://t.me/irynakolokolovamak_bot?start=consult';
+          window.location.href = 'https://t.me/ikolokolovamak_bot?start=consult';
         }
       });
     });
 
-    // Функция для кнопки "Сесія підсідомості"
+    // Функция для кнопки "Сесія підсідомість"
     function openSession() {
       if (window.Telegram && Telegram.WebApp) {
-        Telegram.WebApp.openLink('https://t.me/irynakolokolovamak_bot?start=session');
+        Telegram.WebApp.openLink('https://t.me/ikolokolovamak_bot?start=session');
         Telegram.WebApp.close();
       } else {
-        window.location.href = 'https://t.me/irynakolokolovamak_bot?start=session';
+        window.location.href = 'https://t.me/ikolokolovamak_bot?start=session';
       }
     }
 
@@ -1268,6 +1277,7 @@
       "https://i.ibb-co/TBzZjQ0w/photo-2025-05-27-23-54-13-2.jpg.webp".replace("i.ibb-co","i.ibb.co"),
       "https://i.ibb-co/BK5sxgw8/photo-2025-05-28-23-30-40.jpg.webp".replace("i.ibb-co","i.ibb.co")
     ];
+
     function createSmallCards(count) {
       const paid = isPaidUser();
       const freeUsed = isFreeUsed();
