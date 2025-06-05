@@ -139,7 +139,7 @@
       display: flex;
       flex-direction: column;
       gap: 20px;
-      justify-content: flex-start; /* прижмёт всё вверх */
+      justify-content: flex-start; /* прижмет к верху */
       align-items: center;
       height: 100vh;
       text-align: center;
@@ -147,8 +147,8 @@
       z-index: 2;
       max-width: 90%;
       margin: 0 auto;
-      padding: 100px 10px 80px; /* увеличен отступ сверху и снизу */
-      overflow-y: auto; /* добавлен скроллинг */
+      padding: 100px 10px 80px; /* отступы */
+      overflow-y: auto; /* вертикальный скролл */
     }
     .greeting p {
       font-family: Georgia, serif;
@@ -164,8 +164,9 @@
       font-family: 'Great Vibes', cursive;
       font-style: normal;
       min-width: 250px;
-      padding: 15px 30px;
-      font-size: 1.8rem;
+      /* увеличили padding и font-size, чтобы кнопки были чуть крупнее */
+      padding: 20px 30px;
+      font-size: 2rem;
       background: rgba(64,224,208,0.2);
       border: 1px solid rgba(64,224,208,0.5);
       border-radius: 6px;
@@ -176,9 +177,6 @@
       position: relative;
       overflow: hidden;
       white-space: nowrap;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
     .btn:hover {
       background: rgba(64,224,208,0.4);
@@ -189,6 +187,7 @@
     }
     .btn.disabled {
       opacity: 0.6;
+      /* pointer-events: none; убрано, чтобы кнопка «Про карти» всегда реагировала */
     }
     .btn::before {
       content: "";
@@ -213,8 +212,6 @@
       padding: 4px 10px;
       min-width: auto;
       min-height: auto;
-      width: auto;
-      height: auto;
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -240,11 +237,10 @@
     }
     .btn.shuffle-btn img {
       filter: brightness(0) invert(1);
-      width: 17px; /* чуть больше */
+      width: 17px;
       height: 17px;
     }
 
-    /* Контейнер для «Назад» и «Перетасувати» */
     .nav-buttons {
       display: flex;
       justify-content: space-between;
@@ -252,7 +248,6 @@
       width: 100%;
       padding: 10px;
     }
-    /* Текст между кнопками */
     .center-text {
       font-family: Georgia, serif;
       font-size: 1rem;
@@ -336,8 +331,8 @@
       opacity: 0;
       transform: translateY(20px);
       transition: opacity 0.5s ease, transform 0.5s ease;
-      overflow-y: auto !important; /* вертикальный скролл */
-      -webkit-overflow-scrolling: touch; /* плавный скролл iOS */
+      overflow-y: auto !important;
+      -webkit-overflow-scrolling: touch;
     }
     #sectionDiary {
       overflow-y: auto !important;
@@ -358,7 +353,6 @@
       padding: 0 20px;
       transition: opacity 0.5s ease, transform 0.5s ease;
     }
-    /* Расширение описания в секции «Як це працює?» */
     #sectionDiary .content {
       max-width: 100%;
       padding: 20px;
@@ -446,8 +440,8 @@
       cursor: pointer;
       border: 1px solid rgba(64,224,208,0.6);
       box-shadow: 0 0 10px rgba(64,224,208,0.3);
-      background-size: cover; /* фон заполнит весь контейнер */
-      background-position: center; /* по центру */
+      background-size: cover;
+      background-position: center;
       background-repeat: no-repeat;
       transition: transform 0.2s ease;
     }
@@ -523,8 +517,14 @@
       opacity: 1;
     }
     @keyframes zoomIn {
-      0% { opacity: 0; transform: translateY(20px) scale(0.8); }
-      100% { opacity: 1; transform: translateY(0) scale(1); }
+      0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0.8);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
     }
     .overlay-card-container {
       position: relative;
@@ -632,6 +632,7 @@
       margin: 0;
       text-align: center;
     }
+    /* Кнопка «Отримати консультацію» */
     .consult-button {
       font-family: 'Great Vibes', cursive;
       font-style: normal;
@@ -648,9 +649,6 @@
       position: relative;
       overflow: hidden;
       margin-top: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
     .consult-button:hover {
       background: rgba(64,224,208,0.4);
@@ -701,7 +699,7 @@
       white-space: nowrap;
     }
 
-    /* ==================== Модальное окно Нотатки ==================== */
+    /* ==================== Нотатки (модалка) ==================== */
     .overlay-notes-container {
       position: relative;
       width: 400px;
@@ -746,7 +744,6 @@
       );
       box-sizing: border-box;
     }
-    /* Стили для date-picker */
     .date-picker {
       font-family: Georgia, serif;
       font-size: 1.2rem;
@@ -805,16 +802,13 @@
       text-decoration: none;
       display: inline-block;
       white-space: nowrap;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
     .purchase-modal-button:hover {
       background: rgba(64,224,208,0.4);
       box-shadow: 0 0 6px rgba(64,224,208,0.6);
     }
 
-    /* ==================== Чёрный оверлей для блокировки скриншота ==================== */
+    /* ==================== Черный оверлей для блокировки скриншота ==================== */
     #screenshotBlocker {
       position: fixed;
       top: 0;
@@ -881,7 +875,7 @@
     </footer>
   </div>
 
-  <!-- Секция "Як це працює?" -->
+  <!-- Секция "Як це працює?" с расширенным описанием -->
   <div id="sectionDiary" class="section">
     <button class="btn back-btn" onclick="backToMenu()">
       <img src="https://i.ibb.co/s9NyJrT7/56-1.png" alt="Back">
@@ -997,7 +991,6 @@
         </div>
         <div class="big-card-face big-card-back" id="bigCardBack">
           <p class="daily-wish"></p>
-          <!-- Заменили <a> на <button> и слушатель в JS -->
           <button class="consult-button" id="consultButton">Отримати консультацію</button>
         </div>
       </div>
@@ -1010,11 +1003,13 @@
       <div class="notes-card" id="notesCard">
         <button class="btn back-btn notes-close-btn" onclick="closeNotesModal()">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" viewBox="0 0 16 16">
-            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1              .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5              0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1
+              .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5
+              0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
           </svg>
         </button>
         <h2>Нотатки:</h2>
-        <!-- Поле выбора даты с placeholder и украинским языком -->
+        <!-- Поле выбора даты -->
         <input type="date" class="date-picker" id="notesDate" lang="uk" placeholder="Дата">
         <textarea id="notesTextArea" placeholder="Запишіть тут свої нотатки..."></textarea>
       </div>
@@ -1032,31 +1027,37 @@
   <!-- Огни (fireflies) -->
   <div class="fireflies"></div>
 
-  <!-- Аудіо для медитативної музики (placeholder) -->
+  <!-- Аудио для медитативной музыки (placeholder) -->
   <audio id="meditativeAudio" loop src="meditative.mp3"></audio>
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
+      // Обработка ?reset=true (сбрасываем доступ)
       const params = new URLSearchParams(window.location.search);
       if (params.get('reset') === 'true') {
         localStorage.removeItem('paid');
         localStorage.removeItem('freeUsed');
       }
+
+      // Обработка ?paid=true (пользователь оплатил)
       if (params.get('paid') === 'true') {
         localStorage.setItem('paid', 'true');
       }
 
       hidePreloader();
 
+      // При изменении даты для заметок – загружаем сохраненные
       document.getElementById('notesDate').addEventListener('change', function() {
         let selectedDate = this.value;
         let savedNotes = localStorage.getItem('userNotes_' + selectedDate);
         document.getElementById('notesTextArea').value = savedNotes || "";
       });
 
+      // Усиленная блокировка скриншота
       const blocker = document.getElementById('screenshotBlocker');
       function showBlocker() { blocker.style.display = 'block'; }
       function hideBlocker() { blocker.style.display = 'none'; }
+
       document.addEventListener('visibilitychange', function() {
         if (document.hidden) { showBlocker(); } else { hideBlocker(); }
       });
@@ -1072,6 +1073,7 @@
         }
       });
 
+      // Кнопка «Отримати» в модалке покупки
       const purchaseBtn = document.getElementById('purchaseButton');
       purchaseBtn.addEventListener('click', function() {
         if (window.Telegram && Telegram.WebApp) {
@@ -1082,6 +1084,7 @@
         }
       });
 
+      // Инициализация состояния кнопки "Про карти"
       const proKartBtn = document.getElementById('proKartBtn');
       function updateProKartBtn() {
         if (isPaidUser()) {
@@ -1099,6 +1102,7 @@
         }
       });
 
+      // Кнопка «Отримати консультацію» внутри большой карты
       const consultBtn = document.getElementById('consultButton');
       consultBtn.addEventListener('click', function(e) {
         e.stopPropagation();
@@ -1111,6 +1115,7 @@
       });
     });
 
+    // Функция для кнопки "Сесія підсідомості" на главном экране
     function openSession() {
       if (window.Telegram && Telegram.WebApp) {
         Telegram.WebApp.openLink('https://t.me/irynakolokolovamak_bot?start=session');
@@ -1123,6 +1128,7 @@
     let selectedCount = 0;
     let animationInProgress = false;
     const freeUsedKey = 'freeUsed';
+
     function isFreeUsed() {
       return localStorage.getItem(freeUsedKey) === 'true';
     }
@@ -1262,6 +1268,7 @@
       for (let i = 0; i < count; i++) {
         const container = document.createElement("div");
         container.classList.add("card-container");
+        // рандомная разброска
         const angle = Math.random() * Math.PI * 2;
         const distance = 50 + Math.random() * 50;
         container.style.transform =
@@ -1275,6 +1282,7 @@
 
         smallCard.addEventListener("click", function() {
           if (animationInProgress) return;
+          // Если user paid → безлимит
           if (!paid && isFreeUsed()) {
             showPurchaseModal();
             return;
@@ -1343,6 +1351,7 @@
         chosenImg = bigImages[randomIndex];
       }
 
+      // Спиннер для большой карты
       const bigCardFront = document.getElementById("bigCardFront");
       bigCardFront.style.backgroundImage = "none";
       const spinnerLarge = document.createElement("div");
@@ -1569,7 +1578,7 @@
       }
     });
 
-    /* Блокировка скриншота (десктоп) */
+    /* Блокировка PrintScreen (десктоп) */
     document.addEventListener('keyup', function(e) {
       if (e.key === 'PrintScreen' || e.keyCode === 44) {
         const blocker = document.getElementById('screenshotBlocker');
